@@ -1,0 +1,322 @@
+# Hell Judgement bosses (pre-renewal MVPs): Dark Lord, Baphomet and Lord of Death, one
+# plan written out for each (the entries are the same). One of the boss plans the boss method learns from
+# (tools/renewal-world-monsters/BOSSES.md); kept to ship in a boss-plans mod later.
+#
+# Not shipped. To use it, copy the entries into a mod's db/population_strategy.yml,
+# after companion-roles and everyday-party. Rule names are prefixed hj_.
+#
+#   What kills: Hell Judgement, every 10 s in a fight, 0.8 s to cast, 14 cells all
+#   round: five times its attack (Lord of Death ten), physical and Neutral, and Curse.
+#   Without a plan it did 783,000 of the damage a level-99 party of eight took from
+#   Dark Lord in five minutes, and the party fell 18 times a minute. Undead armour
+#   (Evil Druid) did nothing (it is not dark); Ghost armour (Ghostring) only cut the
+#   falls by a third, and nobody owns one.
+#   rAthena counts a monster's skill as melee within 3 cells and as ranged beyond
+#   (skillrange_by_distance), so Safety Wall stops it in melee and Pneuma beyond: the
+#   tactic players use. Everyone who is not in melee stays 4 or more cells off, on a
+#   Pneuma; whoever is in melee stands on a Safety Wall. Land Protector would erase
+#   both, so it is not laid here (Dark Lord's Meteor Storm is the smaller danger).
+#   That alone changed nothing (8-9 % of its HP a minute, 17 falls): its six Dark
+#   Illusions (38 % of the damage) chase the back line off the Pneumas. Dark Lord and
+#   the Illusions are Undead, so one Priest lays Magnus Exorcismus on the boss whenever
+#   two Illusions stand by it, and the casters and archers take the Illusions first.
+#   Still 21 falls a minute: a 3x3 Pneuma for 10 s does not cover eight people moving
+#   through a fight. So the High Priests keep Assumptio (half the damage taken) on
+#   everyone, renewed before it lapses. Kyrie Eleison ends Assumptio and Assumptio
+#   ends Kyrie (pre-renewal status.yml): with both cast, 116 Assumptios and 81 Kyries
+#   undid each other and nothing changed. Kyrie is banned here.
+#   MVP_TACTICS.md has what players do; from it: Aspersio (Holy) on the melee, Dispel
+#   on Power Up, and the back line on one Pneuma spot. Still only 30 % of the Hell
+#   Judgements were blocked: Dark Lord walks after whoever it targets (bosses cannot
+#   be provoked), so no spot stays 4 cells off it. The Sniper pins it with Ankle Snare:
+#   a boss is held a fifth as long (rAthena skill.cpp), a few seconds a trap.
+#
+# Results (8 companions at 99, attrition fights, BOSSES.md), HP taken off a minute and
+# falls a minute, without the plan -> with it:
+#   Lord of Death  9.0 %, 17.5 -> 10.5 %, 9.6   Hell Judgement (level 10) still 40 % of
+#                                                the damage
+#   Baphomet      10.4 %, 20.1 -> 10.9 %, 15.7  Earthquake (no wall stops it) 11 %
+#   Dark Lord      9.2 %, 18.1 ->  8.7 %, 16.1  its rules aim at its Illusions (NEEDS 12)
+# Not beatable yet: whoever is off a Pneuma or Safety Wall when it lands goes down, and
+# the plan cannot hold people on one (NEEDS.md 11). Kept as the state of the work.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+#
+#   Dark Lord's slaves, the Dark Illusions, are minibosses, and { Enemy: boss } alone
+#   picked them as readily as Dark Lord; every rule names its boss (Mob: DARK_LORD).
+
+Body:
+  - Mob: DARK_LORD
+    Encounter: true
+    Jobs:
+      - Job: All
+        Ban: [SA_LANDPROTECTOR,       # it erases the Pneumas and Safety Walls
+              PR_KYRIE]               # Kyrie and Assumptio end each other (status.yml)
+        Rules:
+          # Not in melee: 4 or more cells off the boss, where Pneuma stops Hell Judgement.
+          - Name: hj_out_of_melee
+            Priority: 87
+            Requires: { Role: [support, attacker, none] }
+            Target: { Enemy: boss, Mob: DARK_LORD }
+            KeepDistance: { Min: 4, Max: 9 }
+          - Name: hj_onto_pneuma       # and onto the party's Pneuma: one spot for everyone
+            Priority: 88
+            Requires: { Role: [support, attacker, none] }
+            MoveTo: { Field: AL_PNEUMA, Owner: party, Within: 9, Depth: 1 }   # its middle cell
+      - Job: Priest
+        Rules:
+          # A Pneuma at its own feet, 4 or more cells off the boss: the spot the back line
+          # gathers on (3x3). Chasing each member with a Pneuma of their own (tried) left
+          # most of them off one when Hell Judgement landed.
+          - Name: hj_pneuma_the_spot
+            Priority: 91
+            Cast: AL_PNEUMA
+            Target: self
+            Count: { Enemy: any, Mob: DARK_LORD, Range: 3, Below: 1 }
+            Field: { Skill: AL_PNEUMA, Owner: party, Range: 1, Below: 1 }
+            Cooldown: 1000
+          # Holy on the melee: Dark Lord is Undead (the players' answer: "With aspersio
+          # from a priest, it will do 260% damage").
+          - Name: hj_aspersio_tank
+            Priority: 86
+            Cast: PR_ASPERSIO
+            Target: { Ally: missing, Status: SC_ASPERSIO, Role: tank, Expiring: 3000 }
+          - Name: hj_aspersio_assassin
+            Priority: 85
+            Cast: PR_ASPERSIO
+            Target: { Ally: missing, Status: SC_ASPERSIO, Job: Assassin, Expiring: 3000 }
+      - Job: [Priest, Wizard, Sage]
+        Rules:
+          # Safety Wall under whoever is in melee with the boss without one.
+          - Name: hj_wall_the_melee
+            Priority: 90
+            Cast: MG_SAFETYWALL
+            Target: { Ally: missing, Status: SC_SAFETYWALL }
+            Count: { Enemy: any, Mob: DARK_LORD, Around: target, Range: 3, AtLeast: 1 }
+            Field: { Skill: MG_SAFETYWALL, Owner: party, At: target, Range: 0, Below: 1 }
+            OnePerParty: true
+            Cooldown: 1000
+      - Job: Priest
+        Rules:
+          - Name: hj_magnus_the_pack
+            Priority: 88
+            Cast: PR_MAGNUS
+            Target: { Enemy: boss, Mob: DARK_LORD }
+            Count: { Enemy: slaves, Around: target, Range: 3, AtLeast: 2 }
+            OnePerParty: true
+            Cooldown: 6000
+      - Job: [Wizard, Sage, Hunter]
+        Rules:
+          - Name: hj_illusions_first
+            Priority: 84
+            Target: { Enemy: slaves }
+            SetTarget: true
+      - Job: High_Priest
+        Rules:
+          - Name: hj_assumptio_everyone
+            Priority: 89
+            Cast: HP_ASSUMPTIO
+            Target: { Ally: missing, Status: SC_ASSUMPTIO, Expiring: 5000 }
+            Claim: { Name: hj_assumptio, For: 3000 }
+      - Job: Sage
+        Rules:
+          # Power Up below 30 %: "Quagmire or Dispel cancels it" (MVP_TACTICS.md).
+          - Name: hj_dispel_powerup
+            Priority: 93
+            Cast: SA_DISPELL
+            Target: { Enemy: boss, Mob: DARK_LORD }
+            When: enemy_powerup
+            Cooldown: 3000
+      - Job: Hunter
+        Rules:
+          - Name: hj_snare_the_boss
+            Priority: 92
+            Cast: HT_ANKLESNARE
+            Target: { Enemy: boss, Mob: DARK_LORD }
+            Aim: { Cells: 2, From: target, Lead: true }   # a trap cannot go under it
+            When: not_enemy_ankle
+            Cooldown: 1500
+
+  - Mob: BAPHOMET
+    Encounter: true
+    Jobs:
+      - Job: All
+        Ban: [SA_LANDPROTECTOR,       # it erases the Pneumas and Safety Walls
+              PR_KYRIE]               # Kyrie and Assumptio end each other (status.yml)
+        Rules:
+          # Not in melee: 4 or more cells off the boss, where Pneuma stops Hell Judgement.
+          - Name: hj_out_of_melee
+            Priority: 87
+            Requires: { Role: [support, attacker, none] }
+            Target: { Enemy: boss, Mob: BAPHOMET }
+            KeepDistance: { Min: 4, Max: 9 }
+          - Name: hj_onto_pneuma       # and onto the party's Pneuma: one spot for everyone
+            Priority: 88
+            Requires: { Role: [support, attacker, none] }
+            MoveTo: { Field: AL_PNEUMA, Owner: party, Within: 9, Depth: 1 }   # its middle cell
+      - Job: Priest
+        Rules:
+          # A Pneuma at its own feet, 4 or more cells off the boss: the spot the back line
+          # gathers on (3x3). Chasing each member with a Pneuma of their own (tried) left
+          # most of them off one when Hell Judgement landed.
+          - Name: hj_pneuma_the_spot
+            Priority: 91
+            Cast: AL_PNEUMA
+            Target: self
+            Count: { Enemy: any, Mob: BAPHOMET, Range: 3, Below: 1 }
+            Field: { Skill: AL_PNEUMA, Owner: party, Range: 1, Below: 1 }
+            Cooldown: 1000
+          # Holy on the melee: Dark Lord is Undead (the players' answer: "With aspersio
+          # from a priest, it will do 260% damage").
+          - Name: hj_aspersio_tank
+            Priority: 86
+            Cast: PR_ASPERSIO
+            Target: { Ally: missing, Status: SC_ASPERSIO, Role: tank, Expiring: 3000 }
+          - Name: hj_aspersio_assassin
+            Priority: 85
+            Cast: PR_ASPERSIO
+            Target: { Ally: missing, Status: SC_ASPERSIO, Job: Assassin, Expiring: 3000 }
+      - Job: [Priest, Wizard, Sage]
+        Rules:
+          # Safety Wall under whoever is in melee with the boss without one.
+          - Name: hj_wall_the_melee
+            Priority: 90
+            Cast: MG_SAFETYWALL
+            Target: { Ally: missing, Status: SC_SAFETYWALL }
+            Count: { Enemy: any, Mob: BAPHOMET, Around: target, Range: 3, AtLeast: 1 }
+            Field: { Skill: MG_SAFETYWALL, Owner: party, At: target, Range: 0, Below: 1 }
+            OnePerParty: true
+            Cooldown: 1000
+      - Job: Priest
+        Rules:
+          - Name: hj_magnus_the_pack
+            Priority: 88
+            Cast: PR_MAGNUS
+            Target: { Enemy: boss, Mob: BAPHOMET }
+            Count: { Enemy: slaves, Around: target, Range: 3, AtLeast: 2 }
+            OnePerParty: true
+            Cooldown: 6000
+      - Job: [Wizard, Sage, Hunter]
+        Rules:
+          - Name: hj_illusions_first
+            Priority: 84
+            Target: { Enemy: slaves }
+            SetTarget: true
+      - Job: High_Priest
+        Rules:
+          - Name: hj_assumptio_everyone
+            Priority: 89
+            Cast: HP_ASSUMPTIO
+            Target: { Ally: missing, Status: SC_ASSUMPTIO, Expiring: 5000 }
+            Claim: { Name: hj_assumptio, For: 3000 }
+      - Job: Sage
+        Rules:
+          # Power Up below 30 %: "Quagmire or Dispel cancels it" (MVP_TACTICS.md).
+          - Name: hj_dispel_powerup
+            Priority: 93
+            Cast: SA_DISPELL
+            Target: { Enemy: boss, Mob: BAPHOMET }
+            When: enemy_powerup
+            Cooldown: 3000
+      - Job: Hunter
+        Rules:
+          - Name: hj_snare_the_boss
+            Priority: 92
+            Cast: HT_ANKLESNARE
+            Target: { Enemy: boss, Mob: BAPHOMET }
+            Aim: { Cells: 2, From: target, Lead: true }   # a trap cannot go under it
+            When: not_enemy_ankle
+            Cooldown: 1500
+
+  - Mob: LORD_OF_DEATH
+    Encounter: true
+    Jobs:
+      - Job: All
+        Ban: [SA_LANDPROTECTOR,       # it erases the Pneumas and Safety Walls
+              PR_KYRIE]               # Kyrie and Assumptio end each other (status.yml)
+        Rules:
+          # Not in melee: 4 or more cells off the boss, where Pneuma stops Hell Judgement.
+          - Name: hj_out_of_melee
+            Priority: 87
+            Requires: { Role: [support, attacker, none] }
+            Target: { Enemy: boss, Mob: LORD_OF_DEATH }
+            KeepDistance: { Min: 4, Max: 9 }
+          - Name: hj_onto_pneuma       # and onto the party's Pneuma: one spot for everyone
+            Priority: 88
+            Requires: { Role: [support, attacker, none] }
+            MoveTo: { Field: AL_PNEUMA, Owner: party, Within: 9, Depth: 1 }   # its middle cell
+      - Job: Priest
+        Rules:
+          # A Pneuma at its own feet, 4 or more cells off the boss: the spot the back line
+          # gathers on (3x3). Chasing each member with a Pneuma of their own (tried) left
+          # most of them off one when Hell Judgement landed.
+          - Name: hj_pneuma_the_spot
+            Priority: 91
+            Cast: AL_PNEUMA
+            Target: self
+            Count: { Enemy: any, Mob: LORD_OF_DEATH, Range: 3, Below: 1 }
+            Field: { Skill: AL_PNEUMA, Owner: party, Range: 1, Below: 1 }
+            Cooldown: 1000
+          # Holy on the melee: Dark Lord is Undead (the players' answer: "With aspersio
+          # from a priest, it will do 260% damage").
+          - Name: hj_aspersio_tank
+            Priority: 86
+            Cast: PR_ASPERSIO
+            Target: { Ally: missing, Status: SC_ASPERSIO, Role: tank, Expiring: 3000 }
+          - Name: hj_aspersio_assassin
+            Priority: 85
+            Cast: PR_ASPERSIO
+            Target: { Ally: missing, Status: SC_ASPERSIO, Job: Assassin, Expiring: 3000 }
+      - Job: [Priest, Wizard, Sage]
+        Rules:
+          # Safety Wall under whoever is in melee with the boss without one.
+          - Name: hj_wall_the_melee
+            Priority: 90
+            Cast: MG_SAFETYWALL
+            Target: { Ally: missing, Status: SC_SAFETYWALL }
+            Count: { Enemy: any, Mob: LORD_OF_DEATH, Around: target, Range: 3, AtLeast: 1 }
+            Field: { Skill: MG_SAFETYWALL, Owner: party, At: target, Range: 0, Below: 1 }
+            OnePerParty: true
+            Cooldown: 1000
+      - Job: Priest
+        Rules:
+          - Name: hj_magnus_the_pack
+            Priority: 88
+            Cast: PR_MAGNUS
+            Target: { Enemy: boss, Mob: LORD_OF_DEATH }
+            Count: { Enemy: slaves, Around: target, Range: 3, AtLeast: 2 }
+            OnePerParty: true
+            Cooldown: 6000
+      - Job: [Wizard, Sage, Hunter]
+        Rules:
+          - Name: hj_illusions_first
+            Priority: 84
+            Target: { Enemy: slaves }
+            SetTarget: true
+      - Job: High_Priest
+        Rules:
+          - Name: hj_assumptio_everyone
+            Priority: 89
+            Cast: HP_ASSUMPTIO
+            Target: { Ally: missing, Status: SC_ASSUMPTIO, Expiring: 5000 }
+            Claim: { Name: hj_assumptio, For: 3000 }
+      - Job: Sage
+        Rules:
+          # Power Up below 30 %: "Quagmire or Dispel cancels it" (MVP_TACTICS.md).
+          - Name: hj_dispel_powerup
+            Priority: 93
+            Cast: SA_DISPELL
+            Target: { Enemy: boss, Mob: LORD_OF_DEATH }
+            When: enemy_powerup
+            Cooldown: 3000
+      - Job: Hunter
+        Rules:
+          - Name: hj_snare_the_boss
+            Priority: 92
+            Cast: HT_ANKLESNARE
+            Target: { Enemy: boss, Mob: LORD_OF_DEATH }
+            Aim: { Cells: 2, From: target, Lead: true }   # a trap cannot go under it
+            When: not_enemy_ankle
+            Cooldown: 1500

@@ -1,0 +1,13 @@
+step,party,member,class,item_id,item,refine,card1,card2,note
+120,t1,Tank,Rune Knight,28106,Scarlet_Twohand_Axe,7,4305,4305,"drops at step 120 (Nightmare Minorous); ATK 200 against the Claymore's 180"
+130,t2,Tank,Royal Guard,1433,Imperial_Spear,7,4305,0,"drops at step 130 (Horn Scaraba); one slot"
+130,t2,Tank,Royal Guard,2153,Imperial_Guard,4,0,0,"shield, drops at step 130 (Rake Scaraba egg)"
+140,t1,Hela,Arch Bishop,590006,Ep172_1h_Hammer,7,0,0,"drops at step 140; MATK +10 %"
+140,t1,Snip,Ranger,700007,Ep172_Bh_Bow,7,4305,4305,"drops at step 140; ATK 220 against the Arbalest's 90"
+140,t2,Hela,Arch Bishop,590006,Ep172_1h_Hammer,7,0,0,
+140,t2,Snip,Ranger,700007,Ep172_Bh_Bow,7,4305,4305,
+140,t2,Gen,Genetic,500008,Ep172_1h_Sword2,7,4305,4305,"drops at step 140; ATK 204"
+160,t1,Tank,Rune Knight,630003,Ep172_Bh_Spear,7,4305,4305,"drops at step 160; ATK 240"
+170,t1,Tank,Rune Knight,600008,Ep172_Bh_Sword,7,4305,4305,"drops at step 170; ATK 264"
+170,t1,Wiz,Warlock,640005,Ep172_Bh_Staff,7,0,0,"drops at step 170; MATK +25 %, neutral and water magic +15 %"
+170,t2,Tank,Royal Guard,530002,Ep172_1h_Spear,7,4305,4305,"drops at step 170; ATK 190"

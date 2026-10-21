@@ -1,0 +1,62 @@
+# Gold Queen Scaraba (I_QUEEN_SCARABA, renewal MVP converted for the level-175 run, level 140,
+# Earth): the pre-renewal Amon Ra plan (mvp-amon-ra.party.yml), taken over. What hurt an
+# eight-member party of level 140 without a plan (phase 6, 2026-10-17): Heaven's Drive 75 % of the
+# damage (level 20, every 5 s), Thunderstorm 8 %; 20-24 falls a minute; Earth armour did not help.
+# Both are ground spells: a Land Protector under the party erases them, as Amon Ra's Meteor Storm.
+# Its golden Scarabas come with it; the casters and archers take them first. Rule names gq_.
+#
+# Results: to be filled in by phase 6.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: I_QUEEN_SCARABA
+    Encounter: true
+    Jobs:
+      - Job: All
+        # Land Protector erases these, the party's own included.
+        Ban: [WZ_METEOR, WZ_STORMGUST, WZ_VERMILION, WZ_HEAVENDRIVE, MG_FIREWALL, WZ_FIREPILLAR,
+              WZ_QUAGMIRE, PR_SANCTUARY, PR_MAGNUS, MG_SAFETYWALL, AL_PNEUMA,
+              PR_LEXAETERNA]          # a cast begun at it calls its summons
+        Rules:
+          - Name: gq_lp_incoming     # the Sage is still casting: go where it will land
+            Priority: 86
+            On: { Event: casts, By: party, Skill: SA_LANDPROTECTOR }
+            MoveTo: event_cell
+          # Into its middle 5x5: rAthena's official Land Protector (land_protector_behavior
+          # 0) blocks a Meteor that lands on it, but one landing outside still hits whoever
+          # stands on its edge. On the edge, Meteor Storm and Fire Pillar still did 62 % of
+          # the damage.
+          - Name: gq_into_lp
+            Priority: 86
+            MoveTo: { Field: SA_LANDPROTECTOR, Owner: party, Within: 10, Depth: 3 }
+      - Job: Sage
+        Rules:
+          # Land Protector reaches only 2 cells and Amon Ra cannot come to the Sage, so the
+          # Sage walks in, to where it could hit back (3 cells), and lays it at its own feet:
+          # level 5 covers 11x11, Amon Ra and the party around it. (Walking in to 1-2 cells
+          # and laying it at Amon Ra's feet was tried and was worse: 6 % of its HP a minute
+          # instead of 12, Meteor Storm back to 37 % of the damage.)
+          - Name: gq_lp_here
+            Priority: 93
+            Cast: SA_LANDPROTECTOR
+            Target: self
+            Count: { Enemy: boss, Range: 3, AtLeast: 1 }
+            Field: { Skill: SA_LANDPROTECTOR, Owner: party, Range: 2, Below: 1 }
+            Cooldown: 3000
+            Say: "Land Protector here, everyone on!"
+          # (By distance: `Reach: false` asks whether it would teleport for the hit, and
+          # Amon Ra does that only when idle, so in a fight the Sage never walked in.)
+          - Name: gq_lp_walk_in
+            Priority: 92
+            Target: { Enemy: boss, Range: 14 }
+            Field: { Skill: SA_LANDPROTECTOR, Owner: party, At: target, Range: 2, Below: 1 }
+            KeepDistance: { Min: 1, Max: 3 }
+      - Job: [Wizard, Sage, Hunter]
+        Rules:
+          - Name: gq_summons_first
+            Priority: 84
+            Target: { Enemy: slaves }
+            SetTarget: true

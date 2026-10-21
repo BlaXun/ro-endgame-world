@@ -1,0 +1,98 @@
+# Orc Hero (ORK_HERO, pre-renewal MVP, level 77, Earth 2): a boss plan. One of the
+# pre-renewal MVPs the boss method learns from (BOSSES.md); kept to ship in a
+# boss-plans mod later. Not shipped. Rule names are prefixed oh_.
+#
+#   What kills: its eight High Orcs (35 % of the damage a level-80 party of five took
+#   without a plan; they knock back), Spiral Pierce (20 %, "32-38k in Power-Up state"),
+#   its melee, Armor Break, Thunderstorm. Power Up below 30 %. It is Earth: fire hurts
+#   it most.
+#   So: the Wizard and Sage put area spells on the High Orcs around it; Safety Wall
+#   under whoever they are on; a Priest's Kyrie on the tank; the Sage
+#   Dispels Power Up ("bring a sage to Dispel it", MVP_TACTICS.md).
+#
+# Results: see BOSSES.md.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: ORK_HERO
+    Encounter: true
+    Jobs:
+      - Job: [Wizard, Sage]
+        Rules:
+          - Name: oh_area_on_the_orcs
+            Priority: 85
+            # The High Orcs are Fire 2: Water does 175 % to them, Fire 0 % and Earth 25 %
+            # (DAMAGE_MECHANICS.md). Meteor Storm and Heaven's Drive were wasted on them.
+            Cast: [WZ_STORMGUST, WZ_FROSTNOVA]
+            Target: { Enemy: slaves }
+            Count: { Enemy: slaves, Around: target, Range: 3, AtLeast: 3 }
+            Cooldown: 3000
+      - Job: Wizard
+        Rules:
+          # Quagmire works on a boss: his flee and his attack speed down.
+          - Name: oh_quagmire
+            Priority: 86
+            Cast: WZ_QUAGMIRE
+            Target: { Enemy: boss, Mob: ORK_HERO }
+            When: not_enemy_quagmire
+            Cooldown: 3000
+      - Job: All
+        # He is Earth 2: Fire 175 %, Earth 50 %, Wind 25 %. Fire bolts on him, not Earth or Wind.
+        Ban: [WZ_EARTHSPIKE, WZ_HEAVENDRIVE, MG_LIGHTNINGBOLT, MG_THUNDERSTORM, WZ_JUPITEL,
+              WZ_VERMILION, SM_PROVOKE]
+        Rules: []
+      - Job: [Wizard, Sage, Hunter, Gunslinger]
+        Rules:
+          - Name: oh_into_the_clear
+            Priority: 86
+            MoveTo: { Sight: target, Within: 8, Range: 9 }
+      - Job: Sage
+        Rules:
+          # Below 30 % he casts Power Up (+200 % ATK, double HIT) and Two-Hand Quicken.
+          - Name: oh_dispel_powerup
+            Priority: 93
+            Cast: SA_DISPELL
+            Target: { Enemy: boss, Mob: ORK_HERO }
+            When: { OR: [enemy_powerup, enemy_twohandquicken] }
+            Cooldown: 3000
+          # Fire on the tank's weapon: he is Earth 2.
+          - Name: oh_flame_the_tank
+            Priority: 89
+            Cast: SA_FLAMELAUNCHER
+            Target: { Ally: missing, Status: SC_FIREWEAPON, Role: tank, Expiring: 3000 }
+      - Job: Gunslinger
+        Rules:
+          # Desperado hits him and his slaves within 3 cells; the engine has no Gunslinger
+          # rotation (NEEDS 17), so the plan casts it.
+          - Name: oh_beside_him
+            Priority: 88
+            Target: { Enemy: boss, Mob: ORK_HERO }
+            KeepDistance: { Min: 1, Max: 2 }
+          - Name: oh_desperado
+            Priority: 82
+            Cast: GS_DESPERADO
+            Target: self
+            Count: { Enemy: any, Range: 3, AtLeast: 1 }
+      - Job: Priest
+        Rules:
+          - Name: oh_wall_the_hit
+            Priority: 88
+            Cast: MG_SAFETYWALL
+            Target: { Ally: attacked, NotOwner: true }
+            Field: { Skill: MG_SAFETYWALL, Owner: party, At: target, Range: 0, Below: 1 }
+            Cooldown: 2000
+          - Name: oh_kyrie_the_tank
+            Priority: 87
+            Cast: PR_KYRIE
+            Target: { Ally: missing, Status: SC_KYRIE, Role: tank }
+
+  # His High Orcs (Fire 2): Fire does nothing to them, Earth a quarter.
+  - Mob: HIGH_ORC
+    Jobs:
+      - Job: All
+        Ban: [MG_FIREBOLT, MG_FIREBALL, MG_FIREWALL, WZ_METEOR, WZ_FIREPILLAR, WZ_SIGHTRASHER,
+              WZ_EARTHSPIKE, WZ_HEAVENDRIVE, SM_PROVOKE]
+

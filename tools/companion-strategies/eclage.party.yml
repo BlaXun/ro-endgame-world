@@ -1,0 +1,57 @@
+# Eclage (ecl_fild01, ecl_tdun01-03): Menblatt, Petal, Cenere, Antique Book, the four
+# Lichterns, Faithful Manager. What a party does differently there, on top of
+# everyday-party.yml, which this needs. Written for the renewal-world mod's
+# pre-renewal conversion of these monsters.
+#
+# Not shipped. To use it, copy the entries into a mod's db/population_strategy.yml,
+# after companion-roles and everyday-party. Rule names are prefixed ec_.
+#
+#   Antique Book  hits as hard as a Bloody Knight, with Piercing Attack through DEF.
+#                 Three on a tank do about 5,000 a second, more than a Priest heals
+#                 back: the answer is to stop them hitting. Frost Diver each one (it
+#                 casts in under a second), Ankle Snare another, heal early, and no Lex
+#                 Aeterna while the pack is up.
+#
+# Results: see the README beside this file.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: ANTIQUE_BOOK
+    Encounter: true
+    Jobs:
+      - Job: All
+        Disable: [boss_gone_say, boss_gone_regroup]
+      - Job: Wizard
+        Build: caster
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: ec_freeze_the_books
+            Priority: 70
+            Cast: MG_FROSTDIVER
+            Target: { Enemy: attacking }
+            When: not_enemy_freeze
+            Claim: { Name: ec_frozen, For: 4000 }
+      - Job: Hunter
+        Build: ranged
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: ec_snare_a_book
+            Priority: 64
+            Cast: HT_ANKLESNARE
+            Target: { Enemy: attacking }
+            When: [not_enemy_ankle, not_enemy_freeze]
+            Claim: { Name: ec_snared, For: 6000 }
+      - Job: Priest
+        Build: healer
+        Requires: { Role: [support, none] }
+        Disable: [ep_lex_the_tanks_target]
+        Rules:
+          - Name: ec_heal_the_tank_early
+            Priority: 81
+            Cast: AL_HEAL
+            Target: { Ally: attacked }
+            When: ally_hp_pct_lt92
+            Count: { Enemy: attacking, AtLeast: 2, Range: 9 }

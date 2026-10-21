@@ -1,0 +1,2653 @@
+[
+ {
+  "item": "Alca_Bringer",
+  "before": {
+   "Name": "Alca Bringer",
+   "Type": "Weapon",
+   "SubType": "2hSword",
+   "Attack": "280",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "Crusader",
+    "Knight"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      bonus bAspd,(getrefine()/2);"
+  },
+  "after": {
+   "Name": "Alca Bringer",
+   "Type": "Weapon",
+   "SubType": "2hSword",
+   "Attack": "230",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "Crusader",
+    "Knight"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bAspd,(getrefine()/2);"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 280 over the budget 230 (best pre-renewal 2hSword 220, level 100): cut to 230"
+  ],
+  "log": [],
+  "drops": [
+   "QUEEN_SCARABA 5 %",
+   "I_QUEEN_SCARABA 3.5 %"
+  ]
+ },
+ {
+  "item": "Black_Wing",
+  "before": {
+   "Name": "Black Wing",
+   "Type": "Weapon",
+   "SubType": "Dagger",
+   "Attack": "142",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Rogue"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"SC_FATALMENACE\",30;\n      if (.@r>=6) {\n         bonus2 bSkillAtk,\"SC_FATALMENACE\",(.@r-5)*2;\n         bonus bMatk,((.@r-5)*3);\n      }"
+  },
+  "after": {
+   "Name": "Black Wing",
+   "Type": "Weapon",
+   "SubType": "Dagger",
+   "Attack": "142",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Rogue"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"SC_FATALMENACE\",10;\n      if (.@r>=6) {\n         bonus2 bSkillAtk,\"SC_FATALMENACE\",min(15,((.@r-5)*2)/3);\n         bonus bMatkRate,(((.@r-5)*3))/20;\n      }\n      bonus bCritical,5;\n      bonus2 bAddRace,RC_Insect,5;\n      if (getrefine()>=7) bonus bAtkRate,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Dicastes dagger: critical and Insects (its region) in place of Fatal Menace"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"SC_FATALMENACE\",30; -> bonus2 bSkillAtk,\"SC_FATALMENACE\",10;",
+   "scaled: bonus2 bSkillAtk,\"SC_FATALMENACE\",(.@r-5)*2; -> bonus2 bSkillAtk,\"SC_FATALMENACE\",min(15,((.@r-5)*2)/3);",
+   "translated: flat bMatk,((.@r-5)*3) -> MATK rate of a twentieth",
+   "phase 7 effect: bonus bCritical,5;\\nbonus2 bAddRace,RC_Insect,5;\\nif (getrefine()>=7) bonus bAtkRate,3; (phase 7 (2026-10-17): Dicastes dagger: critical and Insects (its region) in place of Fatal Menace)"
+  ],
+  "drops": [
+   "HORN_SCARABA2 0.05 %",
+   "I_HORN_SCARABA2 0.05 %"
+  ]
+ },
+ {
+  "item": "Calf_Anaconda",
+  "before": {
+   "Name": "Calf Anaconda",
+   "Type": "Weapon",
+   "SubType": "Shotgun",
+   "Attack": "305",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bSplashRange,1;\n      bonus bMaxSPrate,2;\n      bonus bLongAtkRate,(.@r/2)*5 + (.@r > 8 ? 5 : 0);\n      if (.@r > 6) {\n         bonus2 bSkillAtk,\"RL_BANISHING_BUSTER\",20;\n      }\n      if (.@r > 11) {\n         bonus2 bSkillUseSPrate,\"RL_BANISHING_BUSTER\",15;\n      }"
+  },
+  "after": {
+   "Name": "Calf Anaconda",
+   "Type": "Weapon",
+   "SubType": "Shotgun",
+   "Attack": "240",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bSplashRange,1;\n      bonus bMaxSPrate,2;\n      bonus bLongAtkRate,(.@r/2)*2;\n      bonus2 bAddRace,RC_DemiHuman,5;\n      if (.@r>=7) bonus2 bSkillAtk,\"RL_BANISHING_BUSTER\",6;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 305 over the budget 240 (best pre-renewal Shotgun 200, level 150): cut to 240",
+   "replacement effect: phase 7 (2026-10-17): Rockridge shotgun: it keeps its splash; renewal's ranged damage of +5 % every 2 refines (+30 % at +10) made +2 % (+10 %); the bandits; Banishing Buster; Banishing Buster +6 % from +7 (a third of renewal, owner 2026-10-18)"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"RL_BANISHING_BUSTER\",20; -> bonus2 bSkillAtk,\"RL_BANISHING_BUSTER\",6;",
+   "scaled: bonus2 bSkillUseSPrate,\"RL_BANISHING_BUSTER\",15; -> bonus2 bSkillUseSPrate,\"RL_BANISHING_BUSTER\",5;",
+   "override script: phase 7 (2026-10-17): Rockridge shotgun: it keeps its splash; renewal's ranged damage of +5 % every 2 refines (+30 % at +10) made +2 % (+10 %); the bandits; Banishing Buster; Banishing Buster +6 % from +7 (a third of renewal, owner 2026-10-18)"
+  ],
+  "drops": [
+   "E_COWRAIDERS1 0.05 %"
+  ]
+ },
+ {
+  "item": "Calf_Deathadder",
+  "before": {
+   "Name": "Calf Deathadder",
+   "Type": "Weapon",
+   "SubType": "Revolver",
+   "Attack": "170",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bAspdRate,10;\n      bonus bLongAtkRate,(.@r/2)*5 + (.@r > 11 ? 5 : 0);\n      if (.@r > 6) {\n         bonus bAspdRate,5;\n      }\n      if (.@r > 8) {\n         bonus2 bSkillAtk,\"RL_FIREDANCE\",25;\n      }"
+  },
+  "after": {
+   "Name": "Calf Deathadder",
+   "Type": "Weapon",
+   "SubType": "Revolver",
+   "Attack": "90",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bAspdRate,10;\n      bonus bLongAtkRate,(.@r/2)*2;\n      bonus bCritical,10;\n      if (.@r>=9) bonus2 bSkillAtk,\"RL_FIREDANCE\",8;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 170 over the budget 90 (best pre-renewal Revolver 80, level 150): cut to 90",
+   "replacement effect: phase 7 (2026-10-17): Rockridge revolver: attack speed and critical; ranged damage per refine made +2 % every 2; Fire Dance; Fire Dance +8 % from +9 (a third of renewal, owner 2026-10-18)"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"RL_FIREDANCE\",25; -> bonus2 bSkillAtk,\"RL_FIREDANCE\",8;",
+   "override script: phase 7 (2026-10-17): Rockridge revolver: attack speed and critical; ranged damage per refine made +2 % every 2; Fire Dance; Fire Dance +8 % from +9 (a third of renewal, owner 2026-10-18)"
+  ],
+  "drops": [
+   "E_COWRAIDERS2 0.05 %"
+  ]
+ },
+ {
+  "item": "Calf_Diamondback",
+  "before": {
+   "Name": "Calf Diamondback",
+   "Type": "Weapon",
+   "SubType": "Gatling",
+   "Attack": "220",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bDex,2;\n      bonus bAtkRate,2;\n      bonus bLongAtkRate,(.@r/2)*5 + (.@r > 11 ? 5 : 0);\n      if (.@r > 6) {\n         bonus2 bSkillAtk,\"RL_R_TRIP\",20;\n      }\n      if (.@r > 8) {\n         bonus2 bSkillUseSPrate,\"RL_R_TRIP\",5;\n      }"
+  },
+  "after": {
+   "Name": "Calf Diamondback",
+   "Type": "Weapon",
+   "SubType": "Gatling",
+   "Attack": "90",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bDex,2;\n      bonus bAtkRate,2;\n      bonus bLongAtkRate,(.@r/2)*2;\n      bonus bAspdRate,5;\n      if (.@r>=7) bonus2 bAddRace,RC_DemiHuman,5;\n      if (.@r>=7) bonus2 bSkillAtk,\"RL_R_TRIP\",6;\n      if (.@r>=9) bonus2 bSkillUseSPrate,\"RL_R_TRIP\",1;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 220 over the budget 90 (best pre-renewal Gatling 80, level 150): cut to 90",
+   "replacement effect: phase 7 (2026-10-17): Rockridge gatling: attack speed, the bandits at +7; ranged damage per refine made +2 % every 2; Round Trip; Round Trip +6 % from +7, its SP -1 % from +9 (a third of renewal, owner 2026-10-18)"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"RL_R_TRIP\",20; -> bonus2 bSkillAtk,\"RL_R_TRIP\",6;",
+   "scaled: bonus2 bSkillUseSPrate,\"RL_R_TRIP\",5; -> bonus2 bSkillUseSPrate,\"RL_R_TRIP\",1;",
+   "override script: phase 7 (2026-10-17): Rockridge gatling: attack speed, the bandits at +7; ranged damage per refine made +2 % every 2; Round Trip; Round Trip +6 % from +7, its SP -1 % from +9 (a third of renewal, owner 2026-10-18)"
+  ],
+  "drops": [
+   "E_COWRAIDERS3 0.05 %"
+  ]
+ },
+ {
+  "item": "Calf_Kingcobra",
+  "before": {
+   "Name": "Calf Kingcobra",
+   "Type": "Weapon",
+   "SubType": "Rifle",
+   "Attack": "230",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bAspdRate,10 + (.@r > 6 ? 5 : 0);\n      bonus bLongAtkRate,(.@r/2)*5 + (.@r > 11 ? 5 : 0);\n      if (.@r > 8) {\n         bonus bCritAtkRate,15;\n      }"
+  },
+  "after": {
+   "Name": "Calf Kingcobra",
+   "Type": "Weapon",
+   "SubType": "Rifle",
+   "Attack": "200",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bAspdRate,10 + (.@r > 6 ? 5 : 0);\n      bonus bLongAtkRate,(.@r/2)*5 + (.@r > 11 ? 5 : 0);\n      if (.@r > 8) {\n         bonus bCritAtkRate,15;\n      }"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 230 over the budget 200 (best pre-renewal Rifle 170, level 150): cut to 200"
+  ],
+  "log": [],
+  "drops": [
+   "E_COWRAIDERS2 0.05 %"
+  ]
+ },
+ {
+  "item": "Calf_Python",
+  "before": {
+   "Name": "Calf Python",
+   "Type": "Weapon",
+   "SubType": "Grenade",
+   "Attack": "360",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bDex,2;\n      bonus bAtkRate,2;\n      bonus bLongAtkRate,(.@r/2)*5;\n      if (.@r > 6) {\n         bonus bAspdRate,5;\n      }\n      if (.@r > 8) {\n         bonus2 bSkillAtk,\"RL_D_TAIL\",15 + (.@r > 11 ? 15 : 0);\n      }"
+  },
+  "after": {
+   "Name": "Calf Python",
+   "Type": "Weapon",
+   "SubType": "Grenade",
+   "Attack": "360",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bDex,2;\n      bonus bAtkRate,2;\n      bonus bAspdRate,5;\n      bonus bLongAtkRate,(.@r/2)*2;\n      bonus2 bAddSize,Size_Large,5;\n      if (.@r>=9) bonus2 bSkillAtk,\"RL_D_TAIL\",5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "replacement effect: phase 7 (2026-10-17): Rockridge launcher: large monsters; ranged damage per refine made +2 % every 2; Dragon Tail; Dragon Tail +5 % from +9 (a third of renewal, owner 2026-10-18)"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"RL_D_TAIL\",15 + (.@r > 11 ? 15 : 0); -> bonus2 bSkillAtk,\"RL_D_TAIL\",min(15,(15 + (.@r > 11 ? 15 : 0))/3);",
+   "override script: phase 7 (2026-10-17): Rockridge launcher: large monsters; ranged damage per refine made +2 % every 2; Dragon Tail; Dragon Tail +5 % from +9 (a third of renewal, owner 2026-10-18)"
+  ],
+  "drops": [
+   "E_COWRAIDERS1 0.05 %"
+  ]
+ },
+ {
+  "item": "Chrome_Sword",
+  "before": {
+   "Name": "Chrome Sword",
+   "Type": "Weapon",
+   "SubType": "1hSword",
+   "Attack": "180",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "110",
+   "Jobs": [
+    "Alchemist",
+    "Blacksmith",
+    "Crusader",
+    "Knight",
+    "Merchant",
+    "Swordman"
+   ],
+   "Classes": [
+    "Upper",
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      bonus bAgi,1;\n      bonus bMaxHPrate,-5;\n      bonus bUnbreakableWeapon;"
+  },
+  "after": {
+   "Name": "Chrome Sword",
+   "Type": "Weapon",
+   "SubType": "1hSword",
+   "Attack": "180",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "110",
+   "Jobs": [
+    "Alchemist",
+    "Blacksmith",
+    "Crusader",
+    "Knight",
+    "Merchant",
+    "Swordman"
+   ],
+   "Classes": [
+    "Upper",
+    "Third_Upper"
+   ],
+   "Script": "      bonus bAgi,1;\n      bonus bMaxHPrate,-5;\n      bonus bUnbreakableWeapon;"
+  },
+  "how": "rule",
+  "why": [],
+  "log": [],
+  "drops": [
+   "POM_SPIDER 0.25 %"
+  ]
+ },
+ {
+  "item": "Chrome_Twohand_Sword",
+  "before": {
+   "Name": "Chrome Two-Handed Sword",
+   "Type": "Weapon",
+   "SubType": "2hSword",
+   "Attack": "280",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "110",
+   "Jobs": [
+    "Crusader",
+    "Knight",
+    "Swordman"
+   ],
+   "Classes": [
+    "Upper",
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      bonus bUnbreakableWeapon;\n      bonus bAgi,3;\n      bonus bMaxHPrate,-10;"
+  },
+  "after": {
+   "Name": "Chrome Two-Handed Sword",
+   "Type": "Weapon",
+   "SubType": "2hSword",
+   "Attack": "230",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "110",
+   "Jobs": [
+    "Crusader",
+    "Knight",
+    "Swordman"
+   ],
+   "Classes": [
+    "Upper",
+    "Third_Upper"
+   ],
+   "Script": "      bonus bUnbreakableWeapon;\n      bonus bAgi,3;\n      bonus bMaxHPrate,-10;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 280 over the budget 230 (best pre-renewal 2hSword 220, level 110): cut to 230"
+  ],
+  "log": [],
+  "drops": [
+   "QUEEN_SCARABA 2 %",
+   "I_QUEEN_SCARABA 2 %"
+  ]
+ },
+ {
+  "item": "Dance_Shoes",
+  "before": {
+   "Name": "Dance Shoes",
+   "Type": "Armor",
+   "Defense": "15",
+   "Slots": "1",
+   "EquipLevelMin": "105",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      bonus bAgi,1;\n      bonus bAspdRate,2;\n      bonus2 bSkillUseSP,\"WA_SWING_DANCE\",32;"
+  },
+  "after": {
+   "Name": "Dance Shoes",
+   "Type": "Armor",
+   "Defense": "4",
+   "Slots": "1",
+   "EquipLevelMin": "105",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bAgi,1;\n      bonus bAspdRate,2;\n      bonus2 bSkillUseSP,\"WA_SWING_DANCE\",10;\n      bonus bFlee,5;\n      bonus bSPrecovRate,10;\n      if (getrefine()>=7) bonus bFlee,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): a dancer's shoes: FLEE and SP recovery in place of Swing Dance's SP"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillUseSP,\"WA_SWING_DANCE\",32; -> bonus2 bSkillUseSP,\"WA_SWING_DANCE\",10;",
+   "phase 7 effect: bonus bFlee,5;\\nbonus bSPrecovRate,10;\\nif (getrefine()>=7) bonus bFlee,5; (phase 7 (2026-10-17): a dancer's shoes: FLEE and SP recovery in place of Swing Dance's SP)",
+   "DEF 15 -> 4 (slot Shoes)"
+  ],
+  "drops": [
+   "LITTLE_FATUM 0.01 %"
+  ]
+ },
+ {
+  "item": "Doram_High_Cape",
+  "before": {
+   "Name": "Luxury Doram Manteau",
+   "Type": "Armor",
+   "Defense": "25",
+   "Slots": "1",
+   "EquipLevelMin": "140",
+   "Jobs": [
+    "Summoner",
+    "Spirit_Handler"
+   ],
+   "Classes": [],
+   "Script": "      bonus bFlee,7;\n      bonus2 bSubEle,Ele_Neutral,3;\n      .@r = getrefine()/3;\n      bonus bFlee2,.@r;\n      bonus bLuk,.@r;"
+  },
+  "after": {
+   "Name": "Luxury Doram Manteau",
+   "Type": "Armor",
+   "Defense": "4",
+   "Slots": "1",
+   "EquipLevelMin": "140",
+   "Jobs": [
+    "All"
+   ],
+   "Classes": [],
+   "Script": "      bonus bFlee,7;\n      bonus2 bSubEle,Ele_Neutral,3;\n      .@r = getrefine()/3;\n      bonus bFlee2,.@r;\n      bonus bLuk,.@r;"
+  },
+  "how": "best attempt",
+  "why": [
+   "Doram-only (Summoner, Spirit_Handler), a class this game does not have: given to All"
+  ],
+  "log": [
+   "DEF 25 -> 4 (slot Garment)"
+  ],
+  "drops": [
+   "RAKE_SCARABA 0.2 %"
+  ]
+ },
+ {
+  "item": "Doram_High_Shoes",
+  "before": {
+   "Name": "Luxury Doram Shoes",
+   "Type": "Armor",
+   "Defense": "30",
+   "Slots": "1",
+   "EquipLevelMin": "140",
+   "Jobs": [
+    "Summoner",
+    "Spirit_Handler"
+   ],
+   "Classes": [],
+   "Script": "      bonus bMaxHP,300;\n      bonus bMaxSP,100;\n      .@r = getrefine()/3;\n      bonus bHPrecovRate,20*.@r;\n      bonus bSPrecovRate,20*.@r;"
+  },
+  "after": {
+   "Name": "Luxury Doram Shoes",
+   "Type": "Armor",
+   "Defense": "6",
+   "Slots": "1",
+   "EquipLevelMin": "140",
+   "Jobs": [
+    "All"
+   ],
+   "Classes": [],
+   "Script": "      bonus bMaxHP,300;\n      bonus bMaxSP,100;\n      .@r = getrefine()/3;\n      bonus bHPrecovRate,20*.@r;\n      bonus bSPrecovRate,20*.@r;"
+  },
+  "how": "best attempt",
+  "why": [
+   "Doram-only (Summoner, Spirit_Handler), a class this game does not have: given to All"
+  ],
+  "log": [
+   "DEF 30 -> 6 (slot Shoes)"
+  ],
+  "drops": [
+   "HORN_SCARABA2 0.2 %"
+  ]
+ },
+ {
+  "item": "Doram_High_Suit",
+  "before": {
+   "Name": "Luxury Doram Suit",
+   "Type": "Armor",
+   "Defense": "100",
+   "Slots": "1",
+   "EquipLevelMin": "140",
+   "Jobs": [
+    "Summoner",
+    "Spirit_Handler"
+   ],
+   "Classes": [],
+   "Script": "      bonus bMaxHPrate,10;\n      bonus bMaxSPrate,10;\n      .@r = getrefine()/2;\n      bonus bDex,.@r;\n      bonus bInt,.@r;"
+  },
+  "after": {
+   "Name": "Luxury Doram Suit",
+   "Type": "Armor",
+   "Defense": "10",
+   "Slots": "1",
+   "EquipLevelMin": "140",
+   "Jobs": [
+    "All"
+   ],
+   "Classes": [],
+   "Script": "      bonus bMaxHPrate,10;\n      bonus bMaxSPrate,10;\n      .@r = getrefine()/2;\n      bonus bDex,.@r;\n      bonus bInt,.@r;"
+  },
+  "how": "best attempt",
+  "why": [
+   "Doram-only (Summoner, Spirit_Handler), a class this game does not have: given to All"
+  ],
+  "log": [
+   "DEF 100 -> 10 (slot Armor)"
+  ],
+  "drops": [
+   "HORN_SCARABA 0.2 %"
+  ]
+ },
+ {
+  "item": "Ep172_1h_Axe",
+  "before": {
+   "Name": "Pride Steel",
+   "Type": "Weapon",
+   "SubType": "1hAxe",
+   "Attack": "250",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Blacksmith"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus2 bSkillAtk,\"NC_POWERSWING\",10;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"NC_POWERSWING\",15;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"NC_AXETORNADO\",-1000;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"NC_AXEBOOMERANG\",25;\n      }"
+  },
+  "after": {
+   "Name": "Pride Steel",
+   "Type": "Weapon",
+   "SubType": "1hAxe",
+   "Attack": "160",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Blacksmith"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus2 bSkillAtk,\"NC_POWERSWING\",3;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"NC_POWERSWING\",5;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"NC_AXETORNADO\",-300;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"NC_AXEBOOMERANG\",8;\n      }\n      bonus2 bAddRace,RC_Formless,5;\n      bonus bMaxHPrate,3;\n      if (getrefine()>=9) bonus bAtkRate,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 250 over the budget 160 (best pre-renewal 1hAxe 140, level 150): cut to 160",
+   "phase 7 effect: phase 7 (2026-10-17): Illusion axe: the factory's Formless machines, a little HP; Power Swing, Axe Boomerang and Axe Tornado dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"NC_POWERSWING\",10; -> bonus2 bSkillAtk,\"NC_POWERSWING\",3;",
+   "scaled: bonus2 bSkillAtk,\"NC_POWERSWING\",15; -> bonus2 bSkillAtk,\"NC_POWERSWING\",5;",
+   "scaled: bonus2 bSkillCooldown,\"NC_AXETORNADO\",-1000; -> bonus2 bSkillCooldown,\"NC_AXETORNADO\",-300;",
+   "scaled: bonus2 bSkillAtk,\"NC_AXEBOOMERANG\",25; -> bonus2 bSkillAtk,\"NC_AXEBOOMERANG\",8;",
+   "phase 7 effect: bonus2 bAddRace,RC_Formless,5;\\nbonus bMaxHPrate,3;\\nif (getrefine()>=9) bonus bAtkRate,3; (phase 7 (2026-10-17): Illusion axe: the factory's Formless machines, a little HP; Power Swing, Axe Boomerang and Axe Tornado dropped)"
+  ],
+  "drops": [
+   "EP17_2_BETA_GUARDS_NG 0.05 %",
+   "EP17_2_PITAYA_V 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_1h_Book",
+  "before": {
+   "Name": "Sloth Text",
+   "Type": "Weapon",
+   "SubType": "Book",
+   "Attack": "210",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "StarGladiator"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus2 bSkillAtk,\"SJ_NEWMOONKICK\",10;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"SJ_NEWMOONKICK\",15;\n      }\n      if (.@r>=9) {\n         bonus bAspdRate,10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"SJ_FULLMOONKICK\",25;\n      }"
+  },
+  "after": {
+   "Name": "Sloth Text",
+   "Type": "Weapon",
+   "SubType": "Book",
+   "Attack": "160",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "StarGladiator"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus2 bSkillAtk,\"SJ_NEWMOONKICK\",3;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"SJ_NEWMOONKICK\",5;\n      }\n      if (.@r>=9) {\n         bonus bAspdRate,10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"SJ_FULLMOONKICK\",8;\n      }\n      bonus bCritical,5;\n      if (getrefine()>=9) bonus2 bAddRace,RC_Formless,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 210 over the budget 160 (best pre-renewal Book 140, level 150): cut to 160",
+   "phase 7 effect: phase 7 (2026-10-17): Illusion book for a Star Emperor: critical, and the factory's machines at +9; the moon kicks dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"SJ_NEWMOONKICK\",10; -> bonus2 bSkillAtk,\"SJ_NEWMOONKICK\",3;",
+   "scaled: bonus2 bSkillAtk,\"SJ_NEWMOONKICK\",15; -> bonus2 bSkillAtk,\"SJ_NEWMOONKICK\",5;",
+   "scaled: bonus2 bSkillAtk,\"SJ_FULLMOONKICK\",25; -> bonus2 bSkillAtk,\"SJ_FULLMOONKICK\",8;",
+   "phase 7 effect: bonus bCritical,5;\\nif (getrefine()>=9) bonus2 bAddRace,RC_Formless,5; (phase 7 (2026-10-17): Illusion book for a Star Emperor: critical, and the factory's machines at +9; the moon kicks dropped)"
+  ],
+  "drops": [
+   "EP17_2_ROAMING_SPLBOOK 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_1h_Book2",
+  "before": {
+   "Name": "Sloth Bible",
+   "Type": "Weapon",
+   "SubType": "Book",
+   "Attack": "160",
+   "MagicAttack": "220",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Sage"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      autobonus \"{ bonus2 bSubClass,Class_Normal,15; bonus2 bSPRegenRate,300,1000; }\",1,5000,BF_WEAPON|BF_MAGIC;\n      bonus bVariableCastrate,-3*(.@r/3);\n      bonus bMatk,6*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",25;\n         bonus2 bSkillAtk,\"MG_FIREBOLT\",25;\n      }\n      if (.@r>=9) {\n         bonus bAspdRate,10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",30;\n         bonus2 bSkillAtk,\"MG_FIREBOLT\",30;\n      }"
+  },
+  "after": {
+   "Name": "Sloth Bible",
+   "Type": "Weapon",
+   "SubType": "Book",
+   "Attack": "160",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Sage"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,20;\n      .@r = getrefine();\n      autobonus \"{ bonus2 bSubClass,Class_Normal,15; bonus2 bSPRegenRate,300,1000; }\",1,5000,BF_WEAPON|BF_MAGIC;\n      bonus bCastrate,-3*(.@r/3);\n      bonus bMatkRate,(6*(.@r/3))/20;\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",8;\n         bonus2 bSkillAtk,\"MG_FIREBOLT\",8;\n      }\n      if (.@r>=9) {\n         bonus bAspdRate,10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",10;\n         bonus2 bSkillAtk,\"MG_FIREBOLT\",10;\n      }\n      bonus2 bMagicAtkEle,Ele_Fire,5;\n      bonus2 bMagicAtkEle,Ele_Wind,5;\n      if (getrefine()>=9) bonus bMatkRate,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Illusion book for a Sage: fire and wind magic (the bolts' elements, every spell of them) in place of Fire Bolt and Lightning Bolt"
+  ],
+  "log": [
+   "translated: bVariableCastrate -> bCastrate",
+   "translated: flat bMatk,6*(.@r/3) -> MATK rate of a twentieth",
+   "scaled: bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",25; -> bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",8;",
+   "scaled: bonus2 bSkillAtk,\"MG_FIREBOLT\",25; -> bonus2 bSkillAtk,\"MG_FIREBOLT\",8;",
+   "scaled: bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",30; -> bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",10;",
+   "scaled: bonus2 bSkillAtk,\"MG_FIREBOLT\",30; -> bonus2 bSkillAtk,\"MG_FIREBOLT\",10;",
+   "phase 7 effect: bonus2 bMagicAtkEle,Ele_Fire,5;\\nbonus2 bMagicAtkEle,Ele_Wind,5;\\nif (getrefine()>=9) bonus bMatkRate,3; (phase 7 (2026-10-17): Illusion book for a Sage: fire and wind magic (the bolts' elements, every spell of them) in place of Fire Bolt and Lightning Bolt)",
+   "MATK 220 -> bMatkRate 20"
+  ],
+  "drops": [
+   "EP17_2_BOOKWORM 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_1h_Dagger2",
+  "before": {
+   "Name": "Gula Teeth",
+   "Type": "Weapon",
+   "SubType": "Dagger",
+   "Attack": "180",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Rogue"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"SC_FATALMENACE\",10;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"SC_FATALMENACE\",10;\n      }\n      if (.@r>=9) {\n         bonus bDelayrate,-10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"SC_FATALMENACE\",15;\n      }"
+  },
+  "after": {
+   "Name": "Gula Teeth",
+   "Type": "Weapon",
+   "SubType": "Dagger",
+   "Attack": "180",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Rogue"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"SC_FATALMENACE\",3;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"SC_FATALMENACE\",3;\n      }\n      if (.@r>=9) {\n         bonus bDelayrate,-10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"SC_FATALMENACE\",5;\n      }\n      bonus2 bAddRace,RC_Formless,5;\n      if (getrefine()>=9) bonus bCritical,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Illusion dagger: the factory's machines, critical at +9; Fatal Menace dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"SC_FATALMENACE\",10; -> bonus2 bSkillAtk,\"SC_FATALMENACE\",3;",
+   "scaled: bonus2 bSkillAtk,\"SC_FATALMENACE\",10; -> bonus2 bSkillAtk,\"SC_FATALMENACE\",3;",
+   "scaled: bonus2 bSkillAtk,\"SC_FATALMENACE\",15; -> bonus2 bSkillAtk,\"SC_FATALMENACE\",5;",
+   "phase 7 effect: bonus2 bAddRace,RC_Formless,5;\\nif (getrefine()>=9) bonus bCritical,5; (phase 7 (2026-10-17): Illusion dagger: the factory's machines, critical at +9; Fatal Menace dropped)"
+  ],
+  "drops": [
+   "EP17_2_PITAYA_G 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_1h_Gatling",
+  "before": {
+   "Name": "Lust Crusher",
+   "Type": "Weapon",
+   "SubType": "Gatling",
+   "Attack": "230",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"RL_FIRE_RAIN\",10;\n      bonus bAspdRate,3*(.@r/3);\n      bonus bBaseAtk,6*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"RL_R_TRIP\",10;\n         bonus2 bSkillAtk,\"RL_FIRE_RAIN\",15;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"RL_FIRE_RAIN\",-2000;\n      }\n      if (.@r>=11) {\n         autobonus3 \"{ bonus2 bSkillAtk,\\\"RL_R_TRIP\\\",15; }\",1000,10000,\"RL_FIRE_RAIN\";\n         bonus2 bSkillAtk,\"RL_FIRE_RAIN\",25;\n      }"
+  },
+  "after": {
+   "Name": "Lust Crusher",
+   "Type": "Weapon",
+   "SubType": "Gatling",
+   "Attack": "90",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"RL_FIRE_RAIN\",3;\n      bonus bAspdRate,3*(.@r/3);\n      bonus bBaseAtk,6*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"RL_R_TRIP\",3;\n         bonus2 bSkillAtk,\"RL_FIRE_RAIN\",5;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"RL_FIRE_RAIN\",-600;\n      }\n      if (.@r>=11) {\n         autobonus3 \"{ bonus2 bSkillAtk,\\\"RL_R_TRIP\\\",5; }\",1000,10000,\"RL_FIRE_RAIN\";\n         bonus2 bSkillAtk,\"RL_FIRE_RAIN\",8;\n      }\n      bonus2 bAddRace,RC_Formless,5;\n      if (getrefine()>=9) bonus bAspdRate,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 230 over the budget 90 (best pre-renewal Gatling 80, level 150): cut to 90",
+   "phase 7 effect: phase 7 (2026-10-17): Illusion gatling: the factory's machines, attack speed at +9; Fire Rain and Round Trip dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"RL_FIRE_RAIN\",10; -> bonus2 bSkillAtk,\"RL_FIRE_RAIN\",3;",
+   "scaled: bonus2 bSkillAtk,\"RL_R_TRIP\",10; -> bonus2 bSkillAtk,\"RL_R_TRIP\",3;",
+   "scaled: bonus2 bSkillAtk,\"RL_FIRE_RAIN\",15; -> bonus2 bSkillAtk,\"RL_FIRE_RAIN\",5;",
+   "scaled: bonus2 bSkillCooldown,\"RL_FIRE_RAIN\",-2000; -> bonus2 bSkillCooldown,\"RL_FIRE_RAIN\",-600;",
+   "scaled: autobonus3 \"{ bonus2 bSkillAtk,\\\"RL_R_TRIP\\\",15; }\",1000,10000,\"RL_FIRE_RAIN\"; -> autobonus3 \"{ bonus2 bSkillAtk,\\\"RL_R_TRIP\\\",5; }\",1000,10000,\"RL_FIRE_RAIN\";",
+   "scaled: bonus2 bSkillAtk,\"RL_FIRE_RAIN\",25; -> bonus2 bSkillAtk,\"RL_FIRE_RAIN\",8;",
+   "phase 7 effect: bonus2 bAddRace,RC_Formless,5;\\nif (getrefine()>=9) bonus bAspdRate,5; (phase 7 (2026-10-17): Illusion gatling: the factory's machines, attack speed at +9; Fire Rain and Round Trip dropped)"
+  ],
+  "drops": [
+   "EP17_2_PITAYA_Y 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_1h_Grenade",
+  "before": {
+   "Name": "Lust Boom",
+   "Type": "Weapon",
+   "SubType": "Grenade",
+   "Attack": "330",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"RL_H_MINE\",10;\n      bonus bAspdRate,3*(.@r/3);\n      bonus bBaseAtk,6*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"RL_D_TAIL\",10;\n         bonus2 bSkillAtk,\"RL_H_MINE\",10;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"RL_D_TAIL\",-1000;\n         bonus2 bSkillCooldown,\"RL_H_MINE\",-1000;\n      }\n      if (.@r>=11) {\n         autobonus3 \"{ bonus2 bSkillAtk,\\\"RL_D_TAIL\\\",25; }\",1000,10000,\"RL_C_MARKER\";\n         bonus2 bSkillAtk,\"RL_H_MINE\",25;\n      }"
+  },
+  "after": {
+   "Name": "Lust Boom",
+   "Type": "Weapon",
+   "SubType": "Grenade",
+   "Attack": "330",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Gunslinger",
+    "Rebellion"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"RL_H_MINE\",3;\n      bonus bAspdRate,3*(.@r/3);\n      bonus bBaseAtk,6*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"RL_D_TAIL\",3;\n         bonus2 bSkillAtk,\"RL_H_MINE\",3;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"RL_D_TAIL\",-300;\n         bonus2 bSkillCooldown,\"RL_H_MINE\",-300;\n      }\n      if (.@r>=11) {\n         autobonus3 \"{ bonus2 bSkillAtk,\\\"RL_D_TAIL\\\",8; }\",1000,10000,\"RL_C_MARKER\";\n         bonus2 bSkillAtk,\"RL_H_MINE\",8;\n      }\n      bonus2 bAddRace,RC_Formless,5;\n      if (getrefine()>=9) bonus bLongAtkRate,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Illusion launcher: the factory's machines, ranged damage at +9; Dragon Tail, Howling Mine, Crimson Marker dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"RL_H_MINE\",10; -> bonus2 bSkillAtk,\"RL_H_MINE\",3;",
+   "scaled: bonus2 bSkillAtk,\"RL_D_TAIL\",10; -> bonus2 bSkillAtk,\"RL_D_TAIL\",3;",
+   "scaled: bonus2 bSkillAtk,\"RL_H_MINE\",10; -> bonus2 bSkillAtk,\"RL_H_MINE\",3;",
+   "scaled: bonus2 bSkillCooldown,\"RL_D_TAIL\",-1000; -> bonus2 bSkillCooldown,\"RL_D_TAIL\",-300;",
+   "scaled: bonus2 bSkillCooldown,\"RL_H_MINE\",-1000; -> bonus2 bSkillCooldown,\"RL_H_MINE\",-300;",
+   "scaled: autobonus3 \"{ bonus2 bSkillAtk,\\\"RL_D_TAIL\\\",25; }\",1000,10000,\"RL_C_MARKER\"; -> autobonus3 \"{ bonus2 bSkillAtk,\\\"RL_D_TAIL\\\",8; }\",1000,10000,\"RL_C_MARKER\";",
+   "scaled: bonus2 bSkillAtk,\"RL_H_MINE\",25; -> bonus2 bSkillAtk,\"RL_H_MINE\",8;",
+   "phase 7 effect: bonus2 bAddRace,RC_Formless,5;\\nif (getrefine()>=9) bonus bLongAtkRate,5; (phase 7 (2026-10-17): Illusion launcher: the factory's machines, ranged damage at +9; Dragon Tail, Howling Mine, Crimson Marker dropped)"
+  ],
+  "drops": [
+   "EP17_2_PIRANHA 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_1h_Hammer",
+  "before": {
+   "Name": "Envy Blunt",
+   "Type": "Weapon",
+   "SubType": "Mace",
+   "Attack": "180",
+   "MagicAttack": "210",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Priest"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",15;\n      bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",15;\n      bonus bMatk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",20;\n         bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",20;\n      }\n      if (.@r>=9) {\n         bonus bAspdRate,10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillFixedCast,\"AB_DUPLELIGHT\",-500;\n         bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",35;\n         bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",35;\n      }"
+  },
+  "after": {
+   "Name": "Envy Blunt",
+   "Type": "Weapon",
+   "SubType": "Mace",
+   "Attack": "180",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Priest"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,10;\n      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",5;\n      bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",5;\n      bonus bMatkRate,(12*(.@r/3))/20;\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",6;\n         bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",6;\n      }\n      if (.@r>=9) {\n         bonus bAspdRate,10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillDelay,\"AB_DUPLELIGHT\",-100;\n         bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",11;\n         bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",11;\n      }\n      bonus bHealPower,5;\n      if (getrefine()>=7) bonus2 bMagicAtkEle,Ele_Holy,5;\n      if (getrefine()>=9) bonus bHealPower,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Illusion hammer for an Arch Bishop: heal power (a party role), holy magic at +7; Duple Light dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",15; -> bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",5;",
+   "scaled: bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",15; -> bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",5;",
+   "translated: flat bMatk,12*(.@r/3) -> MATK rate of a twentieth",
+   "scaled: bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",20; -> bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",6;",
+   "scaled: bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",20; -> bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",6;",
+   "scaled: bonus2 bSkillFixedCast,\"AB_DUPLELIGHT\",-500; -> bonus2 bSkillDelay,\"AB_DUPLELIGHT\",-100;",
+   "scaled: bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",35; -> bonus2 bSkillAtk,\"AB_DUPLELIGHT_MELEE\",11;",
+   "scaled: bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",35; -> bonus2 bSkillAtk,\"AB_DUPLELIGHT_MAGIC\",11;",
+   "phase 7 effect: bonus bHealPower,5;\\nif (getrefine()>=7) bonus2 bMagicAtkEle,Ele_Holy,5;\\nif (getrefine()>=9) bonus bHealPower,5; (phase 7 (2026-10-17): Illusion hammer for an Arch Bishop: heal power (a party role), holy magic at +7; Duple Light dropped)",
+   "MATK 210 -> bMatkRate 10"
+  ],
+  "drops": [
+   "EP17_2_SWORD_FISH 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_1h_Spear",
+  "before": {
+   "Name": "Gluttony Stick",
+   "Type": "Weapon",
+   "SubType": "1hSpear",
+   "Attack": "190",
+   "MagicAttack": "200",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Crusader"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",10;\n      bonus bMatk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",10;\n      }\n      if (.@r>=9) {\n         bonus bVariableCastrate,-10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",15;\n      }"
+  },
+  "after": {
+   "Name": "Gluttony Stick",
+   "Type": "Weapon",
+   "SubType": "1hSpear",
+   "Attack": "190",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Crusader"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,10;\n      .@r = getrefine();\n      bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",3;\n      bonus bMatkRate,(12*(.@r/3))/20;\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",3;\n      }\n      if (.@r>=9) {\n         bonus bCastrate,-10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",5;\n      }\n      bonus2 bMagicAtkEle,Ele_Holy,5;\n      bonus bMaxHPrate,3;\n      if (getrefine()>=9) bonus bMaxHPrate,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Illusion spear for a Royal Guard: holy magic and the tank's HP; Ray of Genesis dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",10; -> bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",3;",
+   "translated: flat bMatk,12*(.@r/3) -> MATK rate of a twentieth",
+   "scaled: bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",10; -> bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",3;",
+   "translated: bVariableCastrate -> bCastrate",
+   "scaled: bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",15; -> bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",5;",
+   "phase 7 effect: bonus2 bMagicAtkEle,Ele_Holy,5;\\nbonus bMaxHPrate,3;\\nif (getrefine()>=9) bonus bMaxHPrate,3; (phase 7 (2026-10-17): Illusion spear for a Royal Guard: holy magic and the tank's HP; Ray of Genesis dropped)",
+   "MATK 200 -> bMatkRate 10"
+  ],
+  "drops": [
+   "EP17_2_PITAYA_B 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_1h_Sword",
+  "before": {
+   "Name": "Hypocrisy Machine",
+   "Type": "Weapon",
+   "SubType": "1hSword",
+   "Attack": "250",
+   "Slots": "3",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Novice",
+    "SuperNovice"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus bShortAtkRate,3*(.@r/2);\n      bonus bCritical,2*(.@r/3);\n      if (.@r>=7)\n         bonus bAspdRate,20;\n      if (.@r>=9) {\n         bonus2 bAddSize,Size_Small,25;\n         bonus2 bAddSize,Size_Large,25;\n      }\n      if (.@r>=11)\n         skill \"KN_BOWLINGBASH\",getskilllv(\"SM_SWORD\");"
+  },
+  "after": {
+   "Name": "Hypocrisy Machine",
+   "Type": "Weapon",
+   "SubType": "1hSword",
+   "Attack": "200",
+   "Slots": "3",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Novice",
+    "SuperNovice"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus bShortAtkRate,3*(.@r/2);\n      bonus bCritical,2*(.@r/3);\n      if (.@r>=7)\n         bonus bAspdRate,20;\n      if (.@r>=9) {\n         bonus2 bAddSize,Size_Small,25;\n         bonus2 bAddSize,Size_Large,25;\n      }\n      if (.@r>=11)\n         skill \"KN_BOWLINGBASH\",getskilllv(\"SM_SWORD\");"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 250 over the budget 200 (best pre-renewal 1hSword 170, level 150): cut to 200"
+  ],
+  "log": [],
+  "drops": [
+   "EP17_2_HEART_HUNTER_H 0.05 %"
+  ]
+ },
+ {
+  "item": "Ep172_1h_Sword2",
+  "before": {
+   "Name": "Invidia Bundle",
+   "Type": "Weapon",
+   "SubType": "1hSword",
+   "Attack": "210",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Alchemist"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"GN_CART_TORNADO\",10;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"GN_CART_TORNADO\",15;\n      }\n      if (.@r>=9) {\n         bonus bAspdRate,10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"GN_CART_TORNADO\",25;\n      }"
+  },
+  "after": {
+   "Name": "Invidia Bundle",
+   "Type": "Weapon",
+   "SubType": "1hSword",
+   "Attack": "200",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Alchemist"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"GN_CART_TORNADO\",3;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"GN_CART_TORNADO\",5;\n      }\n      if (.@r>=9) {\n         bonus bAspdRate,10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"GN_CART_TORNADO\",8;\n      }\n      bonus2 bAddRace,RC_Plant,5;\n      bonus2 bAddRace,RC_Formless,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 210 over the budget 200 (best pre-renewal 1hSword 170, level 150): cut to 200",
+   "phase 7 effect: phase 7 (2026-10-17): Illusion sword for a Genetic: Plants (its craft) and the factory's machines; Cart Tornado dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"GN_CART_TORNADO\",10; -> bonus2 bSkillAtk,\"GN_CART_TORNADO\",3;",
+   "scaled: bonus2 bSkillAtk,\"GN_CART_TORNADO\",15; -> bonus2 bSkillAtk,\"GN_CART_TORNADO\",5;",
+   "scaled: bonus2 bSkillAtk,\"GN_CART_TORNADO\",25; -> bonus2 bSkillAtk,\"GN_CART_TORNADO\",8;",
+   "phase 7 effect: bonus2 bAddRace,RC_Plant,5;\\nbonus2 bAddRace,RC_Formless,3; (phase 7 (2026-10-17): Illusion sword for a Genetic: Plants (its craft) and the factory's machines; Cart Tornado dropped)"
+  ],
+  "drops": [
+   "EP17_2_BETA_CLEANER_A 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_1h_Whip",
+  "before": {
+   "Name": "Pigritia Spark",
+   "Type": "Weapon",
+   "SubType": "Whip",
+   "Attack": "150",
+   "MagicAttack": "210",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"WM_REVERBERATION\",10;\n      bonus2 bSkillAtk,\"WM_METALICSOUND\",10;\n      bonus bMatk,8*(.@r/3);\n      if (.@r>=7) {\n         bonus bVariableCastrate,-10;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillAtk,\"WM_REVERBERATION\",15;\n         bonus2 bSkillAtk,\"WM_METALICSOUND\",15;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillUseSPrate,\"WM_REVERBERATION\",20;\n         bonus2 bSkillCooldown,\"WM_METALICSOUND\",-2000;\n      }"
+  },
+  "after": {
+   "Name": "Pigritia Spark",
+   "Type": "Weapon",
+   "SubType": "Whip",
+   "Attack": "150",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,10;\n      .@r = getrefine();\n      bonus2 bSkillAtk,\"WM_REVERBERATION\",3;\n      bonus2 bSkillAtk,\"WM_METALICSOUND\",3;\n      bonus bMatkRate,(8*(.@r/3))/20;\n      if (.@r>=7) {\n         bonus bCastrate,-10;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillAtk,\"WM_REVERBERATION\",5;\n         bonus2 bSkillAtk,\"WM_METALICSOUND\",5;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillUseSPrate,\"WM_REVERBERATION\",6;\n         bonus2 bSkillCooldown,\"WM_METALICSOUND\",-600;\n      }\n      bonus bSPrecovRate,10;\n      bonus bFlee,5;\n      if (getrefine()>=9) bonus bMatkRate,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Illusion whip for a Wanderer: SP recovery and FLEE; Reverberation and Metallic Sound dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"WM_REVERBERATION\",10; -> bonus2 bSkillAtk,\"WM_REVERBERATION\",3;",
+   "scaled: bonus2 bSkillAtk,\"WM_METALICSOUND\",10; -> bonus2 bSkillAtk,\"WM_METALICSOUND\",3;",
+   "translated: flat bMatk,8*(.@r/3) -> MATK rate of a twentieth",
+   "translated: bVariableCastrate -> bCastrate",
+   "scaled: bonus2 bSkillAtk,\"WM_REVERBERATION\",15; -> bonus2 bSkillAtk,\"WM_REVERBERATION\",5;",
+   "scaled: bonus2 bSkillAtk,\"WM_METALICSOUND\",15; -> bonus2 bSkillAtk,\"WM_METALICSOUND\",5;",
+   "scaled: bonus2 bSkillUseSPrate,\"WM_REVERBERATION\",20; -> bonus2 bSkillUseSPrate,\"WM_REVERBERATION\",6;",
+   "scaled: bonus2 bSkillCooldown,\"WM_METALICSOUND\",-2000; -> bonus2 bSkillCooldown,\"WM_METALICSOUND\",-600;",
+   "phase 7 effect: bonus bSPrecovRate,10;\\nbonus bFlee,5;\\nif (getrefine()>=9) bonus bMatkRate,3; (phase 7 (2026-10-17): Illusion whip for a Wanderer: SP recovery and FLEE; Reverberation and Metallic Sound dropped)",
+   "MATK 210 -> bMatkRate 10"
+  ],
+  "drops": [
+   "EP17_2_OMEGA_CLEANER 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_Bh_Bow",
+  "before": {
+   "Name": "Superbia String",
+   "Type": "Weapon",
+   "SubType": "Bow",
+   "Attack": "220",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Hunter"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"RA_ARROWSTORM\",10;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"RA_ARROWSTORM\",10;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"RA_ARROWSTORM\",-1000;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"RA_ARROWSTORM\",15;\n      }"
+  },
+  "after": {
+   "Name": "Superbia String",
+   "Type": "Weapon",
+   "SubType": "Bow",
+   "Attack": "220",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Hunter"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"RA_ARROWSTORM\",3;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"RA_ARROWSTORM\",3;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"RA_ARROWSTORM\",-300;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"RA_ARROWSTORM\",5;\n      }\n      bonus bLongAtkRate,3;\n      if (getrefine()>=9) bonus2 bAddRace,RC_Formless,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Illusion bow for a Ranger: ranged damage, the factory's machines at +9; Arrow Storm dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"RA_ARROWSTORM\",10; -> bonus2 bSkillAtk,\"RA_ARROWSTORM\",3;",
+   "scaled: bonus2 bSkillAtk,\"RA_ARROWSTORM\",10; -> bonus2 bSkillAtk,\"RA_ARROWSTORM\",3;",
+   "scaled: bonus2 bSkillCooldown,\"RA_ARROWSTORM\",-1000; -> bonus2 bSkillCooldown,\"RA_ARROWSTORM\",-300;",
+   "scaled: bonus2 bSkillAtk,\"RA_ARROWSTORM\",15; -> bonus2 bSkillAtk,\"RA_ARROWSTORM\",5;",
+   "phase 7 effect: bonus bLongAtkRate,3;\\nif (getrefine()>=9) bonus2 bAddRace,RC_Formless,5; (phase 7 (2026-10-17): Illusion bow for a Ranger: ranged damage, the factory's machines at +9; Arrow Storm dropped)"
+  ],
+  "drops": [
+   "EP17_2_OMEGA_CLEANER_NG 0.04 %",
+   "EP17_2_MARC 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_Bh_Bow2",
+  "before": {
+   "Name": "Gula Gun",
+   "Type": "Weapon",
+   "SubType": "Bow",
+   "Attack": "220",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Rogue"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",10;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",15;\n      }\n      if (.@r>=9) {\n         bonus bDelayrate,-10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",20;\n      }"
+  },
+  "after": {
+   "Name": "Gula Gun",
+   "Type": "Weapon",
+   "SubType": "Bow",
+   "Attack": "220",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Rogue"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",3;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",5;\n      }\n      if (.@r>=9) {\n         bonus bDelayrate,-10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",6;\n      }\n      bonus bLongAtkRate,3;\n      if (getrefine()>=9) bonus bCritical,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Illusion bow for a Shadow Chaser: ranged damage, critical at +9; Triangle Shot dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",10; -> bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",3;",
+   "scaled: bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",15; -> bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",5;",
+   "scaled: bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",20; -> bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",6;",
+   "phase 7 effect: bonus bLongAtkRate,3;\\nif (getrefine()>=9) bonus bCritical,5; (phase 7 (2026-10-17): Illusion bow for a Shadow Chaser: ranged damage, critical at +9; Triangle Shot dropped)"
+  ],
+  "drops": [
+   "EP17_2_OMEGA_CLEANER_NG 0.04 %",
+   "EP17_2_PHEN 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_Bh_Bow3",
+  "before": {
+   "Name": "Pigritia Rhythm",
+   "Type": "Weapon",
+   "SubType": "Bow",
+   "Attack": "190",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",10;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",15;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-2500;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",20;\n      }"
+  },
+  "after": {
+   "Name": "Pigritia Rhythm",
+   "Type": "Weapon",
+   "SubType": "Bow",
+   "Attack": "190",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",3;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",5;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-800;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",6;\n      }\n      bonus bLongAtkRate,3;\n      bonus bAspdRate,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Illusion bow for a Minstrel or Wanderer: ranged damage and attack speed; Severe Rainstorm dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",10; -> bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",3;",
+   "scaled: bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",15; -> bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",5;",
+   "scaled: bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-2500; -> bonus2 bSkillCooldown,\"WM_SEVERE_RAINSTORM\",-800;",
+   "scaled: bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",20; -> bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM_MELEE\",6;",
+   "phase 7 effect: bonus bLongAtkRate,3;\\nbonus bAspdRate,3; (phase 7 (2026-10-17): Illusion bow for a Minstrel or Wanderer: ranged damage and attack speed; Severe Rainstorm dropped)"
+  ],
+  "drops": [
+   "EP17_2_BETA_BASIC_NG 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_Bh_Huuma",
+  "before": {
+   "Name": "Wrath Wheel",
+   "Type": "Weapon",
+   "SubType": "Huuma",
+   "Attack": "320",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "KagerouOboro",
+    "Ninja"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bAtkEle,Ele_Wind;\n      bonus bUnbreakableWeapon;\n      bonus2 bSkillAtk,\"KO_HUUMARANKA\",15;\n      bonus bVariableCastrate,-2*(.@r/3);\n      bonus bBaseAtk,6*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"KO_JYUMONJIKIRI\",15;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"KO_JYUMONJIKIRI\",-1000;\n         bonus2 bSkillCooldown,\"KO_HUUMARANKA\",-2000;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"KO_HUUMARANKA\",20;\n         bonus2 bSkillAtk,\"KO_JYUMONJIKIRI\",20;\n      }"
+  },
+  "after": {
+   "Name": "Wrath Wheel",
+   "Type": "Weapon",
+   "SubType": "Huuma",
+   "Attack": "220",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "KagerouOboro",
+    "Ninja"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bAtkEle,Ele_Wind;\n      bonus bUnbreakableWeapon;\n      bonus2 bSkillAtk,\"KO_HUUMARANKA\",5;\n      bonus bCastrate,-2*(.@r/3);\n      bonus bBaseAtk,6*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"KO_JYUMONJIKIRI\",5;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"KO_JYUMONJIKIRI\",-300;\n         bonus2 bSkillCooldown,\"KO_HUUMARANKA\",-600;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"KO_HUUMARANKA\",6;\n         bonus2 bSkillAtk,\"KO_JYUMONJIKIRI\",6;\n      }\n      bonus bLongAtkRate,3;\n      if (getrefine()>=9) bonus2 bAddRace,RC_Formless,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 320 over the budget 220 (best pre-renewal Huuma 185, level 150): cut to 220",
+   "phase 7 effect: phase 7 (2026-10-17): Illusion huuma: ranged damage (it is thrown), the factory's machines at +9; Huuma Shuriken Storm and Cross Slash dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"KO_HUUMARANKA\",15; -> bonus2 bSkillAtk,\"KO_HUUMARANKA\",5;",
+   "translated: bVariableCastrate -> bCastrate",
+   "scaled: bonus2 bSkillAtk,\"KO_JYUMONJIKIRI\",15; -> bonus2 bSkillAtk,\"KO_JYUMONJIKIRI\",5;",
+   "scaled: bonus2 bSkillCooldown,\"KO_JYUMONJIKIRI\",-1000; -> bonus2 bSkillCooldown,\"KO_JYUMONJIKIRI\",-300;",
+   "scaled: bonus2 bSkillCooldown,\"KO_HUUMARANKA\",-2000; -> bonus2 bSkillCooldown,\"KO_HUUMARANKA\",-600;",
+   "scaled: bonus2 bSkillAtk,\"KO_HUUMARANKA\",20; -> bonus2 bSkillAtk,\"KO_HUUMARANKA\",6;",
+   "scaled: bonus2 bSkillAtk,\"KO_JYUMONJIKIRI\",20; -> bonus2 bSkillAtk,\"KO_JYUMONJIKIRI\",6;",
+   "phase 7 effect: bonus bLongAtkRate,3;\\nif (getrefine()>=9) bonus2 bAddRace,RC_Formless,5; (phase 7 (2026-10-17): Illusion huuma: ranged damage (it is thrown), the factory's machines at +9; Huuma Shuriken Storm and Cross Slash dropped)"
+  ],
+  "drops": [
+   "EP17_2_BETA_CLEANER_B 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_Bh_Knuck",
+  "before": {
+   "Name": "Ira Fist",
+   "Type": "Weapon",
+   "SubType": "Knuckle",
+   "Attack": "200",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Monk"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"SR_RIDEINLIGHTNING\",15;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"SR_HOWLINGOFLION\",15;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"SR_HOWLINGOFLION\",-2000;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"SR_HOWLINGOFLION\",10;\n         bonus2 bSkillAtk,\"SR_RIDEINLIGHTNING\",10;\n      }"
+  },
+  "after": {
+   "Name": "Ira Fist",
+   "Type": "Weapon",
+   "SubType": "Knuckle",
+   "Attack": "180",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Monk"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"SR_RIDEINLIGHTNING\",5;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"SR_HOWLINGOFLION\",5;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"SR_HOWLINGOFLION\",-600;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"SR_HOWLINGOFLION\",3;\n         bonus2 bSkillAtk,\"SR_RIDEINLIGHTNING\",3;\n      }\n      bonus bCritical,5;\n      bonus bMaxSPrate,3;\n      if (getrefine()>=9) bonus bAtkRate,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 200 over the budget 180 (best pre-renewal Knuckle 150, level 150): cut to 180",
+   "phase 7 effect: phase 7 (2026-10-17): Illusion knuckle for a Sura: critical and SP; Lion's Howling and Lightning Ride dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"SR_RIDEINLIGHTNING\",15; -> bonus2 bSkillAtk,\"SR_RIDEINLIGHTNING\",5;",
+   "scaled: bonus2 bSkillAtk,\"SR_HOWLINGOFLION\",15; -> bonus2 bSkillAtk,\"SR_HOWLINGOFLION\",5;",
+   "scaled: bonus2 bSkillCooldown,\"SR_HOWLINGOFLION\",-2000; -> bonus2 bSkillCooldown,\"SR_HOWLINGOFLION\",-600;",
+   "scaled: bonus2 bSkillAtk,\"SR_HOWLINGOFLION\",10; -> bonus2 bSkillAtk,\"SR_HOWLINGOFLION\",3;",
+   "scaled: bonus2 bSkillAtk,\"SR_RIDEINLIGHTNING\",10; -> bonus2 bSkillAtk,\"SR_RIDEINLIGHTNING\",3;",
+   "phase 7 effect: bonus bCritical,5;\\nbonus bMaxSPrate,3;\\nif (getrefine()>=9) bonus bAtkRate,3; (phase 7 (2026-10-17): Illusion knuckle for a Sura: critical and SP; Lion's Howling and Lightning Ride dropped)"
+  ],
+  "drops": [
+   "EP17_2_BETA_BASIC_NG 0.03 %",
+   "EP17_2_BETA_ITEMKEEPER 0.05 %"
+  ]
+ },
+ {
+  "item": "Ep172_Bh_Spear",
+  "before": {
+   "Name": "Luxuria Pierce",
+   "Type": "Weapon",
+   "SubType": "2hSpear",
+   "Attack": "250",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Knight"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",10;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",15;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"RK_HUNDREDSPEAR\",-1500;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",20;\n      }"
+  },
+  "after": {
+   "Name": "Luxuria Pierce",
+   "Type": "Weapon",
+   "SubType": "2hSpear",
+   "Attack": "240",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Knight"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",3;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",5;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"RK_HUNDREDSPEAR\",-500;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",6;\n      }\n      bonus2 bAddSize,Size_Large,5;\n      if (getrefine()>=9) bonus bMaxHPrate,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 250 over the budget 240 (best pre-renewal 2hSpear 200, level 150): cut to 240",
+   "phase 7 effect: phase 7 (2026-10-17): Illusion spear for a Rune Knight: large monsters, HP at +9; Hundred Spear dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",10; -> bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",3;",
+   "scaled: bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",15; -> bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",5;",
+   "scaled: bonus2 bSkillCooldown,\"RK_HUNDREDSPEAR\",-1500; -> bonus2 bSkillCooldown,\"RK_HUNDREDSPEAR\",-500;",
+   "scaled: bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",20; -> bonus2 bSkillAtk,\"RK_HUNDREDSPEAR\",6;",
+   "phase 7 effect: bonus2 bAddSize,Size_Large,5;\\nif (getrefine()>=9) bonus bMaxHPrate,5; (phase 7 (2026-10-17): Illusion spear for a Rune Knight: large monsters, HP at +9; Hundred Spear dropped)"
+  ],
+  "drops": [
+   "EP17_2_PITAYA_R 0.03 %"
+  ]
+ },
+ {
+  "item": "Ep172_Bh_Staff",
+  "before": {
+   "Name": "Pride Stone",
+   "Type": "Weapon",
+   "SubType": "2hStaff",
+   "Attack": "180",
+   "MagicAttack": "320",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Wizard"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus2 bMagicAtkEle,Ele_Neutral,15;\n      bonus2 bMagicAtkEle,Ele_Water,15;\n      bonus bVariableCastrate,-3*(.@r/3);\n      bonus bMatk,6*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"WL_JACKFROST\",10;\n         bonus2 bSkillAtk,\"WL_COMET\",10;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"WL_JACKFROST\",-1500;\n         bonus2 bSkillCooldown,\"WL_COMET\",-10000;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"WL_JACKFROST\",20;\n         bonus2 bSkillAtk,\"WL_COMET\",20;\n      }"
+  },
+  "after": {
+   "Name": "Pride Stone",
+   "Type": "Weapon",
+   "SubType": "2hStaff",
+   "Attack": "150",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Wizard"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,25;\n      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus2 bMagicAtkEle,Ele_Neutral,15;\n      bonus2 bMagicAtkEle,Ele_Water,15;\n      bonus bCastrate,-3*(.@r/3);\n      bonus bMatkRate,(6*(.@r/3))/20;\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"WL_JACKFROST\",3;\n         bonus2 bSkillAtk,\"WL_COMET\",3;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillCooldown,\"WL_JACKFROST\",-500;\n         bonus2 bSkillCooldown,\"WL_COMET\",-3300;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"WL_JACKFROST\",6;\n         bonus2 bSkillAtk,\"WL_COMET\",6;\n      }\n      if (getrefine()>=7) bonus bMatkRate,3;\n      if (getrefine()>=9) bonus bDelayrate,-3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 180 over the budget 150 (best pre-renewal 2hStaff 130, level 150): cut to 150",
+   "phase 7 effect: phase 7 (2026-10-17): Illusion staff for a Warlock: it keeps neutral and water magic +15 %; a little MATK at +7, delay at +9; Comet and Jack Frost dropped"
+  ],
+  "log": [
+   "translated: bVariableCastrate -> bCastrate",
+   "translated: flat bMatk,6*(.@r/3) -> MATK rate of a twentieth",
+   "scaled: bonus2 bSkillAtk,\"WL_JACKFROST\",10; -> bonus2 bSkillAtk,\"WL_JACKFROST\",3;",
+   "scaled: bonus2 bSkillAtk,\"WL_COMET\",10; -> bonus2 bSkillAtk,\"WL_COMET\",3;",
+   "scaled: bonus2 bSkillCooldown,\"WL_JACKFROST\",-1500; -> bonus2 bSkillCooldown,\"WL_JACKFROST\",-500;",
+   "scaled: bonus2 bSkillCooldown,\"WL_COMET\",-10000; -> bonus2 bSkillCooldown,\"WL_COMET\",-3300;",
+   "scaled: bonus2 bSkillAtk,\"WL_JACKFROST\",20; -> bonus2 bSkillAtk,\"WL_JACKFROST\",6;",
+   "scaled: bonus2 bSkillAtk,\"WL_COMET\",20; -> bonus2 bSkillAtk,\"WL_COMET\",6;",
+   "phase 7 effect: if (getrefine()>=7) bonus bMatkRate,3;\\nif (getrefine()>=9) bonus bDelayrate,-3; (phase 7 (2026-10-17): Illusion staff for a Warlock: it keeps neutral and water magic +15 %; a little MATK at +7, delay at +9; Comet and Jack Frost dropped)",
+   "MATK 320 -> bMatkRate 25"
+  ],
+  "drops": [
+   "EP17_2_BETA_ITEMKEEPER 0.05 %"
+  ]
+ },
+ {
+  "item": "Ep172_Bh_Sword",
+  "before": {
+   "Name": "Hypocrisy Edge",
+   "Type": "Weapon",
+   "SubType": "2hSword",
+   "Attack": "280",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Knight"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus2 bSkillAtk,\"RK_WINDCUTTER\",10;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"RK_WINDCUTTER\",10;\n      }\n      if (.@r>=9) {\n         bonus bDelayrate,-10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"RK_WINDCUTTER\",15;\n      }"
+  },
+  "after": {
+   "Name": "Hypocrisy Edge",
+   "Type": "Weapon",
+   "SubType": "2hSword",
+   "Attack": "260",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Knight"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus bUnbreakableWeapon;\n      bonus2 bSkillAtk,\"RK_WINDCUTTER\",3;\n      bonus bBaseAtk,12*(.@r/3);\n      if (.@r>=7) {\n         bonus2 bSkillAtk,\"RK_WINDCUTTER\",3;\n      }\n      if (.@r>=9) {\n         bonus bDelayrate,-10;\n      }\n      if (.@r>=11) {\n         bonus2 bSkillAtk,\"RK_WINDCUTTER\",5;\n      }\n      bonus2 bAddSize,Size_Medium,5;\n      bonus bMaxHPrate,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 280 over the budget 260 (best pre-renewal 2hSword 220, level 150): cut to 260",
+   "phase 7 effect: phase 7 (2026-10-17): Illusion sword for a Rune Knight: medium monsters and HP; Wind Cutter dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"RK_WINDCUTTER\",10; -> bonus2 bSkillAtk,\"RK_WINDCUTTER\",3;",
+   "scaled: bonus2 bSkillAtk,\"RK_WINDCUTTER\",10; -> bonus2 bSkillAtk,\"RK_WINDCUTTER\",3;",
+   "scaled: bonus2 bSkillAtk,\"RK_WINDCUTTER\",15; -> bonus2 bSkillAtk,\"RK_WINDCUTTER\",5;",
+   "phase 7 effect: bonus2 bAddSize,Size_Medium,5;\\nbonus bMaxHPrate,3; (phase 7 (2026-10-17): Illusion sword for a Rune Knight: medium monsters and HP; Wind Cutter dropped)"
+  ],
+  "drops": [
+   "EP17_2_HEART_HUNTER_H 0.05 %"
+  ]
+ },
+ {
+  "item": "Ex_Model_Foxtail",
+  "before": {
+   "Name": "Exquisite Foxtail Model",
+   "Type": "Weapon",
+   "SubType": "Staff",
+   "Attack": "240",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "140",
+   "Jobs": [
+    "Summoner",
+    "Spirit_Handler"
+   ],
+   "Classes": [],
+   "Script": "      bonus bLongAtkRate,8;\n      bonus bMaxHPrate,5;\n      .@r = getrefine();\n      bonus bDex,(.@r/2)*3;\n      bonus bMaxSP,(.@r/2)*15;\n      if (.@r>=7) {\n         .@r = min(.@r,10)-7;\n         bonus bBaseAtk,(48*.@r)+96;\n      }"
+  },
+  "after": {
+   "Name": "Exquisite Foxtail Model",
+   "Type": "Weapon",
+   "SubType": "Staff",
+   "Attack": "110",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "140",
+   "Jobs": [
+    "Mage",
+    "Wizard",
+    "Sage"
+   ],
+   "Classes": [],
+   "Script": "      bonus bLongAtkRate,8;\n      bonus bMaxHPrate,5;\n      .@r = getrefine();\n      bonus bDex,(.@r/2)*3;\n      bonus bMaxSP,(.@r/2)*15;\n      if (.@r>=7) {\n         .@r = min(.@r,10)-7;\n         bonus bBaseAtk,(48*.@r)+96;\n      }"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 240 over the budget 110 (best pre-renewal Staff 100, level 140): cut to 110",
+   "Doram-only (Summoner, Spirit_Handler), a class this game does not have: given to Mage, Wizard, Sage"
+  ],
+  "log": [],
+  "drops": [
+   "ANTLER_SCARABA 0.01 %"
+  ]
+ },
+ {
+  "item": "Green_Whistle",
+  "before": {
+   "Name": "Green Whistle",
+   "Type": "Weapon",
+   "SubType": "Musical",
+   "Attack": "170",
+   "MagicAttack": "50",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      if (.@r>5) {\n         bonus2 bSkillUseSP,\"MI_RUSH_WINDMILL\",(.@r-5)*4;\n         bonus2 bSkillUseSP,\"WM_LULLABY_DEEPSLEEP\",(.@r-5)*4;\n      }\n      bonus2 bSkillVariableCast,\"MI_RUSH_WINDMILL\",-2000;\n      bonus2 bSkillVariableCast,\"WM_LULLABY_DEEPSLEEP\",-2000;"
+  },
+  "after": {
+   "Name": "Green Whistle",
+   "Type": "Weapon",
+   "SubType": "Musical",
+   "Attack": "150",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,10;\n      .@r = getrefine();\n      if (.@r>5) {\n         bonus2 bSkillUseSP,\"MI_RUSH_WINDMILL\",((.@r-5)*4)/3;\n         bonus2 bSkillUseSP,\"WM_LULLABY_DEEPSLEEP\",((.@r-5)*4)/3;\n      }\n      bonus2 bSkillVariableCast,\"MI_RUSH_WINDMILL\",-600;\n      bonus2 bSkillVariableCast,\"WM_LULLABY_DEEPSLEEP\",-600;\n      bonus bSPrecovRate,10;\n      bonus2 bAddRace,RC_Insect,5;\n      if (getrefine()>=7) bonus bCastrate,-3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 170 over the budget 150 (best pre-renewal Musical 150, level 102): cut to 150",
+   "phase 7 effect: phase 7 (2026-10-17): Dicastes whistle for a Minstrel: SP recovery, Insects (its region); Windmill Rush and Lullaby dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillUseSP,\"MI_RUSH_WINDMILL\",(.@r-5)*4; -> bonus2 bSkillUseSP,\"MI_RUSH_WINDMILL\",((.@r-5)*4)/3;",
+   "scaled: bonus2 bSkillUseSP,\"WM_LULLABY_DEEPSLEEP\",(.@r-5)*4; -> bonus2 bSkillUseSP,\"WM_LULLABY_DEEPSLEEP\",((.@r-5)*4)/3;",
+   "scaled: bonus2 bSkillVariableCast,\"MI_RUSH_WINDMILL\",-2000; -> bonus2 bSkillVariableCast,\"MI_RUSH_WINDMILL\",-600;",
+   "scaled: bonus2 bSkillVariableCast,\"WM_LULLABY_DEEPSLEEP\",-2000; -> bonus2 bSkillVariableCast,\"WM_LULLABY_DEEPSLEEP\",-600;",
+   "phase 7 effect: bonus bSPrecovRate,10;\\nbonus2 bAddRace,RC_Insect,5;\\nif (getrefine()>=7) bonus bCastrate,-3; (phase 7 (2026-10-17): Dicastes whistle for a Minstrel: SP recovery, Insects (its region); Windmill Rush and Lullaby dropped)",
+   "MATK 50 -> bMatkRate 10"
+  ],
+  "drops": [
+   "ANTLER_SCARABA 0.05 %",
+   "I_ANTLER_SCARABA 0.05 %"
+  ]
+ },
+ {
+  "item": "Hippie_Guitar",
+  "before": {
+   "Name": "Hippie Guitar",
+   "Type": "Weapon",
+   "SubType": "Musical",
+   "Attack": "140",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      .@lvl = getskilllv(\"BA_MUSICALLESSON\");\n      bonus bAspdRate,.@lvl;\n      if (.@r>=7)\n         bonus bBaseAtk,(5*.@lvl);\n      if (.@r>=9)\n         bonus bAspd,1;"
+  },
+  "after": {
+   "Name": "Hippie Guitar",
+   "Type": "Weapon",
+   "SubType": "Musical",
+   "Attack": "140",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      .@lvl = getskilllv(\"BA_MUSICALLESSON\");\n      bonus bAspdRate,.@lvl;\n      if (.@r>=7)\n         bonus bBaseAtk,(5*.@lvl);\n      if (.@r>=9)\n         bonus bAspd,1;"
+  },
+  "how": "rule",
+  "why": [],
+  "log": [],
+  "drops": [
+   "E_COWRAIDERS1 1 %",
+   "RR_ARCLOUSE 0.2 %"
+  ]
+ },
+ {
+  "item": "Hippie_Rope",
+  "before": {
+   "Name": "Hippie Rope",
+   "Type": "Weapon",
+   "SubType": "Whip",
+   "Attack": "140",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      .@lvl = getskilllv(\"WM_LESSON\");\n      bonus bAspdRate,.@lvl;\n      if (.@r>=7)\n         bonus bBaseAtk,(5*.@lvl);\n      if (.@r>=9)\n         bonus bAspd,1;"
+  },
+  "after": {
+   "Name": "Hippie Rope",
+   "Type": "Weapon",
+   "SubType": "Whip",
+   "Attack": "140",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      .@lvl = getskilllv(\"WM_LESSON\");\n      bonus bAspdRate,.@lvl;\n      if (.@r>=7)\n         bonus bBaseAtk,(5*.@lvl);\n      if (.@r>=9)\n         bonus bAspd,1;"
+  },
+  "how": "rule",
+  "why": [],
+  "log": [],
+  "drops": [
+   "E_COWRAIDERS1 1 %",
+   "RR_CRAMP 0.2 %"
+  ]
+ },
+ {
+  "item": "Huuma_Hundred_Petal",
+  "before": {
+   "Name": "Huuma Shuriken of Dancing Petals",
+   "Type": "Weapon",
+   "SubType": "Huuma",
+   "Attack": "250",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "KagerouOboro",
+    "Ninja"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      .@bonus = 20;\n      if (.@r>=7) {\n         bonus bLongAtkRate,10;\n      }\n      if (.@r>=9) {\n         .@bonus += 20;\n      }\n      bonus2 bSkillAtk,\"KO_HUUMARANKA\",.@bonus;"
+  },
+  "after": {
+   "Name": "Huuma Shuriken of Dancing Petals",
+   "Type": "Weapon",
+   "SubType": "Huuma",
+   "Attack": "190",
+   "Slots": "2",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "KagerouOboro",
+    "Ninja"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      .@bonus = 20;\n      if (.@r>=7) {\n         bonus bLongAtkRate,10;\n      }\n      if (.@r>=9) {\n         .@bonus += 20;\n      }\n      bonus2 bSkillAtk,\"KO_HUUMARANKA\",min(15,(.@bonus)/3);\n      bonus2 bAddRace,RC_DemiHuman,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 250 over the budget 190 (best pre-renewal Huuma 185, level 100): cut to 190",
+   "phase 7 effect: phase 7 (2026-10-17): Rockridge huuma: the bandits (Demi-Humans) of its region; Huuma Shuriken Storm dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"KO_HUUMARANKA\",.@bonus; -> bonus2 bSkillAtk,\"KO_HUUMARANKA\",min(15,(.@bonus)/3);",
+   "phase 7 effect: bonus2 bAddRace,RC_DemiHuman,5; (phase 7 (2026-10-17): Rockridge huuma: the bandits (Demi-Humans) of its region; Huuma Shuriken Storm dropped)"
+  ],
+  "drops": [
+   "MECHASPIDER 7 %",
+   "COWRAIDERS2 0.5 %",
+   "E_COWRAIDERS2 1 %"
+  ]
+ },
+ {
+  "item": "Imperial_Guard",
+  "before": {
+   "Name": "Imperial Guard",
+   "Type": "Armor",
+   "Defense": "120",
+   "Slots": "1",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Crusader"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus bMdef,5;\n      bonus2 bSkillAtk,\"LG_SHIELDPRESS\",(.@r>=6?20+((.@r-5)*2):20);"
+  },
+  "after": {
+   "Name": "Imperial Guard",
+   "Type": "Armor",
+   "Defense": "5",
+   "Slots": "1",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Crusader"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus bMdef,5;\n      bonus2 bSkillAtk,\"LG_SHIELDPRESS\",min(15,((.@r>=6?20+((.@r-5)*2):20))/3);\n      bonus2 bSubRace,RC_Insect,5;\n      bonus bMaxHPrate,3;\n      if (getrefine()>=7) bonus2 bSubEle,Ele_Earth,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Scaraba shield for a Royal Guard: less damage from Insects and Earth (the Scarabas), HP; Shield Press dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"LG_SHIELDPRESS\",(.@r>=6?20+((.@r-5)*2):20); -> bonus2 bSkillAtk,\"LG_SHIELDPRESS\",min(15,((.@r>=6?20+((.@r-5)*2):20))/3);",
+   "phase 7 effect: bonus2 bSubRace,RC_Insect,5;\\nbonus bMaxHPrate,3;\\nif (getrefine()>=7) bonus2 bSubEle,Ele_Earth,5; (phase 7 (2026-10-17): Scaraba shield for a Royal Guard: less damage from Insects and Earth (the Scarabas), HP; Shield Press dropped)",
+   "DEF 120 -> 5 (slot Left_Hand)"
+  ],
+  "drops": [
+   "RAKE_SCARABA_EGG 2.5 %",
+   "I_RAKE_SCARABA_EGG 2.5 %"
+  ]
+ },
+ {
+  "item": "Imperial_Spear",
+  "before": {
+   "Name": "Imperial Spear",
+   "Type": "Weapon",
+   "SubType": "1hSpear",
+   "Attack": "180",
+   "MagicAttack": "40",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Crusader"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"LG_CANNONSPEAR\",20+(.@r/2*3);\n      bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",20+(.@r/2*3);"
+  },
+  "after": {
+   "Name": "Imperial Spear",
+   "Type": "Weapon",
+   "SubType": "1hSpear",
+   "Attack": "180",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Crusader"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,5;\n      .@r = getrefine();\n      bonus2 bSkillAtk,\"LG_CANNONSPEAR\",min(15,(20+(.@r/2*3))/3);\n      bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",min(15,(20+(.@r/2*3))/3);\n      bonus bMaxHPrate,5;\n      bonus2 bAddRace,RC_Insect,5;\n      if (getrefine()>=9) bonus bAtkRate,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Scaraba spear for a Royal Guard: the tank's HP and Insects; Cannon Spear and Banishing Point dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"LG_CANNONSPEAR\",20+(.@r/2*3); -> bonus2 bSkillAtk,\"LG_CANNONSPEAR\",min(15,(20+(.@r/2*3))/3);",
+   "scaled: bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",20+(.@r/2*3); -> bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",min(15,(20+(.@r/2*3))/3);",
+   "phase 7 effect: bonus bMaxHPrate,5;\\nbonus2 bAddRace,RC_Insect,5;\\nif (getrefine()>=9) bonus bAtkRate,3; (phase 7 (2026-10-17): Scaraba spear for a Royal Guard: the tank's HP and Insects; Cannon Spear and Banishing Point dropped)",
+   "MATK 40 -> bMatkRate 5"
+  ],
+  "drops": [
+   "HORN_SCARABA 0.05 %",
+   "I_HORN_SCARABA 0.05 %"
+  ]
+ },
+ {
+  "item": "Magical_Foxtail",
+  "before": {
+   "Name": "Magical Foxtail Staff",
+   "Type": "Weapon",
+   "SubType": "Staff",
+   "Attack": "120",
+   "MagicAttack": "260",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "140",
+   "Jobs": [
+    "Summoner",
+    "Spirit_Handler"
+   ],
+   "Classes": [],
+   "Script": "      bonus bMaxSP,100;\n      .@r = getrefine();\n      bonus bMatkRate,2*(.@r/2);\n      bonus bMaxSPrate,.@r/2;\n      if (.@r>=7) {\n         .@r = min(.@r,10)-7;\n         bonus bBaseAtk,(24*.@r)+48;\n         bonus bMatk,(52*.@r)+104;\n      }\n      bonus bUnbreakableWeapon;"
+  },
+  "after": {
+   "Name": "Magical Foxtail Staff",
+   "Type": "Weapon",
+   "SubType": "Staff",
+   "Attack": "110",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "140",
+   "Jobs": [
+    "Mage",
+    "Wizard",
+    "Sage"
+   ],
+   "Classes": [],
+   "Script": "      bonus bMatkRate,20;\n      bonus bMaxSP,100;\n      .@r = getrefine();\n      bonus bMatkRate,2*(.@r/2);\n      bonus bMaxSPrate,.@r/2;\n      if (.@r>=7) {\n         .@r = min(.@r,10)-7;\n         bonus bBaseAtk,(24*.@r)+48;\n         bonus bMatkRate,((52*.@r)+104)/20;\n      }\n      bonus bUnbreakableWeapon;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 120 over the budget 110 (best pre-renewal Staff 100, level 140): cut to 110",
+   "Doram-only (Summoner, Spirit_Handler), a class this game does not have: given to Mage, Wizard, Sage"
+  ],
+  "log": [
+   "translated: flat bMatk,(52*.@r)+104 -> MATK rate of a twentieth",
+   "MATK 260 -> bMatkRate 20"
+  ],
+  "drops": [
+   "ANTLER_SCARABA 0.01 %"
+  ]
+ },
+ {
+  "item": "Mental_Stick",
+  "before": {
+   "Name": "Mental Stick",
+   "Type": "Weapon",
+   "SubType": "Staff",
+   "Attack": "40",
+   "MagicAttack": "170",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Sage"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      if (.@r>5) {\n         bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",(.@r-5)*2;\n         bonus bMaxHPrate,-(.@r-5)*2;\n      }\n      bonus2 bSkillVariableCast,\"SO_PSYCHIC_WAVE\",-3000;\n      bonus2 bSkillUseSP,\"SO_PSYCHIC_WAVE\",-60;"
+  },
+  "after": {
+   "Name": "Mental Stick",
+   "Type": "Weapon",
+   "SubType": "Staff",
+   "Attack": "40",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Sage"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,20;\n      .@r = getrefine();\n      if (.@r>5) {\n         bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",min(15,((.@r-5)*2)/3);\n         bonus bMaxHPrate,-(.@r-5)*2;\n      }\n      bonus2 bSkillVariableCast,\"SO_PSYCHIC_WAVE\",-1000;\n      bonus2 bSkillUseSP,\"SO_PSYCHIC_WAVE\",-20;\n      bonus bMatkRate,3;\n      bonus bCastrate,-3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Dicastes staff for a Sorcerer: MATK and cast time; Psychic Wave dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",(.@r-5)*2; -> bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",min(15,((.@r-5)*2)/3);",
+   "scaled: bonus2 bSkillVariableCast,\"SO_PSYCHIC_WAVE\",-3000; -> bonus2 bSkillVariableCast,\"SO_PSYCHIC_WAVE\",-1000;",
+   "scaled: bonus2 bSkillUseSP,\"SO_PSYCHIC_WAVE\",-60; -> bonus2 bSkillUseSP,\"SO_PSYCHIC_WAVE\",-20;",
+   "phase 7 effect: bonus bMatkRate,3;\\nbonus bCastrate,-3; (phase 7 (2026-10-17): Dicastes staff for a Sorcerer: MATK and cast time; Psychic Wave dropped)",
+   "MATK 170 -> bMatkRate 20"
+  ],
+  "drops": [
+   "POM_SPIDER 0.01 %"
+  ]
+ },
+ {
+  "item": "Metal_Stick",
+  "before": {
+   "Name": "Metal Stick",
+   "Type": "Weapon",
+   "SubType": "1hSpear",
+   "Attack": "180",
+   "Slots": "3",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Crusader",
+    "Knight"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"LG_CANNONSPEAR\",10;\n      if (.@r > 6) {\n         bonus2 bSkillAtk,\"LG_OVERBRAND\",10 + (.@r > 8 ? 15 : 0);\n      }\n      if (.@r > 11) {\n         bonus bDelayrate,-15;\n      }"
+  },
+  "after": {
+   "Name": "Metal Stick",
+   "Type": "Weapon",
+   "SubType": "1hSpear",
+   "Attack": "180",
+   "Slots": "3",
+   "WeaponLevel": "4",
+   "EquipLevelMin": "150",
+   "Jobs": [
+    "Crusader",
+    "Knight"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"LG_CANNONSPEAR\",3;\n      if (.@r > 6) {\n         bonus2 bSkillAtk,\"LG_OVERBRAND\",min(15,(10 + (.@r > 8 ? 15 : 0))/3);\n      }\n      if (.@r > 11) {\n         bonus bDelayrate,-15;\n      }\n      bonus2 bAddSize,Size_Large,5;\n      if (getrefine()>=9) bonus bMaxHPrate,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Spider Chariot's spear: large monsters, HP at +9; Cannon Spear and Overbrand dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"LG_CANNONSPEAR\",10; -> bonus2 bSkillAtk,\"LG_CANNONSPEAR\",3;",
+   "scaled: bonus2 bSkillAtk,\"LG_OVERBRAND\",10 + (.@r > 8 ? 15 : 0); -> bonus2 bSkillAtk,\"LG_OVERBRAND\",min(15,(10 + (.@r > 8 ? 15 : 0))/3);",
+   "phase 7 effect: bonus2 bAddSize,Size_Large,5;\\nif (getrefine()>=9) bonus bMaxHPrate,5; (phase 7 (2026-10-17): Spider Chariot's spear: large monsters, HP at +9; Cannon Spear and Overbrand dropped)"
+  ],
+  "drops": [
+   "MECHASPIDER 0.01 %"
+  ]
+ },
+ {
+  "item": "Mine_Worker_Pickax",
+  "before": {
+   "Name": "Mine Worker's Pickaxe",
+   "Type": "Weapon",
+   "SubType": "2hAxe",
+   "Attack": "300",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "Blacksmith"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      bonus bUnbreakableWeapon;\n      autobonus \"{ bonus bCritical,20; }\",50,7000,BF_SHORT,\"{ specialeffect2 EF_ENCHANCE; }\";\n      .@r = getrefine();\n      if (.@r>=9) {\n         bonus bCritAtkRate,15;\n      } else if (.@r>=7) {\n         bonus bCritAtkRate,5;\n      }"
+  },
+  "after": {
+   "Name": "Mine Worker's Pickaxe",
+   "Type": "Weapon",
+   "SubType": "2hAxe",
+   "Attack": "240",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "Blacksmith"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bUnbreakableWeapon;\n      autobonus \"{ bonus bCritical,20; }\",50,7000,BF_SHORT,\"{ specialeffect2 EF_ENCHANCE; }\";\n      .@r = getrefine();\n      if (.@r>=9) {\n         bonus bCritAtkRate,15;\n      } else if (.@r>=7) {\n         bonus bCritAtkRate,5;\n      }"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 300 over the budget 240 (best pre-renewal 2hAxe 229, level 100): cut to 240"
+  ],
+  "log": [],
+  "drops": [
+   "MECHASPIDER 7 %",
+   "COWRAIDERS3 0.01 %",
+   "E_COWRAIDERS3 0.01 %"
+  ]
+ },
+ {
+  "item": "Monokage",
+  "before": {
+   "Name": "Monokage",
+   "Type": "Weapon",
+   "SubType": "Dagger",
+   "Attack": "100",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "KagerouOboro",
+    "Ninja"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"KO_BAKURETSU\",getskilllv(\"NJ_TOBIDOUGU\");\n      if (.@r>=9) {\n         bonus bLongAtkRate,5;\n      } else if (.@r>=7) {\n         bonus bLongAtkRate,2;\n      }"
+  },
+  "after": {
+   "Name": "Monokage",
+   "Type": "Weapon",
+   "SubType": "Dagger",
+   "Attack": "100",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "KagerouOboro",
+    "Ninja"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus2 bSkillAtk,\"KO_BAKURETSU\",min(15,(getskilllv(\"NJ_TOBIDOUGU\"))/3);\n      if (.@r>=9) {\n         bonus bLongAtkRate,5;\n      } else if (.@r>=7) {\n         bonus bLongAtkRate,2;\n      }\n      bonus bCritical,5;\n      bonus2 bAddRace,RC_DemiHuman,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Rockridge dagger for a Ninja line: critical and the bandits; Kunai Explosion dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"KO_BAKURETSU\",getskilllv(\"NJ_TOBIDOUGU\"); -> bonus2 bSkillAtk,\"KO_BAKURETSU\",min(15,(getskilllv(\"NJ_TOBIDOUGU\"))/3);",
+   "phase 7 effect: bonus bCritical,5;\\nbonus2 bAddRace,RC_DemiHuman,3; (phase 7 (2026-10-17): Rockridge dagger for a Ninja line: critical and the bandits; Kunai Explosion dropped)"
+  ],
+  "drops": [
+   "COWRAIDERS2 0.5 %",
+   "E_COWRAIDERS2 1 %"
+  ]
+ },
+ {
+  "item": "Mystic_Bow",
+  "before": {
+   "Name": "Mystic Bow",
+   "Type": "Weapon",
+   "SubType": "Bow",
+   "Attack": "75",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "105",
+   "Jobs": [
+    "BardDancer",
+    "Hunter"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      bonus bMatk,100;\n      bonus bInt,4;\n      bonus2 bSkillUseSP,\"WM_SEVERE_RAINSTORM\",10;"
+  },
+  "after": {
+   "Name": "Mystic Bow",
+   "Type": "Weapon",
+   "SubType": "Bow",
+   "Attack": "75",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "105",
+   "Jobs": [
+    "BardDancer",
+    "Hunter"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,(100)/20;\n      bonus bInt,4;\n      bonus2 bSkillUseSP,\"WM_SEVERE_RAINSTORM\",3;\n      bonus bSPrecovRate,10;\n      bonus bLongAtkRate,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Scaraba Queen's bow: SP recovery and ranged damage; Severe Rainstorm's SP dropped"
+  ],
+  "log": [
+   "translated: flat bMatk,100 -> MATK rate of a twentieth",
+   "scaled: bonus2 bSkillUseSP,\"WM_SEVERE_RAINSTORM\",10; -> bonus2 bSkillUseSP,\"WM_SEVERE_RAINSTORM\",3;",
+   "phase 7 effect: bonus bSPrecovRate,10;\\nbonus bLongAtkRate,3; (phase 7 (2026-10-17): Scaraba Queen's bow: SP recovery and ranged damage; Severe Rainstorm's SP dropped)"
+  ],
+  "drops": [
+   "QUEEN_SCARABA 2.5 %",
+   "I_QUEEN_SCARABA 2.5 %"
+  ]
+ },
+ {
+  "item": "Origin_Of_Elemental",
+  "before": {
+   "Name": "Elemental Origin",
+   "Type": "Weapon",
+   "SubType": "Book",
+   "Attack": "120",
+   "MagicAttack": "150",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "Sage"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      bonus bInt,4;\n      .@bonus = 10;\n      if (.@r>=7) {\n         .@bonus += 10;\n      }\n      if (.@r>=9) {\n         .@bonus += 10;\n      }\n      bonus2 bSkillAtk,\"MG_FIREBOLT\",.@bonus;\n      bonus2 bSkillAtk,\"MG_COLDBOLT\",.@bonus;\n      bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",.@bonus;\n      bonus2 bSkillAtk,\"WZ_EARTHSPIKE\",.@bonus;"
+  },
+  "after": {
+   "Name": "Elemental Origin",
+   "Type": "Weapon",
+   "SubType": "Book",
+   "Attack": "120",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "Sage"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,20;\n      .@r = getrefine();\n      bonus bInt,4;\n      .@bonus = 10;\n      if (.@r>=7) {\n         .@bonus += 10;\n      }\n      if (.@r>=9) {\n         .@bonus += 10;\n      }\n      bonus2 bSkillAtk,\"MG_FIREBOLT\",min(15,(.@bonus)/3);\n      bonus2 bSkillAtk,\"MG_COLDBOLT\",min(15,(.@bonus)/3);\n      bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",min(15,(.@bonus)/3);\n      bonus2 bSkillAtk,\"WZ_EARTHSPIKE\",min(15,(.@bonus)/3);\n      if (getrefine()>=7) bonus bMatkRate,3;\n      if (getrefine()>=9) bonus bCastrate,-3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Rockridge book for a Sorcerer: it keeps MATK +20 % and INT; a little MATK at +7, cast time at +9; the four bolts' bonus dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"MG_FIREBOLT\",.@bonus; -> bonus2 bSkillAtk,\"MG_FIREBOLT\",min(15,(.@bonus)/3);",
+   "scaled: bonus2 bSkillAtk,\"MG_COLDBOLT\",.@bonus; -> bonus2 bSkillAtk,\"MG_COLDBOLT\",min(15,(.@bonus)/3);",
+   "scaled: bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",.@bonus; -> bonus2 bSkillAtk,\"MG_LIGHTNINGBOLT\",min(15,(.@bonus)/3);",
+   "scaled: bonus2 bSkillAtk,\"WZ_EARTHSPIKE\",.@bonus; -> bonus2 bSkillAtk,\"WZ_EARTHSPIKE\",min(15,(.@bonus)/3);",
+   "phase 7 effect: if (getrefine()>=7) bonus bMatkRate,3;\\nif (getrefine()>=9) bonus bCastrate,-3; (phase 7 (2026-10-17): Rockridge book for a Sorcerer: it keeps MATK +20 % and INT; a little MATK at +7, cast time at +9; the four bolts' bonus dropped)",
+   "MATK 150 -> bMatkRate 20"
+  ],
+  "drops": [
+   "COWRAIDERS3 0.5 %",
+   "E_COWRAIDERS3 1.5 %"
+  ]
+ },
+ {
+  "item": "Red_Ether_Bag",
+  "before": {
+   "Name": "Red Ether Bag",
+   "Type": "Weapon",
+   "SubType": "Mace",
+   "Attack": "15",
+   "MagicAttack": "100",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Alchemist"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      if (.@r>=6) {\n         bonus2 bSkillAtk,\"GN_CRAZYWEED_ATK\",20+((.@r-5)*2);\n         bonus2 bSkillAtk,\"GN_DEMONIC_FIRE\",20+((.@r-5)*2);\n      }\n      else {\n         bonus2 bSkillAtk,\"GN_CRAZYWEED_ATK\",20;\n         bonus2 bSkillAtk,\"GN_DEMONIC_FIRE\",20;\n      }"
+  },
+  "after": {
+   "Name": "Red Ether Bag",
+   "Type": "Weapon",
+   "SubType": "Mace",
+   "Attack": "15",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Alchemist"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,10;\n      .@r = getrefine();\n      if (.@r>=6) {\n         bonus2 bSkillAtk,\"GN_CRAZYWEED_ATK\",min(15,(20+((.@r-5)*2))/3);\n         bonus2 bSkillAtk,\"GN_DEMONIC_FIRE\",min(15,(20+((.@r-5)*2))/3);\n      }\n      else {\n         bonus2 bSkillAtk,\"GN_CRAZYWEED_ATK\",6;\n         bonus2 bSkillAtk,\"GN_DEMONIC_FIRE\",6;\n      }\n      bonus2 bMagicAtkEle,Ele_Fire,5;\n      bonus2 bAddRace,RC_Plant,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Dicastes bag for a Genetic: fire magic and Plants; Crazy Weed and Demonic Fire dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"GN_CRAZYWEED_ATK\",20+((.@r-5)*2); -> bonus2 bSkillAtk,\"GN_CRAZYWEED_ATK\",min(15,(20+((.@r-5)*2))/3);",
+   "scaled: bonus2 bSkillAtk,\"GN_DEMONIC_FIRE\",20+((.@r-5)*2); -> bonus2 bSkillAtk,\"GN_DEMONIC_FIRE\",min(15,(20+((.@r-5)*2))/3);",
+   "scaled: bonus2 bSkillAtk,\"GN_CRAZYWEED_ATK\",20; -> bonus2 bSkillAtk,\"GN_CRAZYWEED_ATK\",6;",
+   "scaled: bonus2 bSkillAtk,\"GN_DEMONIC_FIRE\",20; -> bonus2 bSkillAtk,\"GN_DEMONIC_FIRE\",6;",
+   "phase 7 effect: bonus2 bMagicAtkEle,Ele_Fire,5;\\nbonus2 bAddRace,RC_Plant,5; (phase 7 (2026-10-17): Dicastes bag for a Genetic: fire magic and Plants; Crazy Weed and Demonic Fire dropped)",
+   "MATK 100 -> bMatkRate 10"
+  ],
+  "drops": [
+   "RAKE_SCARABA 0.05 %",
+   "I_RAKE_SCARABA 0.05 %"
+  ]
+ },
+ {
+  "item": "Scarlet_Dagger",
+  "before": {
+   "Name": "Crimson Dagger",
+   "Type": "Weapon",
+   "SubType": "Dagger",
+   "Attack": "55",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "70",
+   "Jobs": [
+    "Alchemist",
+    "Archer",
+    "Assassin",
+    "BardDancer",
+    "Blacksmith",
+    "Crusader",
+    "Hunter",
+    "KagerouOboro",
+    "Knight",
+    "Mage",
+    "Merchant",
+    "Ninja",
+    "Novice",
+    "Rogue",
+    "Sage",
+    "SoulLinker",
+    "SuperNovice",
+    "Swordman",
+    "Thief",
+    "Wizard"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bBaseAtk,(((BaseLevel-70)/10)*5)+(.@r<=15?pow(.@r,2):225);\n      bonus bMatk,(.@r<=15?(pow(.@r,2)/2):225);"
+  },
+  "after": {
+   "Name": "Crimson Dagger",
+   "Type": "Weapon",
+   "SubType": "Dagger",
+   "Attack": "55",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "70",
+   "Jobs": [
+    "Alchemist",
+    "Archer",
+    "Assassin",
+    "BardDancer",
+    "Blacksmith",
+    "Crusader",
+    "Hunter",
+    "KagerouOboro",
+    "Knight",
+    "Mage",
+    "Merchant",
+    "Ninja",
+    "Novice",
+    "Rogue",
+    "Sage",
+    "SoulLinker",
+    "SuperNovice",
+    "Swordman",
+    "Thief",
+    "Wizard"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bBaseAtk,((BaseLevel-70)/10)*5+.@r*4;\n      bonus bMatkRate,.@r/2;"
+  },
+  "how": "best attempt",
+  "why": [
+   "replacement effect: best attempt 2026-10-17: renewal adds the square of the refine to ATK (+100 at +10) and half of it to MATK, on a level-70 dagger. Linear here: +4 ATK and +0.5 % MATK a refine (+40 / +5 % at +10); the base-level part (+5 ATK every 10 levels above 70) kept"
+  ],
+  "log": [
+   "translated: flat bMatk,(.@r<=15?(pow(.@r,2)/2):225) -> MATK rate of a twentieth",
+   "override script: best attempt 2026-10-17: renewal adds the square of the refine to ATK (+100 at +10) and half of it to MATK, on a level-70 dagger. Linear here: +4 ATK and +0.5 % MATK a refine (+40 / +5 % at +10); the base-level part (+5 ATK every 10 levels above 70) kept"
+  ],
+  "drops": [
+   "SIORAVA 0.5 %"
+  ]
+ },
+ {
+  "item": "Scarlet_Twohand_Axe",
+  "before": {
+   "Name": "Crimson Two-Handed Axe",
+   "Type": "Weapon",
+   "SubType": "2hAxe",
+   "Attack": "200",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "70",
+   "Jobs": [
+    "Alchemist",
+    "Blacksmith",
+    "Crusader",
+    "Knight",
+    "Merchant",
+    "Swordman"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bBaseAtk,(((BaseLevel-70)/10)*5)+(.@r<=15?pow(.@r,2):225);\n      bonus bUnbreakableWeapon;"
+  },
+  "after": {
+   "Name": "Crimson Two-Handed Axe",
+   "Type": "Weapon",
+   "SubType": "2hAxe",
+   "Attack": "200",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "70",
+   "Jobs": [
+    "Alchemist",
+    "Blacksmith",
+    "Crusader",
+    "Knight",
+    "Merchant",
+    "Swordman"
+   ],
+   "Classes": [],
+   "Script": "      .@r = getrefine();\n      bonus bBaseAtk,((BaseLevel-70)/10)*5+.@r*4;\n      bonus bUnbreakableWeapon;"
+  },
+  "how": "best attempt",
+  "why": [
+   "replacement effect: best attempt 2026-10-17: renewal adds the square of the refine to ATK (+100 at +10) on a level-70 axe. Linear here: +4 ATK a refine (+40 at +10); the base-level part kept"
+  ],
+  "log": [
+   "override script: best attempt 2026-10-17: renewal adds the square of the refine to ATK (+100 at +10) on a level-70 axe. Linear here: +4 ATK a refine (+40 at +10); the base-level part kept"
+  ],
+  "drops": [
+   "N_MINOROUS 0.5 %"
+  ]
+ },
+ {
+  "item": "Stem_Whip",
+  "before": {
+   "Name": "Stem Whip",
+   "Type": "Weapon",
+   "SubType": "Whip",
+   "Attack": "170",
+   "MagicAttack": "50",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      if (.@r>5) {\n         bonus2 bSkillUseSP,\"WA_SWING_DANCE\",(.@r-5)*4;\n         bonus2 bSkillUseSP,\"WM_LULLABY_DEEPSLEEP\",(.@r-5)*4;\n      }\n      bonus2 bSkillVariableCast,\"WA_SWING_DANCE\",-2000;\n      bonus2 bSkillVariableCast,\"WM_LULLABY_DEEPSLEEP\",-2000;"
+  },
+  "after": {
+   "Name": "Stem Whip",
+   "Type": "Weapon",
+   "SubType": "Whip",
+   "Attack": "160",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "BardDancer"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMatkRate,10;\n      .@r = getrefine();\n      if (.@r>5) {\n         bonus2 bSkillUseSP,\"WA_SWING_DANCE\",((.@r-5)*4)/3;\n         bonus2 bSkillUseSP,\"WM_LULLABY_DEEPSLEEP\",((.@r-5)*4)/3;\n      }\n      bonus2 bSkillVariableCast,\"WA_SWING_DANCE\",-600;\n      bonus2 bSkillVariableCast,\"WM_LULLABY_DEEPSLEEP\",-600;\n      bonus bSPrecovRate,10;\n      bonus2 bAddRace,RC_Insect,5;\n      if (getrefine()>=7) bonus bCastrate,-3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "ATK 170 over the budget 160 (best pre-renewal Whip 160, level 102): cut to 160",
+   "phase 7 effect: phase 7 (2026-10-17): Dicastes whip for a Wanderer: SP recovery, Insects; Swing Dance and Lullaby dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillUseSP,\"WA_SWING_DANCE\",(.@r-5)*4; -> bonus2 bSkillUseSP,\"WA_SWING_DANCE\",((.@r-5)*4)/3;",
+   "scaled: bonus2 bSkillUseSP,\"WM_LULLABY_DEEPSLEEP\",(.@r-5)*4; -> bonus2 bSkillUseSP,\"WM_LULLABY_DEEPSLEEP\",((.@r-5)*4)/3;",
+   "scaled: bonus2 bSkillVariableCast,\"WA_SWING_DANCE\",-2000; -> bonus2 bSkillVariableCast,\"WA_SWING_DANCE\",-600;",
+   "scaled: bonus2 bSkillVariableCast,\"WM_LULLABY_DEEPSLEEP\",-2000; -> bonus2 bSkillVariableCast,\"WM_LULLABY_DEEPSLEEP\",-600;",
+   "phase 7 effect: bonus bSPrecovRate,10;\\nbonus2 bAddRace,RC_Insect,5;\\nif (getrefine()>=7) bonus bCastrate,-3; (phase 7 (2026-10-17): Dicastes whip for a Wanderer: SP recovery, Insects; Swing Dance and Lullaby dropped)",
+   "MATK 50 -> bMatkRate 10"
+  ],
+  "drops": [
+   "DOLOMEDES 0.05 %"
+  ]
+ },
+ {
+  "item": "Sura_Rampage",
+  "before": {
+   "Name": "Sura Rampage",
+   "Type": "Weapon",
+   "SubType": "Knuckle",
+   "Attack": "142",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Monk"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      bonus2 bSkillAtk,\"SR_EARTHSHAKER\",20;\n      bonus2 bSkillAtk,\"SR_SKYNETBLOW\",20;\n      bonus bUseSPrate,5;\n      .@r = getrefine();\n      if (.@r>5) {\n         bonus bUseSPrate,-1*(.@r-5);\n      }"
+  },
+  "after": {
+   "Name": "Sura Rampage",
+   "Type": "Weapon",
+   "SubType": "Knuckle",
+   "Attack": "142",
+   "Slots": "1",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "102",
+   "Jobs": [
+    "Monk"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus2 bSkillAtk,\"SR_EARTHSHAKER\",6;\n      bonus2 bSkillAtk,\"SR_SKYNETBLOW\",6;\n      bonus bUseSPrate,5;\n      .@r = getrefine();\n      if (.@r>5) {\n         bonus bUseSPrate,-1*(.@r-5);\n      }\n      bonus bCritical,5;\n      bonus2 bAddRace,RC_Insect,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Dicastes knuckle for a Sura: critical and Insects; Earth Shaker and Sky Net Blow dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"SR_EARTHSHAKER\",20; -> bonus2 bSkillAtk,\"SR_EARTHSHAKER\",6;",
+   "scaled: bonus2 bSkillAtk,\"SR_SKYNETBLOW\",20; -> bonus2 bSkillAtk,\"SR_SKYNETBLOW\",6;",
+   "phase 7 effect: bonus bCritical,5;\\nbonus2 bAddRace,RC_Insect,5; (phase 7 (2026-10-17): Dicastes knuckle for a Sura: critical and Insects; Earth Shaker and Sky Net Blow dropped)"
+  ],
+  "drops": [
+   "ANGRA_MANTIS 0.05 %"
+  ]
+ },
+ {
+  "item": "Telekinetic_Orb",
+  "before": {
+   "Name": "Telekinetic Orb",
+   "Type": "Armor",
+   "Defense": "2",
+   "EquipLevelMin": "110",
+   "Jobs": [
+    "Alchemist",
+    "Assassin",
+    "BardDancer",
+    "Blacksmith",
+    "Crusader",
+    "Hunter",
+    "Knight",
+    "Monk",
+    "Priest",
+    "Rogue",
+    "Sage",
+    "Wizard"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      bonus bMdef,1;\n      bonus bInt,3;\n      bonus bMaxSP,30;\n      bonus2 bSkillAtk,\"WL_SOULEXPANSION\",10;\n      bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",10;\n      bonus2 bSkillUseSP,\"WL_SOULEXPANSION\",-50;\n      bonus2 bSkillUseSP,\"SO_PSYCHIC_WAVE\",-50;"
+  },
+  "after": {
+   "Name": "Telekinetic Orb",
+   "Type": "Armor",
+   "Defense": "1",
+   "EquipLevelMin": "110",
+   "Jobs": [
+    "Alchemist",
+    "Assassin",
+    "BardDancer",
+    "Blacksmith",
+    "Crusader",
+    "Hunter",
+    "Knight",
+    "Monk",
+    "Priest",
+    "Rogue",
+    "Sage",
+    "Wizard"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      bonus bMdef,1;\n      bonus bInt,3;\n      bonus bMaxSP,30;\n      bonus2 bSkillAtk,\"WL_SOULEXPANSION\",3;\n      bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",3;\n      bonus2 bSkillUseSP,\"WL_SOULEXPANSION\",-16;\n      bonus2 bSkillUseSP,\"SO_PSYCHIC_WAVE\",-16;\n      bonus bMatkRate,2;\n      bonus bSPrecovRate,5;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Dicastes orb: a little MATK and SP recovery; Soul Expansion and Psychic Wave dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"WL_SOULEXPANSION\",10; -> bonus2 bSkillAtk,\"WL_SOULEXPANSION\",3;",
+   "scaled: bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",10; -> bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",3;",
+   "scaled: bonus2 bSkillUseSP,\"WL_SOULEXPANSION\",-50; -> bonus2 bSkillUseSP,\"WL_SOULEXPANSION\",-16;",
+   "scaled: bonus2 bSkillUseSP,\"SO_PSYCHIC_WAVE\",-50; -> bonus2 bSkillUseSP,\"SO_PSYCHIC_WAVE\",-16;",
+   "phase 7 effect: bonus bMatkRate,2;\\nbonus bSPrecovRate,5; (phase 7 (2026-10-17): Dicastes orb: a little MATK and SP recovery; Soul Expansion and Psychic Wave dropped)",
+   "DEF 2 -> 1 (slot Both_Accessory)"
+  ],
+  "drops": [
+   "MIMING 0.01 %"
+  ]
+ },
+ {
+  "item": "Tidung",
+  "before": {
+   "Name": "Tidung",
+   "Type": "Armor",
+   "Defense": "2",
+   "Slots": "1",
+   "Jobs": [
+    "All"
+   ],
+   "Classes": [],
+   "Script": "      bonus bMdef,10;\n      bonus2 bSubEle,Ele_All,5;\n      bonus2 bResEff,Eff_Stun,1500;\n      bonus2 bResEff,Eff_Freeze,1500;"
+  },
+  "after": {
+   "Name": "Tidung",
+   "Type": "Armor",
+   "Defense": "3",
+   "Slots": "1",
+   "Jobs": [
+    "All"
+   ],
+   "Classes": [],
+   "Script": "      bonus bMdef,10;\n      bonus2 bSubEle,Ele_All,5;\n      bonus2 bResEff,Eff_Stun,1500;\n      bonus2 bResEff,Eff_Freeze,1500;"
+  },
+  "how": "rule",
+  "why": [],
+  "log": [
+   "DEF 2 -> 3 (slot Armor)"
+  ],
+  "drops": [
+   "LEAK 2.5 %"
+  ]
+ },
+ {
+  "item": "Vigilante_Bow",
+  "before": {
+   "Name": "Vigilante Bow",
+   "Type": "Weapon",
+   "SubType": "Bow",
+   "Attack": "140",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "Rogue"
+   ],
+   "Classes": [
+    "All_Third",
+    "Fourth"
+   ],
+   "Script": "      .@r = getrefine();\n      .@bonus = 5*(readparam(bDex)/20);\n      if (.@r>=7) {\n         .@bonus += 10;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillAtk,\"AC_DOUBLE\",50;\n      }\n      bonus2 bWeaponDamageRate,W_BOW,.@bonus;"
+  },
+  "after": {
+   "Name": "Vigilante Bow",
+   "Type": "Weapon",
+   "SubType": "Bow",
+   "Attack": "140",
+   "Slots": "2",
+   "WeaponLevel": "3",
+   "EquipLevelMin": "100",
+   "Jobs": [
+    "Rogue"
+   ],
+   "Classes": [
+    "Third_Upper"
+   ],
+   "Script": "      .@r = getrefine();\n      .@bonus = 5*(readparam(bDex)/20);\n      if (.@r>=7) {\n         .@bonus += 10;\n      }\n      if (.@r>=9) {\n         bonus2 bSkillAtk,\"AC_DOUBLE\",15;\n      }\n      bonus2 bWeaponDamageRate,W_BOW,.@bonus;\n      bonus bCritical,5;\n      if (getrefine()>=9) bonus bLongAtkRate,3;"
+  },
+  "how": "best attempt",
+  "why": [
+   "phase 7 effect: phase 7 (2026-10-17): Rockridge bow for a Shadow Chaser: critical, ranged damage at +9; Double Strafe dropped"
+  ],
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"AC_DOUBLE\",50; -> bonus2 bSkillAtk,\"AC_DOUBLE\",15;",
+   "phase 7 effect: bonus bCritical,5;\\nif (getrefine()>=9) bonus bLongAtkRate,3; (phase 7 (2026-10-17): Rockridge bow for a Shadow Chaser: critical, ranged damage at +9; Double Strafe dropped)"
+  ],
+  "drops": [
+   "COWRAIDERS1 0.5 %",
+   "MECHASPIDER 7 %",
+   "E_COWRAIDERS1 1 %"
+  ]
+ }
+]

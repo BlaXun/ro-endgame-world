@@ -1,0 +1,111 @@
+# Bifrost fields (bif_fild01-02): Miming, Little Fatum, Angra Mantis, Pom Spider.
+# What a party does differently against these four, on top of everyday-party.yml (the
+# roles in every fight), which this needs. Written for the renewal-world mod's
+# pre-renewal conversion of these monsters, and tested with a Lord Knight (role tank),
+# High Priest (support), High Wizard and Sniper (attacker).
+#
+# Not shipped. To use it, copy the entries into a mod's db/population_strategy.yml,
+# after companion-roles and everyday-party. Rule names are prefixed rw_.
+#
+# What each monster does, and the answer:
+#   Little Fatum  casts magic: Lightning Bolt on chase at 100 %, Jupitel Thunder,
+#                 Thunderstorm; Lex Aeterna on a member, Stun.  Killed first; its casts are
+#                 interrupted (they are cancellable). Earth is what Wind fears, and the
+#                 everyday bolt list picks it.
+#   Angra Mantis  The most evasive of the four, Sonic Blow lv10, Auto Guard.  Quagmire
+#                 takes AGI and DEX; Ankle Snare holds it.
+#   Miming        Stun and Silence attacks.  The everyday healer cures both; companion-
+#                 roles walls a member a Stun Attack is cast at.
+#   Pom Spider    Spider Web, Venom Dust, Quagmire on the ground.  companion-roles moves
+#                 everyone off hostile ground; Fire, which Earth level 3 takes double, comes
+#                 from the everyday bolt list.
+#
+# Results: see the README beside this file.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  # --- Who first --------------------------------------------------------------------
+  - Mob: LITTLE_FATUM
+    Targeting: { Priority: 80 }
+  - Mob: ANGRA_MANTIS
+    Targeting: { Priority: 70 }
+  - Mob: MIMING
+    Targeting: { Priority: 60 }
+  - Mob: POM_SPIDER
+    Targeting: { Priority: 50 }
+
+  # --- Casts are interrupted -----------------------------------------------------------
+  # Encounter: the plan applies while one of them is near, not only to whoever targets
+  # it (a plan for a particular monster otherwise applies only to the companion
+  # fighting it).
+  - Mobs: [MIMING, LITTLE_FATUM, ANGRA_MANTIS, POM_SPIDER]
+    Encounter: true
+    Jobs:
+      # companion-roles regroups with the owner when an encounter ends, meant for a boss
+      # that has gone. With these four as encounters it fired at every kill, and the
+      # Wizard walked back to the owner and stood there for half a minute.
+      - Job: All
+        Disable: [boss_gone_say, boss_gone_regroup]
+      - Job: Hunter
+        Build: ranged
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: rw_interrupt_the_caster
+            Priority: 66
+            Cast: AC_DOUBLE
+            Target: { Enemy: casting }
+      - Job: Wizard
+        Build: caster
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: rw_bolt_the_caster
+            Priority: 46
+            Cast: [WZ_EARTHSPIKE, MG_FIREBOLT, MG_COLDBOLT, MG_LIGHTNINGBOLT]
+            Target: { Enemy: casting }
+            When: self_sp_pct_ge15
+
+  # --- Angra Mantis: take its evasion away ---------------------------------------------
+  - Mob: ANGRA_MANTIS
+    Encounter: true
+    Jobs:
+      - Job: Wizard
+        Build: caster
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: rw_quagmire_the_mantis
+            Priority: 58
+            Cast: WZ_QUAGMIRE
+            Target: { Enemy: attacking }
+            When: not_enemy_quagmire
+            Claim: { Name: rw_quag, For: 5000 }
+      - Job: Hunter
+        Build: ranged
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: rw_snare_the_mantis
+            Priority: 63
+            Cast: HT_ANKLESNARE
+            Target: { Enemy: attacking }
+            When: not_enemy_ankle
+            Claim: { Name: rw_snared, For: 6000 }
+
+  # --- Pom Spider: stand and cast ---------------------------------------------------
+  # Its Quagmire and Spider Web land on the party all fight long. Stepping off them and
+  # back out to range broke every Fire Bolt before it was cast (its SP never moved).
+  # Against it the Wizard stands on the ground it is given, and keeps its distance only
+  # when nothing else is to be done.
+  - Mob: POM_SPIDER
+    Encounter: true
+    Jobs:
+      - Job: Wizard
+        Build: caster
+        Requires: { Role: [attacker, none] }
+        Disable: [leave_hostile_ground, ep_keep_back]
+        Rules:
+          - Name: rw_spider_keep_back
+            Priority: 30
+            Target: { Enemy: attacking, Range: 14 }
+            KeepDistance: { Min: 3, Max: 9 }

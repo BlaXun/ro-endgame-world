@@ -1,0 +1,227 @@
+[
+ {
+  "items": [
+   [
+    "Imperial_Spear",
+    "Imperial_Guard"
+   ]
+  ],
+  "renewal": "bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",10;\nbonus2 bSkillAtk,\"CR_GRANDCROSS\",10;",
+  "after": "bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",3;\nbonus2 bSkillAtk,\"CR_GRANDCROSS\",3;",
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",10; -> bonus2 bSkillAtk,\"LG_RAYOFGENESIS\",3;",
+   "scaled: bonus2 bSkillAtk,\"CR_GRANDCROSS\",10; -> bonus2 bSkillAtk,\"CR_GRANDCROSS\",3;"
+  ],
+  "flags": []
+ },
+ {
+  "items": [
+   [
+    "Pitaya_Y_Card",
+    "EP17_2_Marc_Card"
+   ],
+   [
+    "Pitaya_V_Card",
+    "EP17_2_Marc_Card"
+   ]
+  ],
+  "renewal": "bonus2 bSubEle,Ele_Neutral,5;",
+  "after": "bonus2 bSubEle,Ele_Neutral,1;",
+  "log": [
+   "a third: bonus2 bSubEle,Ele_Neutral,5; -> bonus2 bSubEle,Ele_Neutral,1;"
+  ],
+  "flags": []
+ },
+ {
+  "items": [
+   [
+    "RepairRobot_T_Card",
+    "ExplorationRover_T_Card"
+   ]
+  ],
+  "renewal": "bonus bCritAtkRate,10;",
+  "after": "bonus bCritAtkRate,3;",
+  "log": [
+   "a third: bonus bCritAtkRate,10; -> bonus bCritAtkRate,3;"
+  ],
+  "flags": []
+ },
+ {
+  "items": [
+   [
+    "GC109_Card",
+    "DR815_Card"
+   ]
+  ],
+  "renewal": "autobonus \"{ bonus bAspd,5; }\",30,5000;",
+  "after": "autobonus \"{ bonus bAspd,1; }\",30,5000;",
+  "log": [
+   "a third: bonus bAspd,5; -> bonus bAspd,1;"
+  ],
+  "flags": [
+   "autocast or autobonus: kept, flagged: chains with other cards"
+  ]
+ },
+ {
+  "items": [
+   [
+    "Black_Cat",
+    "Black_Wing"
+   ]
+  ],
+  "renewal": "bonus bHit,5;\nbonus bMatk,5;\nbonus2 bSkillUseSP,\"SC_ENERVATION\",20;\nbonus2 bSkillUseSP,\"SC_GROOMY\",20;",
+  "after": "bonus bHit,1;\nbonus bMatkRate,1;\nbonus2 bSkillUseSP,\"SC_ENERVATION\",6;\nbonus2 bSkillUseSP,\"SC_GROOMY\",6;",
+  "log": [
+   "flat MATK made a MATK rate of a tenth",
+   "scaled: bonus2 bSkillUseSP,\"SC_ENERVATION\",20; -> bonus2 bSkillUseSP,\"SC_ENERVATION\",6;",
+   "scaled: bonus2 bSkillUseSP,\"SC_GROOMY\",20; -> bonus2 bSkillUseSP,\"SC_GROOMY\",6;",
+   "a third: bonus bHit,5; -> bonus bHit,1;"
+  ],
+  "flags": []
+ },
+ {
+  "items": [
+   [
+    "Grave_Arclouse_Card",
+    "Grave_Mimic_Card"
+   ]
+  ],
+  "renewal": "bonus2 bSubRace,RC_Brute,5;\nbonus2 bSubRace,RC_Undead,5;\nbonus2 bIgnoreMdefRaceRate,RC_Brute,50;\nbonus2 bIgnoreMdefRaceRate,RC_Undead,50;",
+  "after": "bonus2 bSubRace,RC_Brute,1;\nbonus2 bSubRace,RC_Undead,1;\nbonus2 bIgnoreMdefRaceRate,RC_Brute,16;\nbonus2 bIgnoreMdefRaceRate,RC_Undead,16;",
+  "log": [
+   "a third: bonus2 bSubRace,RC_Brute,5; -> bonus2 bSubRace,RC_Brute,1;",
+   "a third: bonus2 bSubRace,RC_Undead,5; -> bonus2 bSubRace,RC_Undead,1;",
+   "a third: bonus2 bIgnoreMdefRaceRate,RC_Brute,50; -> bonus2 bIgnoreMdefRaceRate,RC_Brute,16;",
+   "a third: bonus2 bIgnoreMdefRaceRate,RC_Undead,50; -> bonus2 bIgnoreMdefRaceRate,RC_Undead,16;"
+  ],
+  "flags": [
+   "defence ignored: kept, flagged"
+  ]
+ },
+ {
+  "items": [
+   [
+    "Grave_Arclouse_Card",
+    "Grave_Minorous_Card"
+   ]
+  ],
+  "renewal": "bonus2 bSubRace,RC_Brute,5;\nbonus2 bSubRace,RC_Undead,5;\nbonus2 bIgnoreDefRaceRate,RC_Brute,50;\nbonus2 bIgnoreDefRaceRate,RC_Undead,50;",
+  "after": "bonus2 bSubRace,RC_Brute,1;\nbonus2 bSubRace,RC_Undead,1;\nbonus2 bIgnoreDefRaceRate,RC_Brute,16;\nbonus2 bIgnoreDefRaceRate,RC_Undead,16;",
+  "log": [
+   "a third: bonus2 bSubRace,RC_Brute,5; -> bonus2 bSubRace,RC_Brute,1;",
+   "a third: bonus2 bSubRace,RC_Undead,5; -> bonus2 bSubRace,RC_Undead,1;",
+   "a third: bonus2 bIgnoreDefRaceRate,RC_Brute,50; -> bonus2 bIgnoreDefRaceRate,RC_Brute,16;",
+   "a third: bonus2 bIgnoreDefRaceRate,RC_Undead,50; -> bonus2 bIgnoreDefRaceRate,RC_Undead,16;"
+  ],
+  "flags": [
+   "defence ignored: kept, flagged"
+  ]
+ },
+ {
+  "items": [
+   [
+    "Grave_Mummy_Card",
+    "Grave_A_Mummy_Card"
+   ]
+  ],
+  "renewal": "bonus3 bAutoSpellWhenHit,\"NPC_WIDESLEEP\",2,30;\nbonus2 bSubEle,Ele_Neutral,5;",
+  "after": "bonus3 bAutoSpellWhenHit,\"NPC_WIDESLEEP\",2,30;\nbonus2 bSubEle,Ele_Neutral,1;",
+  "log": [
+   "a third: bonus2 bSubEle,Ele_Neutral,5; -> bonus2 bSubEle,Ele_Neutral,1;"
+  ],
+  "flags": [
+   "autocast or autobonus: kept, flagged: chains with other cards"
+  ]
+ },
+ {
+  "items": [
+   [
+    "Doram_High_Suit",
+    "Doram_High_Cape",
+    "Doram_High_Shoes"
+   ]
+  ],
+  "renewal": "bonus bMaxHP,3000;\nbonus bNoCastCancel;\nbonus bFixedCastrate,-20-(getequiprefinerycnt(EQI_ARMOR)+getequiprefinerycnt(EQI_GARMENT)+getequiprefinerycnt(EQI_SHOES));",
+  "after": "bonus bMaxHP,1000;\nbonus bNoCastCancel;\n.@_removed = 1;",
+  "log": [
+   "dropped: bonus bFixedCastrate,-20-(getequiprefinerycnt(EQI_ARMOR)+getequiprefinerycnt(EQI_GARMENT)+getequiprefinerycnt(EQI_SHOES));",
+   "a third: bonus bMaxHP,3000; -> bonus bMaxHP,1000;"
+  ],
+  "flags": [
+   "special flag: kept, flagged"
+  ]
+ },
+ {
+  "items": [
+   [
+    "Cowraiders1_Card",
+    "Cowraiders2_Card"
+   ]
+  ],
+  "renewal": "bonus bStr,3;\nbonus bAtkRate,3;",
+  "after": "bonus bStr,1;\nbonus bAtkRate,1;",
+  "log": [
+   "a third: bonus bStr,3; -> bonus bStr,1;",
+   "a third: bonus bAtkRate,3; -> bonus bAtkRate,1;"
+  ],
+  "flags": []
+ },
+ {
+  "items": [
+   [
+    "Cowraiders1_Card",
+    "Cowraiders3_Card"
+   ]
+  ],
+  "renewal": "bonus2 bAddSize,Size_Small,15;\nbonus2 bMagicAddSize,Size_Small,15;",
+  "after": "bonus2 bAddSize,Size_Small,5;\nbonus2 bMagicAddSize,Size_Small,5;",
+  "log": [
+   "a third: bonus2 bAddSize,Size_Small,15; -> bonus2 bAddSize,Size_Small,5;",
+   "a third: bonus2 bMagicAddSize,Size_Small,15; -> bonus2 bMagicAddSize,Size_Small,5;"
+  ],
+  "flags": []
+ },
+ {
+  "items": [
+   [
+    "Cowraiders1_Card",
+    "E_Cowraiders1_Card"
+   ]
+  ],
+  "renewal": "bonus2 bSkillAtk,\"GS_SPREADATTACK\",50;",
+  "after": "bonus2 bSkillAtk,\"GS_SPREADATTACK\",15;",
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"GS_SPREADATTACK\",50; -> bonus2 bSkillAtk,\"GS_SPREADATTACK\",15;"
+  ],
+  "flags": []
+ },
+ {
+  "items": [
+   [
+    "Cowraiders2_Card",
+    "E_Cowraiders2_Card"
+   ]
+  ],
+  "renewal": "bonus2 bSkillAtk,\"GS_RAPIDSHOWER\",50;",
+  "after": "bonus2 bSkillAtk,\"GS_RAPIDSHOWER\",15;",
+  "log": [
+   "scaled: bonus2 bSkillAtk,\"GS_RAPIDSHOWER\",50; -> bonus2 bSkillAtk,\"GS_RAPIDSHOWER\",15;"
+  ],
+  "flags": []
+ },
+ {
+  "items": [
+   [
+    "Cowraiders3_Card",
+    "E_Cowraiders3_Card"
+   ]
+  ],
+  "renewal": "bonus2 bAddSize,Size_Small,10;\nbonus2 bMagicAddSize,Size_Small,10;",
+  "after": "bonus2 bAddSize,Size_Small,3;\nbonus2 bMagicAddSize,Size_Small,3;",
+  "log": [
+   "a third: bonus2 bAddSize,Size_Small,10; -> bonus2 bAddSize,Size_Small,3;",
+   "a third: bonus2 bMagicAddSize,Size_Small,10; -> bonus2 bMagicAddSize,Size_Small,3;"
+  ],
+  "flags": []
+ }
+]

@@ -1,0 +1,36 @@
+# Rockridge mine (rockmi1-2): the Elite Buffalo Bandits and Gaster. What a level-99 party
+# does differently there, on top of everyday-party.yml, which this needs.
+#
+# Not shipped. To use it, copy the entries into a mod's db/population_strategy.yml,
+# after companion-roles and everyday-party. Rule names are prefixed rr_.
+#
+#   Elite Buffalo Bandit (E_COWRAIDERS2)  shoots from ten cells, with a level-7 combo:
+#                 three of them on the healer and the caster, out of the tank's
+#                 reach, wiped the party every time. Pneuma under whoever they shoot
+#                 (ranged attacks do not pass it), and they are killed first.
+#
+# Results: see the README beside this file.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: E_COWRAIDERS2
+    Targeting: { Priority: 80 }
+
+  - Mob: E_COWRAIDERS2
+    Encounter: true
+    Jobs:
+      - Job: All
+        Disable: [boss_gone_say, boss_gone_regroup]
+      - Job: Priest
+        Build: healer
+        Requires: { Role: [support, none] }
+        Rules:
+          - Name: rr_pneuma_the_shot
+            Priority: 89
+            Cast: AL_PNEUMA
+            Target: { Ally: attacked }
+            Field: { Skill: AL_PNEUMA, Owner: party, At: target, Range: 0, Below: 1 }
+            Cooldown: 2000

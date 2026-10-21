@@ -1,0 +1,39 @@
+# Boss pilots (renewal-world, not added to the spawns yet): plans for the bosses the
+# boss method is being worked out on. See tools/renewal-world-monsters/BOSSES.md.
+#
+# Not shipped. Rule names are prefixed bp_.
+#
+#   Wild Rider  Water 2, DEF 60 but MDEF 27: magic, and Wind above all (double
+#               against Water). Jupitel Thunder at it, Lex Aeterna on it; its Stun
+#               Attack is walled by companion-roles. Tried once (2026-10-10, a level-62
+#               party): worse than without it (wiped at 42-57 s, 21-28 % of its HP
+#               gone). Kept as the record of a first try, not as a working plan.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: WILD_RIDER
+    Encounter: true
+    Jobs:
+      - Job: All
+        Disable: [boss_gone_say, boss_gone_regroup]
+      - Job: Wizard
+        Build: caster
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: bp_jupitel_the_rider
+            Priority: 65
+            Cast: [WZ_JUPITEL, MG_LIGHTNINGBOLT]
+            Target: { Enemy: boss }
+            When: self_sp_pct_ge10
+      - Job: Priest
+        Build: healer
+        Requires: { Role: [support, none] }
+        Rules:
+          - Name: bp_lex_the_rider
+            Priority: 60
+            Cast: PR_LEXAETERNA
+            Target: { Enemy: boss }
+            When: [not_enemy_aeterna, self_sp_ge150]

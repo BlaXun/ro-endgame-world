@@ -1,0 +1,144 @@
+# third-classes: what the third classes add to an everyday party.
+#
+# everyday-party.yml drives a party by its second-class skills, and a third class
+# takes those rules in (a Warlock is a Wizard to it). This plan adds each third
+# class's own skills on top, above the rule they replace: a Warlock's Soul Expansion
+# and Crimson Rock before the bolts, a Ranger's Aimed Bolt before Double Strafe, an
+# Arch Bishop's party-wide buffs and Highness Heal.
+#
+# Load after everyday-party.yml. Rule names are prefixed tc_.
+#
+# What kills: nothing new; this is not a monster's plan.
+# What it does: see above.
+# What it measured: see FIGHT results in the level 175 phase reports (phase 2).
+#
+# Not shipped. To use it, copy the entries into a mod's db/population_strategy.yml.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: All
+    Jobs:
+      - Job: Warlock_T
+        Build: caster
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: tc_wl_area
+            Priority: 52
+            Cast: [WL_CHAINLIGHTNING, WL_JACKFROST, WL_EARTHSTRAIN]
+            Target: { Enemy: attacking }
+            Count: { Enemy: attacking, Around: target, Range: 3, AtLeast: 2 }
+            When: self_sp_pct_ge25
+            Cooldown: 4000
+          - Name: tc_wl_single
+            Priority: 46
+            Cast: [WL_SOULEXPANSION, WL_CRIMSONROCK]
+            Target: { Enemy: attacking }
+            When: self_sp_pct_ge15
+
+      - Job: Ranger_T
+        Build: ranged
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: tc_ra_arrow_storm
+            Priority: 38
+            Cast: RA_ARROWSTORM
+            Target: { Enemy: attacking }
+            Count: { Enemy: attacking, Around: target, Range: 2, AtLeast: 3 }
+            When: self_sp_pct_ge30
+            Cooldown: 3000
+          - Name: tc_ra_aimed_bolt
+            Priority: 36
+            Cast: RA_AIMEDBOLT
+            Target: { Enemy: attacking }
+            When: self_sp_pct_ge10
+
+      - Job: Arch_Bishop_T
+        Build: healer
+        Requires: { Role: [support, none] }
+        Rules:
+          - Name: tc_ab_highness_heal
+            Priority: 91
+            Cast: AB_HIGHNESSHEAL
+            Target: { Ally: lowest_hp }
+            When: ally_hp_pct_lt45
+          - Name: tc_ab_clementia
+            Priority: 60
+            Cast: AB_CLEMENTIA
+            Target: self
+            Cooldown: 200000
+          - Name: tc_ab_canto
+            Priority: 59
+            Cast: AB_CANTO
+            Target: self
+            Cooldown: 200000
+
+      # A Sage's rules freeze what is on the party (priority 60) and bolt. An attacking Sorcerer's
+      # own spells go above both: against a monster that will not freeze, the Sage rule cast
+      # Frost Diver 79 times in two fights and nothing else.
+      - Job: Sorcerer_T
+        Build: caster
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: tc_so_area
+            Priority: 64
+            Cast: [SO_PSYCHIC_WAVE, SO_EARTHGRAVE, SO_DIAMONDDUST]
+            Target: { Enemy: attacking }
+            Count: { Enemy: attacking, Around: target, Range: 3, AtLeast: 2 }
+            When: self_sp_pct_ge25
+            Cooldown: 4000
+          - Name: tc_so_single
+            Priority: 62
+            Cast: SO_VARETYR_SPEAR
+            Target: { Enemy: attacking }
+            When: self_sp_pct_ge15
+
+      # As an attacker a Minstrel or Wanderer plays no song (a performer casts nothing
+      # else) and shoots: Metallic Sound at one, Severe Rainstorm at a pack.
+      - Job: [Minstrel_T, Wanderer_T]
+        Build: shooter
+        Requires: { Role: attacker }
+        Rules:
+          - Name: tc_wm_rainstorm
+            Priority: 64
+            Cast: WM_SEVERE_RAINSTORM
+            Target: { Enemy: attacking }
+            Count: { Enemy: attacking, Around: target, Range: 3, AtLeast: 2 }
+            When: self_sp_pct_ge25
+            Cooldown: 5000
+          - Name: tc_wm_metallic
+            Priority: 62
+            Cast: [WM_METALICSOUND, CG_ARROWVULCAN]
+            Target: { Enemy: attacking }
+            When: self_sp_pct_ge10
+
+      # The Sura's own blows above the Champion's combo: Tiger Cannon when it can pay
+      # for it, Sky Net Blow on a pack, Knuckle Arrow to close in, Dragon Combo in a combo.
+      - Job: Sura_T
+        Build: combo
+        Requires: { Role: attacker }
+        Rules:
+          - Name: tc_sr_tiger_cannon
+            Priority: 49
+            Cast: SR_TIGERCANNON
+            Target: { Enemy: attacking }
+            When: self_hp_pct_ge60
+            Cooldown: 8000
+          - Name: tc_sr_sky_net
+            Priority: 48
+            Cast: SR_SKYNETBLOW
+            Target: self
+            Count: { Enemy: attacking, Range: 2, AtLeast: 2 }
+            Cooldown: 3000
+          - Name: tc_sr_dragon_combo
+            Priority: 47
+            Cast: SR_DRAGONCOMBO
+            Target: { Enemy: attacking }
+            When: self_combo
+          - Name: tc_sr_knuckle_arrow
+            Priority: 42
+            Cast: SR_KNUCKLEARROW
+            Target: { Enemy: attacking }
+            Cooldown: 4000

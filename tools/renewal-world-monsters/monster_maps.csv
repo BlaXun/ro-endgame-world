@@ -1,0 +1,46 @@
+map,note,band,bosses,offence,toughness
+bif_fild01,Splendide Bifrost,,,,
+bif_fild02,Mora field,,,,
+ecl_fild01,Eclage field,,,,
+ecl_tdun01,Eclage tree dungeon 1,,,,
+ecl_tdun02,Eclage tree dungeon 2,,,,
+ecl_tdun03,Eclage tree dungeon 3,,,,
+dew_fild01,Dewata field,,,,
+dew_dun01,Krakatau volcano,,yes,,
+dew_dun02,Istana cave,,,,
+mal_dun01,Malangdo culvert,,yes,,
+ma_fild01,Malaya field,,,,
+ma_fild02,Malaya field,,,,
+ma_dun01,Bangungot hospital,,,,
+iz_dun05,Izlude dungeon 5,,yes,,
+dic_fild01,Kamidal mountain,,,,
+dic_fild02,Kamidal tunnel,,,,
+dic_dun01,Scaraba hole 1,,,,
+dic_dun02,Scaraba hole 2,,yes,,
+dic_dun03,Scaraba hole 3,,yes,,
+ver_eju,Verus side entrance,,,,
+ver_tunn,Verus tunnel,,,,
+verus01,Verus,,,,
+verus02,Verus,,,,
+verus03,Verus,,,,
+harboro2,Rockridge harbour,,,,
+rockrdg1,Rockridge field,,,,
+rockrdg2,Rockridge field,,,,
+rockmi1,Rockridge mine,,yes,,
+rockmi2,Rockridge mine,,,,
+ba_2whs01,bios-island (quest area),,,0.5,0.5
+ba_2whs02,bios-island (quest area),,,0.5,0.5
+ba_bath,bios-island (quest area),,,0.5,0.5
+ba_lost,bios-island (quest area),,yes,0.5,0.5
+ba_maison,bios-island (quest area),,,0.5,0.5
+pay_d03_i,illusion-dungeons (quest area),,,0.5,0.5
+gl_chyard_,nightmare-dungeons (quest area),,yes,0.5,0.5
+moc_prydn1,nightmare-dungeons (quest area),,,0.5,0.5
+moc_prydn2,nightmare-dungeons (quest area),,yes,0.5,0.5
+prt_cas,prontera-castle (quest area),,,0.5,0.5
+prt_prison,prontera-castle (quest area),,,0.5,0.5
+sp_os,rudus (quest area),,,0.5,0.5
+sp_rudus,rudus (quest area),,,0.5,0.5
+sp_rudus2,rudus (quest area),,yes,0.5,0.5
+sp_rudus3,rudus (quest area),,,0.5,0.5
+un_bunker,verus-bunker (quest area),,,0.5,0.5

@@ -1,0 +1,106 @@
+# Spider Chariot (MECHASPIDER, renewal boss converted for the level-175 run, level 158): the
+# pre-renewal Hell Judgement plan (its Dark Lord entry), taken over. What hurt an eight-member
+# party of level 158 without a plan (phase 6, 2026-10-17): Pulse Strike 62 % of the damage, Hell
+# Judgement 33 %; 20 falls a minute. Its area stone curse (Wide Stone) and Max Pain below 30 % are
+# in its kit as well (RENEWAL_BOSS_TACTICS.md). Rule names are prefixed sc_.
+#
+# Results (attrition fights, 5 minutes, four each; wear = its HP taken off a minute):
+#   eight at 158, no plan, after its skills and spell power were restored: 10.1 %, 20.0 falls a minute
+#   with this plan (round 5 numbers): eight at 158 12.8 %, 12.6 falls; the mixed eight (two 99/70)
+#   7.4 %, 11.9; four at 158 7.5 %, 7.8. Kept as its plan (2026-10-17).
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: MECHASPIDER
+    Encounter: true
+    Jobs:
+      - Job: All
+        Ban: [SA_LANDPROTECTOR,       # it erases the Pneumas and Safety Walls
+              PR_KYRIE]               # Kyrie and Assumptio end each other (status.yml)
+        Rules:
+          # Not in melee: 4 or more cells off the boss, where Pneuma stops Hell Judgement.
+          - Name: sc_out_of_melee
+            Priority: 87
+            Requires: { Role: [support, attacker, none] }
+            Target: { Enemy: boss, Mob: MECHASPIDER }
+            KeepDistance: { Min: 4, Max: 9 }
+          - Name: sc_onto_pneuma       # and onto the party's Pneuma: one spot for everyone
+            Priority: 88
+            Requires: { Role: [support, attacker, none] }
+            MoveTo: { Field: AL_PNEUMA, Owner: party, Within: 9, Depth: 1 }   # its middle cell
+      - Job: Priest
+        Rules:
+          # A Pneuma at its own feet, 4 or more cells off the boss: the spot the back line
+          # gathers on (3x3). Chasing each member with a Pneuma of their own (tried) left
+          # most of them off one when Hell Judgement landed.
+          - Name: sc_pneuma_the_spot
+            Priority: 91
+            Cast: AL_PNEUMA
+            Target: self
+            Count: { Enemy: any, Mob: MECHASPIDER, Range: 3, Below: 1 }
+            Field: { Skill: AL_PNEUMA, Owner: party, Range: 1, Below: 1 }
+            Cooldown: 1000
+          # Holy on the melee: Dark Lord is Undead (the players' answer: "With aspersio
+          # from a priest, it will do 260% damage").
+          - Name: sc_aspersio_tank
+            Priority: 86
+            Cast: PR_ASPERSIO
+            Target: { Ally: missing, Status: SC_ASPERSIO, Role: tank, Expiring: 3000 }
+          - Name: sc_aspersio_assassin
+            Priority: 85
+            Cast: PR_ASPERSIO
+            Target: { Ally: missing, Status: SC_ASPERSIO, Job: Assassin, Expiring: 3000 }
+      - Job: [Priest, Wizard, Sage]
+        Rules:
+          # Safety Wall under whoever is in melee with the boss without one.
+          - Name: sc_wall_the_melee
+            Priority: 90
+            Cast: MG_SAFETYWALL
+            Target: { Ally: missing, Status: SC_SAFETYWALL }
+            Count: { Enemy: any, Mob: MECHASPIDER, Around: target, Range: 3, AtLeast: 1 }
+            Field: { Skill: MG_SAFETYWALL, Owner: party, At: target, Range: 0, Below: 1 }
+            OnePerParty: true
+            Cooldown: 1000
+      - Job: Priest
+        Rules:
+          - Name: sc_magnus_the_pack
+            Priority: 88
+            Cast: PR_MAGNUS
+            Target: { Enemy: boss, Mob: MECHASPIDER }
+            Count: { Enemy: slaves, Around: target, Range: 3, AtLeast: 2 }
+            OnePerParty: true
+            Cooldown: 6000
+      - Job: [Wizard, Sage, Hunter]
+        Rules:
+          - Name: sc_illusions_first
+            Priority: 84
+            Target: { Enemy: slaves }
+            SetTarget: true
+      - Job: High_Priest
+        Rules:
+          - Name: sc_assumptio_everyone
+            Priority: 89
+            Cast: HP_ASSUMPTIO
+            Target: { Ally: missing, Status: SC_ASSUMPTIO, Expiring: 5000 }
+            Claim: { Name: sc_assumptio, For: 3000 }
+      - Job: Sage
+        Rules:
+          # Power Up below 30 %: "Quagmire or Dispel cancels it" (MVP_TACTICS.md).
+          - Name: sc_dispel_powerup
+            Priority: 93
+            Cast: SA_DISPELL
+            Target: { Enemy: boss, Mob: MECHASPIDER }
+            When: enemy_powerup
+            Cooldown: 3000
+      - Job: Hunter
+        Rules:
+          - Name: sc_snare_the_boss
+            Priority: 92
+            Cast: HT_ANKLESNARE
+            Target: { Enemy: boss, Mob: MECHASPIDER }
+            Aim: { Cells: 2, From: target, Lead: true }   # a trap cannot go under it
+            When: not_enemy_ankle
+            Cooldown: 1500

@@ -1,0 +1,91 @@
+# Dewata (dew_fild01, dew_dun01-02): Alnoldi, Comodo, Cendrawasih, Banaspaty, Butoijo,
+# with renewal's kits at pre-renewal level 43-53. What a party does differently there, on
+# top of everyday-party.yml, which this needs. Tested with a level-48 Knight (tank),
+# Priest (support), Wizard and Hunter (attacker).
+#
+# Not shipped. To use it, copy the entries into a mod's db/population_strategy.yml,
+# after companion-roles and everyday-party. Rule names are prefixed dw_.
+#
+#   Cendrawasih  Hell Judgement (area, around itself, 0.8 s cast) whenever it can, Spiral
+#                Pierce, Pulse Strike, All Heal (10 s cast). Killed first; its casts are
+#                interrupted, and the Wizard freezes it.
+#   Alnoldi      heals itself (Heal at every chance): interrupted, and bolted.
+#   Butoijo      Sleep and Silence attacks, Fire Pillar: frozen before it reaches the
+#                healer; the everyday healer cures Silence.
+#   Comodo       Bowling Bash, Venom Dust: the everyday plan's peel and ground rules.
+#
+# Results: see the README beside this file.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: CENDRAWASIH
+    Targeting: { Priority: 80 }
+  - Mob: BUTOIJO
+    Targeting: { Priority: 70 }
+  - Mob: ALNOLDI
+    Targeting: { Priority: 60 }
+
+  - Mobs: [ALNOLDI, COMODO, CENDRAWASIH, BANASPATY, BUTOIJO]
+    Encounter: true
+    Jobs:
+      - Job: All
+        Disable: [boss_gone_say, boss_gone_regroup]
+      - Job: Hunter
+        Build: ranged
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: dw_interrupt_the_caster
+            Priority: 66
+            Cast: AC_DOUBLE
+            Target: { Enemy: casting }
+      - Job: Wizard
+        Build: caster
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: dw_bolt_the_caster
+            Priority: 62
+            Cast: [MG_COLDBOLT, MG_FIREBOLT, MG_LIGHTNINGBOLT, WZ_EARTHSPIKE]
+            Target: { Enemy: casting }
+            When: self_sp_pct_ge10
+
+  - Mobs: [CENDRAWASIH, BUTOIJO]
+    Encounter: true
+    Jobs:
+      - Job: Wizard
+        Build: caster
+        Requires: { Role: [attacker, none] }
+        Rules:
+          - Name: dw_freeze_the_dangerous
+            Priority: 68
+            Cast: MG_FROSTDIVER
+            Target: { Enemy: attacking }
+            When: not_enemy_freeze
+            Claim: { Name: dw_frozen, For: 4000 }
+
+  # Cendrawasih's Hell Judgement and Pulse Strike hit everyone around it: only the tank
+  # stands in reach. The healer, the caster and the archer keep five to nine cells from
+  # it (Heal reaches nine). It is Dewata's one Wind monster, which the selector uses.
+  - Mob: CENDRAWASIH
+    Encounter: true
+    Jobs:
+      - Job: [Priest, Wizard, Hunter]
+        Rules:
+          - Name: dw_out_of_its_reach
+            Priority: 93
+            Target: { Enemy: nearest, Element: Wind, Range: 14 }
+            KeepDistance: { Min: 5, Max: 9 }
+
+  # Comodo's Bowling Bash hits and knocks back everyone beside the tank: the others keep
+  # four cells away.
+  - Mob: COMODO
+    Encounter: true
+    Jobs:
+      - Job: [Priest, Wizard, Hunter]
+        Rules:
+          - Name: dw_off_the_bash
+            Priority: 93
+            Target: { Enemy: nearest, Range: 14 }
+            KeepDistance: { Min: 4, Max: 9 }

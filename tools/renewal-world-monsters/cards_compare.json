@@ -1,0 +1,1669 @@
+[
+ {
+  "card": "Alnoldi_Card",
+  "verdict": "Port as-is",
+  "slot": "Shield",
+  "tier": "Normal",
+  "renewal": "      bonus2 bSubRace,RC_Plant,30;",
+  "draft": "      bonus2 bSubRace,RC_Plant,30;",
+  "after": "bonus2 bSubRace,RC_Plant,20;\nbonus2 bResEff,Eff_Poison,2000;",
+  "log": [
+   "override: phase 9 (2026-10-18): the same card as Soldier Andre (Plant -30 %); now Plant -20 % and Poison resistance +20 %, a plant-country shield of its own"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "ALNOLDI 0.01 %"
+  ]
+ },
+ {
+  "card": "Angra_Mantis_Card",
+  "verdict": "Port with fixes",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bCritAtkRate,2;\n      if (BaseClass == Job_Thief) {\n         bonus bCritAtkRate,getrefine()/2;\n      }",
+  "draft": "      .@r = getrefine();\n      bonus bCritAtkRate,2;\n      if (BaseClass == Job_Thief) {\n         if (.@r >= 2) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 3) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 4) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 6) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 7) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 8) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 10) {\n            bonus bCritAtkRate,1;\n         }\n      }",
+  "after": "      .@r = getrefine();\n      bonus bCritAtkRate,2;\n      if (BaseClass == Job_Thief) {\n         if (.@r >= 2) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 3) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 4) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 6) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 7) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 8) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 10) {\n            bonus bCritAtkRate,1;\n         }\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "ANGRA_MANTIS 0.01 %"
+  ]
+ },
+ {
+  "card": "AntiqueBook_Card",
+  "verdict": "Port with fixes",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      bonus bMatk,5*(readparam(bInt)/10);",
+  "draft": "      bonus bMatk,40;",
+  "after": "      bonus bMatkRate,4;",
+  "log": [
+   "flat MATK made a MATK rate of a tenth"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "ANTIQUE_BOOK 0.01 %"
+  ]
+ },
+ {
+  "card": "Banaspaty_Card",
+  "verdict": "Buff",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus3 bAddEff,Eff_Burning,300,ATF_TARGET;",
+  "draft": "      bonus3 bAddEff,Eff_Burning,750,ATF_TARGET;",
+  "after": "      bonus3 bAddEff,Eff_Burning,300,ATF_TARGET;",
+  "log": [
+   "weaker of draft and renewal: bonus3 bAddEff,Eff_Burning,750,ATF_TARGET; -> bonus3 bAddEff,Eff_Burning,300,ATF_TARGET;"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "BANASPATY 0.01 %"
+  ]
+ },
+ {
+  "card": "Bellare_Card",
+  "verdict": "Nerf",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_REVOLVER) {\n         .@r = getrefine();\n         bonus bHit,20;\n         bonus bLongAtkRate,(5+.@r);\n         if (.@r >= 10) {\n            bonus2 bSkillAtk,\"RL_FIREDANCE\",15;\n         }\n      }",
+  "draft": "      .@r = getrefine();\n      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_REVOLVER) {\n         bonus bHit,10;\n         bonus bLongAtkRate,3;\n         if (.@r >= 2) {\n            bonus bLongAtkRate,1;\n         }\n         if (.@r >= 3) {\n            bonus bLongAtkRate,1;\n         }\n         if (.@r >= 7) {\n            bonus bShortAtkRate,2;\n         }\n      }",
+  "after": "      .@r = getrefine();\n      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_REVOLVER) {\n         bonus bHit,10;\n         bonus bLongAtkRate,3;\n         if (.@r >= 2) {\n            bonus bLongAtkRate,1;\n         }\n         if (.@r >= 3) {\n            bonus bLongAtkRate,1;\n         }\n         if (.@r >= 7) {\n            .@_removed = 1;\n         }\n      }\n      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_REVOLVER) {\n         .@r = getrefine();\n         .@_removed = 1;\n         .@_removed = 1;\n         if (.@r >= 10) {\n            bonus2 bSkillAtk,\"RL_FIREDANCE\",5;\n         }\n      }",
+  "log": [
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bShortAtkRate,2;",
+   "scaled: bonus2 bSkillAtk,\"RL_FIREDANCE\",15; -> bonus2 bSkillAtk,\"RL_FIREDANCE\",5;"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_1_BELLARE1 0.01 %"
+  ]
+ },
+ {
+  "card": "Beta_Cleaner_Card",
+  "verdict": "Nerf",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bStr,3;\n      bonus bMaxHPrate,10;\n      bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",10;\n      bonus2 bSkillAtk,\"RK_DRAGONBREATH\",10;",
+  "draft": "      bonus bStr,1;\n      bonus bMaxHPrate,4;\n      bonus bLongAtkRate,1;",
+  "after": "      bonus bStr,1;\n      bonus bMaxHPrate,4;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",3;\n      bonus2 bSkillAtk,\"RK_DRAGONBREATH\",3;",
+  "log": [
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bLongAtkRate,1;",
+   "scaled: bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",10; -> bonus2 bSkillAtk,\"RK_DRAGONBREATH_WATER\",3;",
+   "scaled: bonus2 bSkillAtk,\"RK_DRAGONBREATH\",10; -> bonus2 bSkillAtk,\"RK_DRAGONBREATH\",3;"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_2_BETA_CLEANER_A 0.01 %",
+   "EP17_2_BETA_CLEANER_B 0.01 %"
+  ]
+ },
+ {
+  "card": "Beta_Guards_Ng_Card",
+  "verdict": "Nerf",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bVit,3;\n      bonus bMaxHPrate,10;\n      bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",10;\n      bonus2 bSkillAtk,\"LG_CANNONSPEAR\",10;",
+  "draft": "      bonus bVit,1;\n      bonus bMaxHPrate,4;\n      bonus bLongAtkRate,1;",
+  "after": "      bonus bVit,1;\n      bonus bMaxHPrate,4;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",3;\n      bonus2 bSkillAtk,\"LG_CANNONSPEAR\",3;",
+  "log": [
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bLongAtkRate,1;",
+   "scaled: bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",10; -> bonus2 bSkillAtk,\"LG_BANISHINGPOINT\",3;",
+   "scaled: bonus2 bSkillAtk,\"LG_CANNONSPEAR\",10; -> bonus2 bSkillAtk,\"LG_CANNONSPEAR\",3;"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_2_BETA_GUARDS_NG 0.01 %"
+  ]
+ },
+ {
+  "card": "Bookworm_Card",
+  "verdict": "Nerf",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bVit,1;\n      bonus bInt,2;\n      bonus bMaxHPrate,10;\n      bonus2 bSkillAtk,\"SO_DIAMONDDUST\",10;\n      bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",10;",
+  "draft": "      bonus bVit,1;\n      bonus bInt,1;\n      bonus bMaxHPrate,3;\n      bonus bMatkRate,1;",
+  "after": "      bonus bVit,1;\n      bonus bInt,1;\n      bonus bMaxHPrate,3;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      bonus2 bSkillAtk,\"SO_DIAMONDDUST\",3;\n      bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",3;",
+  "log": [
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bMatkRate,1;",
+   "scaled: bonus2 bSkillAtk,\"SO_DIAMONDDUST\",10; -> bonus2 bSkillAtk,\"SO_DIAMONDDUST\",3;",
+   "scaled: bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",10; -> bonus2 bSkillAtk,\"SO_PSYCHIC_WAVE\",3;"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_2_BOOKWORM 0.01 %"
+  ]
+ },
+ {
+  "card": "Bungisngis_Card",
+  "verdict": "Port with fixes",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bMaxHPrate,(getrefine()/2);",
+  "draft": "      .@r = getrefine();\n      if (.@r >= 2) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 3) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 4) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 6) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 7) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 8) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 10) {\n         bonus bMaxHPrate,1;\n      }",
+  "after": "      .@r = getrefine();\n      if (.@r >= 2) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 3) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 4) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 6) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 7) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 8) {\n         bonus bMaxHPrate,1;\n      }\n      if (.@r >= 10) {\n         bonus bMaxHPrate,1;\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "BUNGISNGIS 0.01 %"
+  ]
+ },
+ {
+  "card": "Butoijo_Card",
+  "verdict": "Port as-is",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus2 bAddRace,RC_Angel,20;",
+  "draft": "      bonus2 bAddRace,RC_Angel,20;",
+  "after": "      bonus2 bAddRace,RC_Angel,20;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "BUTOIJO 0.01 %"
+  ]
+ },
+ {
+  "card": "Caput_Card",
+  "verdict": "Nerf",
+  "slot": "Armor",
+  "tier": "Normal",
+  "renewal": "      bonus bDef,50;\n      bonus2 bSubEle,Ele_Poison,10;",
+  "draft": "      bonus bDef,2;\n      bonus2 bSubEle,Ele_Poison,8;",
+  "after": "      bonus bDef,2;\n      bonus2 bSubEle,Ele_Poison,8;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_1_TWIN_CAPUT1 0.01 %"
+  ]
+ },
+ {
+  "card": "Cendrawasih_Card",
+  "verdict": "Port with fixes",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bInt,2;\n      if (BaseClass == Job_Mage) {\n         bonus bInt,getrefine()/3;\n      }",
+  "draft": "      .@r = getrefine();\n      bonus bInt,2;\n      if (BaseClass == Job_Mage) {\n         bonus bInt,(.@r/2);\n      }",
+  "after": ".@r = getrefine();\nbonus bInt,1;\nif (BaseClass == Job_Mage) {\n   bonus bInt,(.@r/2);\n}",
+  "log": [
+   "override: phase 9 (2026-10-18): INT +2 and more made Elder Willow (INT +2) pointless; INT +1 for anyone, the Mage line's refine bonus kept"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "CENDRAWASIH 0.01 %"
+  ]
+ },
+ {
+  "card": "Cenere_Card",
+  "verdict": "Nerf",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      bonus bAspdRate,2*(readparam(bAgi)/10);",
+  "draft": "      bonus bAspdRate,5;",
+  "after": "bonus bAspdRate,min(5,readparam(bAgi)/20);",
+  "log": [
+   "override: phase 9 (2026-10-18): ASPD +5 % was a part of two other converted garment cards; renewal's own idea back, ASPD from AGI (+1 % per 20 AGI), at most the +5 % it had"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "CENERE 0.01 %"
+  ]
+ },
+ {
+  "card": "Comodo_Card",
+  "verdict": "Nerf",
+  "slot": "Armor",
+  "tier": "Normal",
+  "renewal": "      bonus bDef,50;\n      bonus bFlee,-25;",
+  "draft": "      bonus bDef,3;\n      bonus bFlee,-8;",
+  "after": "      bonus bDef,3;\n      bonus bFlee,-25;",
+  "log": [
+   "weaker of draft and renewal: bonus bFlee,-8 -> -25"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "COMODO 0.01 %"
+  ]
+ },
+ {
+  "card": "Cowraiders1_Card",
+  "verdict": "Nerf",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bAgi,7;\n      bonus bHit,7;",
+  "draft": "      bonus bAgi,4;\n      bonus bHit,6;",
+  "after": "      bonus bAgi,4;\n      bonus bHit,6;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "COWRAIDERS1 0.01 %"
+  ]
+ },
+ {
+  "card": "Cowraiders2_Card",
+  "verdict": "Nerf",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bStr,4;\n      bonus bAtkRate,4;",
+  "draft": "      bonus bStr,2;\n      bonus bAtkRate,2;",
+  "after": "      bonus bStr,2;\n      bonus bAtkRate,2;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "COWRAIDERS2 0.01 %"
+  ]
+ },
+ {
+  "card": "Cowraiders3_Card",
+  "verdict": "Port with fixes",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      .@bonus = 5;\n      .@type = getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW);\n      if (.@type == W_DAGGER) {\n         .@r = getrefine();\n         if (.@r>=10) {\n            .@bonus += 20;\n         }\n         if (.@r>=14) {\n            .@bonus += 20;\n         }\n      }\n      bonus bBaseAtk,.@bonus;\n      bonus bMatk,.@bonus;",
+  "draft": "      .@r = getrefine();\n      bonus bBaseAtk,5;\n      bonus bMatk,5;\n      if (.@r >= 7) {\n         bonus bBaseAtk,20;\n         bonus bMatk,20;\n      }\n      if (.@r >= 10) {\n         bonus bBaseAtk,5;\n         bonus bMatk,20;\n      }",
+  "after": ".@r = getrefine();\nbonus bBaseAtk,5;\nbonus bMatkRate,1;\nif (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_DAGGER) {\n   if (.@r >= 7) {\n      bonus bBaseAtk,20;\n      bonus bMatkRate,2;\n   }\n   if (.@r >= 10) {\n      bonus bBaseAtk,5;\n      bonus bMatkRate,2;\n   }\n}",
+  "log": [
+   "flat MATK made a MATK rate of a tenth",
+   "override: phase 9 (2026-10-18): phase 8 lost renewal's condition (a dagger) and made it Andre/Hilsrion and more in any weapon; the refine bonus is a dagger's again, as Faithful Manager's is a book's"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "COWRAIDERS3 0.01 %"
+  ]
+ },
+ {
+  "card": "Coyote_Card",
+  "verdict": "Redesign by hand",
+  "slot": "Shoes",
+  "tier": "Normal",
+  "renewal": "      bonus bNoCastCancel;\n      .@hp = -12;\n      .@sp = -6;\n      if (getrefine() >= 10) {\n         .@hp += 6;\n         .@sp += 3;\n      }\n      bonus bMaxHPrate,.@hp;\n      bonus bMaxSPrate,.@sp;",
+  "draft": "      // MANUAL: flat effects (skill grants, procs, special flags) keep it above budget \u2013 review by hand\n      .@r = getrefine();\n      bonus bNoCastCancel;\n      bonus bMaxHPrate,-7;\n      bonus bMaxSPrate,-4;\n      if (.@r >= 7) {\n         bonus bMaxHPrate,3;\n         bonus bMaxSPrate,2;\n      }",
+  "after": "bonus bNoCastCancel;\nbonus bCastrate,25;\nbonus bMaxHPrate,-7;\nbonus bMaxSPrate,-3;",
+  "log": [
+   "override: phase 8 (2026-10-18): uninterruptible casting as pre-renewal's Phen card has it, with Phen's cost (+25 % cast time) on top of renewal's HP and SP cost: no stronger than the card pre-renewal players know"
+  ],
+  "flags": [
+   "special flag: kept, flagged",
+   "the draft marks it for a redesign by hand: kept as the draft has it"
+  ],
+  "similar": [],
+  "drops": [
+   "COYOTE 0.01 %"
+  ]
+ },
+ {
+  "card": "DR815_Card",
+  "verdict": "Buff",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bHit,1+(BaseLevel>=90)+(BaseLevel>=120);",
+  "draft": "      bonus bHit,8;",
+  "after": "bonus bHit,3;\nbonus2 bSubRace,RC_Formless,5;",
+  "log": [
+   "held to pre-renewal's cards of the slot: bonus bHit,8 -> 5",
+   "override: phase 9 (2026-10-18): HIT +5 was a part of Galion; HIT +3 and Formless -5 %, a robot's card for the robot maps"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "DR815 0.01 %"
+  ]
+ },
+ {
+  "card": "Dolomedes_Card",
+  "verdict": "Port with fixes",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bDex,2;\n      if (BaseClass == Job_Archer) {\n         bonus bDex,getrefine()/3;\n      }",
+  "draft": "      .@r = getrefine();\n      bonus bDex,2;\n      if (BaseClass == Job_Archer) {\n         bonus bDex,(.@r/2);\n      }",
+  "after": ".@r = getrefine();\nbonus bDex,1;\nif (BaseClass == Job_Archer) {\n   bonus bDex,(.@r/2);\n}",
+  "log": [
+   "override: phase 9 (2026-10-18): same shape as Cendrawasih and Siorava, kept alike: DEX +1 for anyone, the Archer line's refine bonus"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "DOLOMEDES 0.01 %"
+  ]
+ },
+ {
+  "card": "Dolor_Card",
+  "verdict": "Port as-is",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus2 bAddRace,RC_Demon,5;",
+  "draft": "      bonus2 bAddRace,RC_Demon,5;",
+  "after": "      bonus2 bAddRace,RC_Demon,5;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_1_DOLOR1 0.01 %"
+  ]
+ },
+ {
+  "card": "EP17_2_Marc_Card",
+  "verdict": "Port with fixes",
+  "slot": "Shoes",
+  "tier": "Normal",
+  "renewal": "      .@r = getrefine();\n      bonus2 bMagicAtkEle,Ele_Holy,5;\n      bonus2 bMagicAtkEle,Ele_Water,5;\n      bonus2 bMagicAtkEle,Ele_Holy,(.@r/2);\n      bonus2 bMagicAtkEle,Ele_Water,(.@r/2);",
+  "draft": "      .@r = getrefine();\n      bonus2 bMagicAtkEle,Ele_Holy,5;\n      bonus2 bMagicAtkEle,Ele_Water,5;\n      if (.@r >= 2) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 3) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 4) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 7) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 8) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 10) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }",
+  "after": "      .@r = getrefine();\n      bonus2 bMagicAtkEle,Ele_Holy,5;\n      bonus2 bMagicAtkEle,Ele_Water,5;\n      if (.@r >= 2) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 3) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 4) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 7) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 8) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }\n      if (.@r >= 10) {\n         bonus2 bMagicAtkEle,Ele_Holy,1;\n         bonus2 bMagicAtkEle,Ele_Water,1;\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_2_MARC 0.01 %"
+  ]
+ },
+ {
+  "card": "EP17_2_Phen_Card",
+  "verdict": "Nerf",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bStr,2;\n      bonus bVit,1;\n      bonus bMaxHPrate,10;\n      bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK\",10;\n      bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK2\",10;\n      bonus2 bSkillAtk,\"SJ_FULLMOONKICK\",10;",
+  "draft": "      bonus bStr,1;\n      bonus bVit,1;\n      bonus bMaxHPrate,4;\n      bonus bShortAtkRate,1;",
+  "after": "      bonus bStr,1;\n      bonus bVit,1;\n      bonus bMaxHPrate,4;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK\",3;\n      bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK2\",3;\n      bonus2 bSkillAtk,\"SJ_FULLMOONKICK\",3;",
+  "log": [
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bShortAtkRate,1;",
+   "scaled: bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK\",10; -> bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK\",3;",
+   "scaled: bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK2\",10; -> bonus2 bSkillAtk,\"SJ_FALLINGSTAR_ATK2\",3;",
+   "scaled: bonus2 bSkillAtk,\"SJ_FULLMOONKICK\",10; -> bonus2 bSkillAtk,\"SJ_FULLMOONKICK\",3;"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_2_PHEN 0.01 %"
+  ]
+ },
+ {
+  "card": "EP17_2_Piranha_Card",
+  "verdict": "Port as-is",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bMatkRate,2;",
+  "draft": "      bonus bMatkRate,2;",
+  "after": "      bonus bMatkRate,2;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_2_PIRANHA 0.01 %"
+  ]
+ },
+ {
+  "card": "EP17_2_Sword_Fish_Card",
+  "verdict": "Redesign by hand",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bAgi,1;\n      bonus bDex,2;\n      bonus bMaxHPrate,10;\n      bonus2 bSkillAtk,\"RL_HAMMER_OF_GOD\",10;\n      bonus2 bSkillAtk,\"RL_R_TRIP\",10;",
+  "draft": "      // MANUAL: flat effects (skill grants, procs, special flags) keep it above budget \u2013 review by hand\n      bonus bAgi,1;\n      bonus bDex,1;\n      bonus bMaxHPrate,3;\n      bonus bLongAtkRate,1;\n      bonus bShortAtkRate,1;",
+  "after": "      // MANUAL: flat effects (skill grants, procs, special flags) keep it above budget \u2013 review by hand\n      bonus bAgi,1;\n      bonus bDex,1;\n      bonus bMaxHPrate,3;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      bonus2 bSkillAtk,\"RL_HAMMER_OF_GOD\",3;\n      bonus2 bSkillAtk,\"RL_R_TRIP\",3;",
+  "log": [
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bLongAtkRate,1;",
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bShortAtkRate,1;",
+   "scaled: bonus2 bSkillAtk,\"RL_HAMMER_OF_GOD\",10; -> bonus2 bSkillAtk,\"RL_HAMMER_OF_GOD\",3;",
+   "scaled: bonus2 bSkillAtk,\"RL_R_TRIP\",10; -> bonus2 bSkillAtk,\"RL_R_TRIP\",3;"
+  ],
+  "flags": [
+   "the draft marks it for a redesign by hand: kept as the draft has it"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_2_SWORD_FISH 0.01 %"
+  ]
+ },
+ {
+  "card": "E_Cowraiders1_Card",
+  "verdict": "Port with fixes",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      .@bonus = 10;\n      .@r = getrefine();\n      if (.@r>=10) {\n         .@bonus += 20;\n      }\n      if (.@r>=14) {\n         .@bonus += 20;\n      }\n      bonus2 bSkillAtk,\"GS_SPREADATTACK\",.@bonus;",
+  "draft": "      .@r = getrefine();\n      bonus bLongAtkRate,3;\n      if (.@r >= 7) {\n         bonus bLongAtkRate,5;\n      }\n      if (.@r >= 10) {\n         bonus bLongAtkRate,2;\n      }",
+  "after": "      .@r = getrefine();\n      .@_removed = 1;\n      if (.@r >= 7) {\n         .@_removed = 1;\n      }\n      if (.@r >= 10) {\n         .@_removed = 1;\n      }\n      .@bonus = 10;\n      .@r = getrefine();\n      if (.@r>=10) {\n         .@bonus += 20;\n      }\n      if (.@r>=14) {\n         .@bonus += 20;\n      }\n      bonus2 bSkillAtk,\"GS_SPREADATTACK\",min(15,(.@bonus)/3);",
+  "log": [
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bLongAtkRate,3;",
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bLongAtkRate,5;",
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bLongAtkRate,2;",
+   "scaled: bonus2 bSkillAtk,\"GS_SPREADATTACK\",.@bonus; -> bonus2 bSkillAtk,\"GS_SPREADATTACK\",min(15,(.@bonus)/3);"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "E_COWRAIDERS1 0.01 %"
+  ]
+ },
+ {
+  "card": "E_Cowraiders2_Card",
+  "verdict": "Port with fixes",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      .@bonus = 10;\n      .@r = getrefine();\n      if (.@r>=10) {\n         .@bonus += 20;\n      }\n      if (.@r>=14) {\n         .@bonus += 20;\n      }\n      bonus2 bSkillAtk,\"GS_RAPIDSHOWER\",.@bonus;",
+  "draft": "      .@r = getrefine();\n      bonus bLongAtkRate,3;\n      if (.@r >= 7) {\n         bonus bLongAtkRate,5;\n      }\n      if (.@r >= 10) {\n         bonus bLongAtkRate,2;\n      }",
+  "after": "      .@r = getrefine();\n      .@_removed = 1;\n      if (.@r >= 7) {\n         .@_removed = 1;\n      }\n      if (.@r >= 10) {\n         .@_removed = 1;\n      }\n      .@bonus = 10;\n      .@r = getrefine();\n      if (.@r>=10) {\n         .@bonus += 20;\n      }\n      if (.@r>=14) {\n         .@bonus += 20;\n      }\n      bonus2 bSkillAtk,\"GS_RAPIDSHOWER\",min(15,(.@bonus)/3);",
+  "log": [
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bLongAtkRate,3;",
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bLongAtkRate,5;",
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bLongAtkRate,2;",
+   "scaled: bonus2 bSkillAtk,\"GS_RAPIDSHOWER\",.@bonus; -> bonus2 bSkillAtk,\"GS_RAPIDSHOWER\",min(15,(.@bonus)/3);"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "E_COWRAIDERS2 0.01 %"
+  ]
+ },
+ {
+  "card": "E_Cowraiders3_Card",
+  "verdict": "Port as-is",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus2 bAddSize,Size_Small,10;\n      bonus2 bMagicAddSize,Size_Small,10;",
+  "draft": "      bonus2 bAddSize,Size_Small,10;\n      bonus2 bMagicAddSize,Size_Small,10;",
+  "after": "      bonus2 bAddSize,Size_Small,10;\n      bonus2 bMagicAddSize,Size_Small,10;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "E_COWRAIDERS3 0.01 %"
+  ]
+ },
+ {
+  "card": "Engkanto_Card",
+  "verdict": "Nerf",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus2 bAddEle,Ele_Poison,30;\n      bonus2 bMagicAddEle,Ele_Poison,30;\n      bonus2 bIgnoreDefRaceRate,RC_Plant,30;",
+  "draft": "      bonus2 bAddEle,Ele_Poison,6;\n      bonus2 bMagicAddEle,Ele_Poison,6;\n      bonus2 bIgnoreDefRaceRate,RC_Plant,10;",
+  "after": "      bonus2 bAddEle,Ele_Poison,6;\n      bonus2 bMagicAddEle,Ele_Poison,6;\n      bonus2 bIgnoreDefRaceRate,RC_Plant,10;",
+  "log": [],
+  "flags": [
+   "defence ignored: kept, flagged"
+  ],
+  "similar": [],
+  "drops": [
+   "ENGKANTO 0.01 %"
+  ]
+ },
+ {
+  "card": "ExplorationRover_T_Card",
+  "verdict": "Port \u2013 niche",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus2 bCriticalAddRace,RC_Formless,30;",
+  "draft": "      bonus2 bCriticalAddRace,RC_Formless,15;",
+  "after": "bonus2 bCriticalAddRace,RC_Formless,5;\nbonus2 bIgnoreDefRaceRate,RC_Formless,10;",
+  "log": [
+   "held to pre-renewal's cards of the slot: bonus2 bCriticalAddRace,RC_Formless,15 -> 7",
+   "override: phase 9 (2026-10-18): CRIT against Formless +7 was a part of Steam Goblin; now CRIT +5 and 10 % of their DEF ignored against Formless"
+  ],
+  "flags": [
+   "defence ignored: kept, flagged"
+  ],
+  "similar": [],
+  "drops": [
+   "EXPLORATION_ROVER_T 0.01 %"
+  ]
+ },
+ {
+  "card": "FaithfulManager_Card",
+  "verdict": "Port with fixes",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus bBaseAtk,5;\n      bonus bMatk,5;\n      if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_BOOK) {\n         .@r = getrefine();\n         if (.@r>=10) {\n            bonus bBaseAtk,20;\n         bonus bMatk,20;\n         }\n         if (.@r>=14) {\n            bonus bBaseAtk,20;\n         bonus bMatk,20;\n         }\n      }",
+  "draft": "      .@r = getrefine();\n      bonus bBaseAtk,5;\n      bonus bMatk,5;\n      if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_BOOK) {\n         if (.@r >= 7) {\n            bonus bBaseAtk,20;\n            bonus bMatk,20;\n         }\n         if (.@r >= 10) {\n            bonus bBaseAtk,10;\n            bonus bMatk,20;\n         }\n      }",
+  "after": "      .@r = getrefine();\n      bonus bBaseAtk,5;\n      bonus bMatkRate,1;\n      if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_BOOK) {\n         if (.@r >= 7) {\n            bonus bBaseAtk,20;\n            bonus bMatkRate,2;\n         }\n         if (.@r >= 10) {\n            bonus bBaseAtk,10;\n            bonus bMatkRate,2;\n         }\n      }",
+  "log": [
+   "flat MATK made a MATK rate of a tenth"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "FAITHFUL_MANAGER 0.01 %"
+  ]
+ },
+ {
+  "card": "Frozenwolf_Card",
+  "verdict": "Buff",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bMatkRate,1;",
+  "draft": "      bonus bMatkRate,2;",
+  "after": "bonus2 bMagicAtkEle,Ele_Water,3;\nbonus2 bSubEle,Ele_Water,5;",
+  "log": [
+   "weaker of draft and renewal: bonus bMatkRate,2 -> 1",
+   "override: phase 9 (2026-10-18): MATK +1 % was the same as Piranha's and a part of four more converted accessories; now Water magic +3 % and Water damage taken -5 %"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "FROZENWOLF 0.01 %"
+  ]
+ },
+ {
+  "card": "GC109_Card",
+  "verdict": "Port with fixes",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bAspdRate,1+(BaseLevel>=90)+(BaseLevel>=120);",
+  "draft": "      bonus bAspdRate,3;",
+  "after": "      bonus bAspdRate,3;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "GC109 0.01 %"
+  ]
+ },
+ {
+  "card": "Gaster_Card",
+  "verdict": "Nerf",
+  "slot": "Shield",
+  "tier": "Normal",
+  "renewal": "      bonus2 bSubClass,Class_Normal,25;\n      bonus2 bSubClass,Class_Boss,-50;",
+  "draft": "      bonus2 bSubClass,Class_Normal,15;\n      bonus2 bSubClass,Class_Boss,-30;",
+  "after": "      bonus2 bSubClass,Class_Normal,15;\n      bonus2 bSubClass,Class_Boss,-50;",
+  "log": [
+   "weaker of draft and renewal: bonus2 bSubClass,Class_Boss,-30 -> -50"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "GASTER 0.01 %"
+  ]
+ },
+ {
+  "card": "Gold_Q_Scaraba_Card",
+  "verdict": "Port as-is",
+  "slot": "Headgear",
+  "tier": "MVP",
+  "renewal": "      bonus bInt,3;\n      bonus2 bSubRace,RC_Insect,10;\n      if (getrefine()>=9) {\n         bonus2 bSubRace,RC_Insect,5;\n      }",
+  "draft": "      .@r = getrefine();\n      bonus bInt,3;\n      bonus2 bSubRace,RC_Insect,10;\n      if (.@r >= 6) {\n         bonus2 bSubRace,RC_Insect,5;\n      }",
+  "after": ".@r = getrefine();\nbonus bMatkRate,1;\nbonus2 bMagicAtkEle,Ele_Earth,5;\nbonus2 bSubRace,RC_Insect,5;\nif (.@r >= 6) {\n   bonus2 bSubRace,RC_Insect,5;\n}",
+  "log": [
+   "weaker of draft and renewal: bonus2 bSubRace,RC_Insect,10 -> 5",
+   "override: phase 9 (2026-10-18): INT +3 and more made Elder Willow (INT +2) pointless; the INT is now MATK +1 % and Earth magic +5 %, the Insect protection kept"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "I_QUEEN_SCARABA 0.01 %"
+  ]
+ },
+ {
+  "card": "Gold_Scaraba_Card",
+  "verdict": "Port as-is",
+  "slot": "Accessory",
+  "tier": "Boss",
+  "renewal": "      bonus bBaseAtk,20;\n      bonus bMaxHPrate,-1;",
+  "draft": "      bonus bBaseAtk,20;\n      bonus bMaxHPrate,-1;",
+  "after": "      bonus bBaseAtk,20;\n      bonus bMaxHPrate,-1;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "I_HORN_SCARABA 0.01 %",
+   "I_HORN_SCARABA2 0.01 %",
+   "I_ANTLER_SCARABA 0.01 %",
+   "I_RAKE_SCARABA 0.01 %"
+  ]
+ },
+ {
+  "card": "Grave_A_Mummy_Card",
+  "verdict": "Nerf",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      bonus2 bSubEle,Ele_Neutral,15;\n      bonus2 bMagicAtkEle,Ele_Fire,getrefine()*3;",
+  "draft": "      .@r = getrefine();\n      bonus2 bSubEle,Ele_Neutral,10;\n      if (.@r >= 1) {\n         bonus2 bMagicAtkEle,Ele_Fire,2;\n      }\n      if (.@r >= 2) {\n         bonus2 bMagicAtkEle,Ele_Fire,4;\n      }\n      if (.@r >= 3) {\n         bonus2 bMagicAtkEle,Ele_Fire,2;\n      }\n      if (.@r >= 4) {\n         bonus2 bMagicAtkEle,Ele_Fire,4;\n      }\n      if (.@r >= 5) {\n         bonus2 bMagicAtkEle,Ele_Fire,2;\n      }",
+  "after": "      .@r = getrefine();\n      bonus2 bSubEle,Ele_Neutral,10;\n      if (.@r >= 1) {\n         bonus2 bMagicAtkEle,Ele_Fire,2;\n      }\n      if (.@r >= 2) {\n         bonus2 bMagicAtkEle,Ele_Fire,4;\n      }\n      if (.@r >= 3) {\n         bonus2 bMagicAtkEle,Ele_Fire,2;\n      }\n      if (.@r >= 4) {\n         bonus2 bMagicAtkEle,Ele_Fire,4;\n      }\n      if (.@r >= 5) {\n         bonus2 bMagicAtkEle,Ele_Fire,2;\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "N_ANCIENT_MUMMY 0.01 %"
+  ]
+ },
+ {
+  "card": "Grave_Amon_Ra_Card",
+  "verdict": "Nerf",
+  "slot": "Armor",
+  "tier": "MVP",
+  "renewal": "      bonus2 bMagicAddRace,RC_Demon,50;\n      bonus2 bMagicAddRace,RC_Undead,50;\n      bonus2 bMagicAddEle,Ele_Dark,50;\n      bonus2 bMagicAddEle,Ele_Undead,50;",
+  "draft": "      bonus2 bMagicAddRace,RC_Demon,13;\n      bonus2 bMagicAddRace,RC_Undead,13;\n      bonus2 bMagicAddEle,Ele_Dark,13;\n      bonus2 bMagicAddEle,Ele_Undead,13;",
+  "after": "      bonus2 bMagicAddRace,RC_Demon,13;\n      bonus2 bMagicAddRace,RC_Undead,13;\n      bonus2 bMagicAddEle,Ele_Dark,13;\n      bonus2 bMagicAddEle,Ele_Undead,13;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "N_AMON_RA 0.01 %"
+  ]
+ },
+ {
+  "card": "Grave_Arclouse_Card",
+  "verdict": "Port as-is",
+  "slot": "Shield",
+  "tier": "Normal",
+  "renewal": "      bonus2 bSubRace,RC_Brute,20;\n      bonus2 bSubRace,RC_Undead,20;",
+  "draft": "      bonus2 bSubRace,RC_Brute,20;\n      bonus2 bSubRace,RC_Undead,20;",
+  "after": "      bonus2 bSubRace,RC_Brute,20;\n      bonus2 bSubRace,RC_Undead,20;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "N_ARCLOUSE 0.01 %"
+  ]
+ },
+ {
+  "card": "Grave_Mimic_Card",
+  "verdict": "Port as-is",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus2 bMagicAddRace,RC_Brute,5;\n      bonus2 bMagicAddRace,RC_Undead,5;",
+  "draft": "      bonus2 bMagicAddRace,RC_Brute,5;\n      bonus2 bMagicAddRace,RC_Undead,5;",
+  "after": "      bonus2 bMagicAddRace,RC_Brute,5;\n      bonus2 bMagicAddRace,RC_Undead,5;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "N_MIMIC 0.01 %"
+  ]
+ },
+ {
+  "card": "Grave_Minorous_Card",
+  "verdict": "Port as-is",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus2 bAddRace,RC_Brute,10;\n      bonus2 bAddRace,RC_Undead,10;",
+  "draft": "      bonus2 bAddRace,RC_Brute,10;\n      bonus2 bAddRace,RC_Undead,10;",
+  "after": "      bonus2 bAddRace,RC_Brute,10;\n      bonus2 bAddRace,RC_Undead,10;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "N_MINOROUS 0.01 %"
+  ]
+ },
+ {
+  "card": "Grave_Mummy_Card",
+  "verdict": "Port as-is",
+  "slot": "Shoes",
+  "tier": "Normal",
+  "renewal": "      /* Unofficial chance */\n      bonus3 bAutoSpellWhenHit,\"NPC_WIDESLEEP\",2,30;",
+  "draft": "      bonus3 bAutoSpellWhenHit,\"NPC_WIDESLEEP\",2,30;",
+  "after": "      bonus3 bAutoSpellWhenHit,\"NPC_WIDESLEEP\",2,30;",
+  "log": [],
+  "flags": [
+   "autocast or autobonus: kept, flagged: chains with other cards"
+  ],
+  "similar": [],
+  "drops": [
+   "N_MUMMY 0.01 %"
+  ]
+ },
+ {
+  "card": "Grave_Verit_Card",
+  "verdict": "Nerf",
+  "slot": "Shoes",
+  "tier": "Normal",
+  "renewal": "      bonus bMatkRate,5;\n      if (getrefine()>6) {\n         bonus bMatkRate,3;\n      }\n      if (getrefine()>8) {\n         bonus bMatkRate,2;\n      }",
+  "draft": "      .@r = getrefine();\n      bonus bMatkRate,2;\n      if (.@r >= 5) {\n         bonus bMatkRate,2;\n      }\n      if (.@r >= 6) {\n         bonus bMatkRate,1;\n      }",
+  "after": ".@r = getrefine();\nbonus bMatkRate,2;\nbonus bMaxSPrate,4;\nif (.@r >= 5) {\n   bonus bMatkRate,2;\n}\nif (.@r >= 6) {\n   bonus bMatkRate,1;\n}",
+  "log": [
+   "override: phase 9 (2026-10-18): MATK alone was a part of Fallen Bishop; Max SP +4 % added, as pre-renewal's Verit card gives HP and SP"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "N_VERIT 0.01 %"
+  ]
+ },
+ {
+  "card": "GreenCenere_Card",
+  "verdict": "Buff",
+  "slot": "Shoes",
+  "tier": "Normal",
+  "renewal": "      bonus bMaxHPrate,2;\n      autobonus2 \"{ bonus2 bHPRegenRate,1000,1000; }\",20,5000,BF_NORMAL|BF_MAGIC,\"{ specialeffect2 EF_HEAL2; }\";",
+  "draft": "      bonus bMaxHPrate,3;\n      autobonus2 \"{ bonus2 bHPRegenRate,1000,1000; }\",20,5000,BF_NORMAL|BF_MAGIC,\"{ specialeffect2 EF_HEAL2; }\";",
+  "after": "      bonus bMaxHPrate,2;\n      autobonus2 \"{ bonus2 bHPRegenRate,1000,1000; }\",20,5000,BF_NORMAL|BF_MAGIC,\"{ specialeffect2 EF_HEAL2; }\";",
+  "log": [
+   "weaker of draft and renewal: bonus bMaxHPrate,3 -> 2"
+  ],
+  "flags": [
+   "autocast or autobonus: kept, flagged: chains with other cards"
+  ],
+  "similar": [],
+  "drops": [
+   "CENERE_G 0.01 %"
+  ]
+ },
+ {
+  "card": "Heart_Hunter_Card",
+  "verdict": "Nerf",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      .@type = getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW);\n      .@r = getrefine();\n      if (.@type == W_REVOLVER || .@type == W_RIFLE || .@type == W_GRENADE) {\n         bonus bLongAtkRate,5+.@r+(.@r >= 10 ? 5 : 0);\n      }",
+  "draft": "      .@r = getrefine();\n      .@type = getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW);\n      if (.@type == W_REVOLVER || .@type == W_RIFLE || .@type == W_GRENADE) {\n         bonus bLongAtkRate,4;\n         if (.@r >= 1) {\n            bonus bLongAtkRate,1;\n         }\n         if (.@r >= 2) {\n            bonus bLongAtkRate,2;\n         }\n         if (.@r >= 3) {\n            bonus bLongAtkRate,1;\n         }\n      }",
+  "after": "      .@r = getrefine();\n      .@type = getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW);\n      if (.@type == W_REVOLVER || .@type == W_RIFLE || .@type == W_GRENADE) {\n         bonus bLongAtkRate,4;\n         if (.@r >= 1) {\n            bonus bLongAtkRate,1;\n         }\n         if (.@r >= 2) {\n            bonus bLongAtkRate,2;\n         }\n         if (.@r >= 3) {\n            bonus bLongAtkRate,1;\n         }\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_2_HEART_HUNTER_H 0.01 %"
+  ]
+ },
+ {
+  "card": "High_Bellare_Card",
+  "verdict": "Nerf",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_GATLING) {\n         .@r = getrefine();\n         bonus bHit,20;\n         bonus bLongAtkRate,(5+.@r);\n         if (.@r >= 10) {\n            bonus2 bSkillAtk,\"RL_R_TRIP\",15;\n         }\n      }",
+  "draft": "      .@r = getrefine();\n      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_GATLING) {\n         bonus bHit,10;\n         bonus bLongAtkRate,3;\n         if (.@r >= 2) {\n            bonus bLongAtkRate,1;\n         }\n         if (.@r >= 3) {\n            bonus bLongAtkRate,1;\n         }\n         if (.@r >= 7) {\n            bonus bShortAtkRate,2;\n         }\n      }",
+  "after": "      .@r = getrefine();\n      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_GATLING) {\n         bonus bHit,10;\n         bonus bLongAtkRate,3;\n         if (.@r >= 2) {\n            bonus bLongAtkRate,1;\n         }\n         if (.@r >= 3) {\n            bonus bLongAtkRate,1;\n         }\n         if (.@r >= 7) {\n            .@_removed = 1;\n         }\n      }\n      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_GATLING) {\n         .@r = getrefine();\n         .@_removed = 1;\n         .@_removed = 1;\n         if (.@r >= 10) {\n            bonus2 bSkillAtk,\"RL_R_TRIP\",5;\n         }\n      }",
+  "log": [
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bShortAtkRate,2;",
+   "scaled: bonus2 bSkillAtk,\"RL_R_TRIP\",15; -> bonus2 bSkillAtk,\"RL_R_TRIP\",5;"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_1_BELLARE2 0.01 %"
+  ]
+ },
+ {
+  "card": "High_Sanare_Card",
+  "verdict": "Port as-is",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bMatk,10;\n      .@val = 5;\n      if (getrefine() >= 9) {\n         .@val += 5;\n      }\n      bonus2 bMagicAtkEle,Ele_Holy,.@val;",
+  "draft": "      .@r = getrefine();\n      bonus bMatk,10;\n      bonus2 bMagicAtkEle,Ele_Holy,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Holy,5;\n      }",
+  "after": "      .@r = getrefine();\n      bonus bMatkRate,1;\n      bonus2 bMagicAtkEle,Ele_Holy,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Holy,5;\n      }",
+  "log": [
+   "flat MATK made a MATK rate of a tenth"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_1_SANARE2 0.01 %"
+  ]
+ },
+ {
+  "card": "Jejeling_Card",
+  "verdict": "Nerf",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      bonus bMaxHP,200*readparam(bVit)/10;",
+  "draft": "      bonus bMaxHP,1000;",
+  "after": "      bonus bMaxHP,1000;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "JEJELING 0.01 %"
+  ]
+ },
+ {
+  "card": "King_Dramoh_Card",
+  "verdict": "Port with fixes",
+  "slot": "Headgear",
+  "tier": "Boss",
+  "renewal": "      bonus bStr,2;\n      if (BaseClass == Job_Swordman)\n         bonus bStr,getrefine()/3;",
+  "draft": "      .@r = getrefine();\n      bonus bStr,2;\n      if (BaseClass == Job_Swordman) {\n         bonus bStr,(.@r/2);\n      }",
+  "after": ".@r = getrefine();\nbonus bStr,1;\nif (BaseClass == Job_Swordman) {\n   bonus bStr,(.@r/2);\n}",
+  "log": [
+   "override: phase 9 (2026-10-18): same shape as Cendrawasih and Siorava, kept alike: STR +1 for anyone, the Swordman line's refine bonus"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "KING_DRAMOH 0.01 %"
+  ]
+ },
+ {
+  "card": "Kraken_Card",
+  "verdict": "Redesign by hand",
+  "slot": "Garment",
+  "tier": "MVP",
+  "renewal": "      bonus bFlee,10;\n      skill \"TF_HIDING\",1;\n      skill \"RG_RAID\",1;\n      bonus5 bAutoSpellOnSkill,\"RG_RAID\",\"NPC_WIDEBLEEDING\",1,250,1;",
+  "draft": "      // MANUAL: proc tied to a specific skill\n      bonus bFlee,10;\n      skill \"TF_HIDING\",1;\n      skill \"RG_RAID\",1;\n      bonus5 bAutoSpellOnSkill,\"RG_RAID\",\"NPC_WIDEBLEEDING\",1,250,1;",
+  "after": "bonus bFlee,10;\nskill \"TF_HIDING\",1;\nskill \"RG_RAID\",1;\nif ((eaclass()&EAJ_UPPERMASK) == EAJ_ROGUE) {\n   bonus5 bAutoSpellOnSkill,\"RG_RAID\",\"NPC_WIDEBLEEDING\",1,250,1;\n}",
+  "log": [
+   "override: phase 8 (2026-10-18): a build enabler (Hiding and Raid for anyone) kept; phase 9 (owner, 2026-10-18): the bleeding autocast on Raid kept for the Rogue line only (Rogue, Stalker, Shadow Chaser)"
+  ],
+  "flags": [
+   "autocast or autobonus: kept, flagged: chains with other cards",
+   "the draft marks it for a redesign by hand: kept as the draft has it"
+  ],
+  "similar": [],
+  "drops": [
+   "KRAKEN 0.01 %"
+  ]
+ },
+ {
+  "card": "Leak_Card",
+  "verdict": "Buff",
+  "slot": "Garment",
+  "tier": "MVP",
+  "renewal": "      bonus bStr,3;\n      bonus3 bAddEffWhenHit,Eff_Confusion,100,ATF_WEAPON|ATF_MAGIC;\n      bonus3 bAddEffWhenHit,Eff_Fear,100,ATF_WEAPON|ATF_MAGIC;",
+  "draft": "      bonus bStr,5;\n      bonus3 bAddEffWhenHit,Eff_Confusion,250,ATF_WEAPON|ATF_MAGIC;\n      bonus3 bAddEffWhenHit,Eff_Fear,250,ATF_WEAPON|ATF_MAGIC;",
+  "after": "      bonus bStr,3;\n      bonus3 bAddEffWhenHit,Eff_Confusion,100,ATF_WEAPON|ATF_MAGIC;\n      bonus3 bAddEffWhenHit,Eff_Fear,100,ATF_WEAPON|ATF_MAGIC;",
+  "log": [
+   "weaker of draft and renewal: bonus bStr,5 -> 3",
+   "weaker of draft and renewal: bonus3 bAddEffWhenHit,Eff_Confusion,250,ATF_WEAPON|ATF_MAGIC; -> bonus3 bAddEffWhenHit,Eff_Confusion,100,ATF_WEAPON|ATF_MAGIC;",
+   "weaker of draft and renewal: bonus3 bAddEffWhenHit,Eff_Fear,250,ATF_WEAPON|ATF_MAGIC; -> bonus3 bAddEffWhenHit,Eff_Fear,100,ATF_WEAPON|ATF_MAGIC;"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "LEAK 0.01 %"
+  ]
+ },
+ {
+  "card": "LichternB_Card",
+  "verdict": "Port as-is",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bMatk,10;\n      bonus2 bMagicAtkEle,Ele_Water,(getrefine()>=9)?10:5;",
+  "draft": "      .@r = getrefine();\n      bonus bMatk,10;\n      bonus2 bMagicAtkEle,Ele_Water,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Water,5;\n      }",
+  "after": "      .@r = getrefine();\n      bonus bMatkRate,1;\n      bonus2 bMagicAtkEle,Ele_Water,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Water,5;\n      }",
+  "log": [
+   "flat MATK made a MATK rate of a tenth"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "LICHTERN_B 0.01 %"
+  ]
+ },
+ {
+  "card": "LichternG_Card",
+  "verdict": "Port as-is",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bMatk,10;\n      bonus2 bMagicAtkEle,Ele_Earth,(getrefine()>=9)?10:5;",
+  "draft": "      .@r = getrefine();\n      bonus bMatk,10;\n      bonus2 bMagicAtkEle,Ele_Earth,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Earth,5;\n      }",
+  "after": "      .@r = getrefine();\n      bonus bMatkRate,1;\n      bonus2 bMagicAtkEle,Ele_Earth,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Earth,5;\n      }",
+  "log": [
+   "flat MATK made a MATK rate of a tenth"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "LICHTERN_G 0.01 %"
+  ]
+ },
+ {
+  "card": "LichternR_Card",
+  "verdict": "Port as-is",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bMatk,10;\n      bonus2 bMagicAtkEle,Ele_Fire,(getrefine()>=9)?10:5;",
+  "draft": "      .@r = getrefine();\n      bonus bMatk,10;\n      bonus2 bMagicAtkEle,Ele_Fire,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Fire,5;\n      }",
+  "after": "      .@r = getrefine();\n      bonus bMatkRate,1;\n      bonus2 bMagicAtkEle,Ele_Fire,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Fire,5;\n      }",
+  "log": [
+   "flat MATK made a MATK rate of a tenth"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "LICHTERN_R 0.01 %"
+  ]
+ },
+ {
+  "card": "LichternY_Card",
+  "verdict": "Port as-is",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bMatk,10;\n      bonus2 bMagicAtkEle,Ele_Ghost,(getrefine()>=9)?10:5;",
+  "draft": "      .@r = getrefine();\n      bonus bMatk,10;\n      bonus2 bMagicAtkEle,Ele_Ghost,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Ghost,5;\n      }",
+  "after": "      .@r = getrefine();\n      bonus bMatkRate,1;\n      bonus2 bMagicAtkEle,Ele_Ghost,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Ghost,5;\n      }",
+  "log": [
+   "flat MATK made a MATK rate of a tenth"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "LICHTERN_Y 0.01 %"
+  ]
+ },
+ {
+  "card": "Little_Fatum_Card",
+  "verdict": "Port \u2013 niche",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus3 bAddEff,Eff_Silence,1000,ATF_MAGIC;",
+  "draft": "      bonus3 bAddEff,Eff_Silence,1000,ATF_MAGIC;",
+  "after": "      bonus3 bAddEff,Eff_Silence,1000,ATF_MAGIC;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "LITTLE_FATUM 0.01 %"
+  ]
+ },
+ {
+  "card": "Manananggal_Card",
+  "verdict": "Port \u2013 niche",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus bSPDrainValue,1;\n      bonus bMaxSPrate,-1;",
+  "draft": "      bonus bSPDrainValue,1;\n      bonus bMaxSPrate,-1;",
+  "after": "      bonus bSPDrainValue,1;\n      bonus bMaxSPrate,-1;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "MANANANGGAL 0.01 %"
+  ]
+ },
+ {
+  "card": "Mangkukulam_Card",
+  "verdict": "Buff",
+  "slot": "Armor",
+  "tier": "Normal",
+  "renewal": "      bonus bMaxSPrate,10;\n      bonus bHPGainValue,-666;",
+  "draft": "      bonus bMaxSPrate,15;\n      bonus bHPGainValue,-666;",
+  "after": "      bonus bMaxSPrate,10;\n      bonus bHPGainValue,-666;",
+  "log": [
+   "weaker of draft and renewal: bonus bMaxSPrate,15 -> 10"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "MANGKUKULAM 0.01 %"
+  ]
+ },
+ {
+  "card": "Mechaspider_Card",
+  "verdict": "Port as-is",
+  "slot": "Accessory",
+  "tier": "MVP",
+  "renewal": "      bonus bBreakWeaponRate,1000;\n      bonus bBreakArmorRate,1000;",
+  "draft": "      bonus bBreakWeaponRate,1000;\n      bonus bBreakArmorRate,1000;",
+  "after": "      bonus bBreakWeaponRate,1000;\n      bonus bBreakArmorRate,1000;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "MECHASPIDER 0.01 %"
+  ]
+ },
+ {
+  "card": "Menblatt_Card",
+  "verdict": "Port with fixes",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      bonus bLongAtkRate,readparam(bDex)/10;",
+  "draft": "      bonus bLongAtkRate,8;",
+  "after": "      bonus bLongAtkRate,8;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "MENBLATT 0.01 %"
+  ]
+ },
+ {
+  "card": "Miming_Card",
+  "verdict": "Port as-is",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus3 bAutoSpell,\"WM_LULLABY_DEEPSLEEP\",1,30;",
+  "draft": "      bonus3 bAutoSpell,\"WM_LULLABY_DEEPSLEEP\",1,50;",
+  "after": "      bonus3 bAutoSpell,\"WM_LULLABY_DEEPSLEEP\",1,30;",
+  "log": [
+   "weaker of draft and renewal: bonus3 bAutoSpell,\"WM_LULLABY_DEEPSLEEP\",1,50 -> 30"
+  ],
+  "flags": [
+   "autocast or autobonus: kept, flagged: chains with other cards"
+  ],
+  "similar": [],
+  "drops": [
+   "MIMING 0.01 %"
+  ]
+ },
+ {
+  "card": "Mt_Caput_Card",
+  "verdict": "Port as-is",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus2 bAddRace,RC_Formless,5;",
+  "draft": "      bonus2 bAddRace,RC_Formless,5;",
+  "after": "      bonus2 bAddRace,RC_Formless,5;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_1_TWIN_CAPUT2 0.01 %"
+  ]
+ },
+ {
+  "card": "Mt_Dolor_Card",
+  "verdict": "Nerf",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_KATAR) {\n         .@r = getrefine();\n         bonus bCritical,7;\n         bonus bBaseAtk,15;\n         bonus bCritAtkRate,(2*.@r);\n         if (.@r >= 10) {\n            bonus2 bAddSize,Size_Large,15;\n         }\n      }",
+  "draft": "      .@r = getrefine();\n      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_KATAR) {\n         bonus bCritical,3;\n         bonus bBaseAtk,6;\n         if (.@r >= 1) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 2) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 3) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 4) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 5) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 6) {\n            bonus bCritAtkRate,2;\n         }\n         if (.@r >= 7) {\n            bonus2 bAddSize,Size_Large,6;\n         }\n      }",
+  "after": "      .@r = getrefine();\n      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_KATAR) {\n         bonus bCritical,3;\n         bonus bBaseAtk,6;\n         if (.@r >= 1) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 2) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 3) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 4) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 5) {\n            bonus bCritAtkRate,1;\n         }\n         if (.@r >= 6) {\n            bonus bCritAtkRate,2;\n         }\n         if (.@r >= 7) {\n            bonus2 bAddSize,Size_Large,6;\n         }\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_1_DOLOR2 0.01 %"
+  ]
+ },
+ {
+  "card": "Mt_Venenum_Card",
+  "verdict": "Port as-is",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      bonus2 bMagicAddRace,RC_Brute,15;\n      bonus2 bMagicAddRace,RC_Player_Doram,15;",
+  "draft": "      bonus2 bMagicAddRace,RC_Brute,15;\n      bonus2 bMagicAddRace,RC_Player_Doram,15;",
+  "after": "      bonus2 bMagicAddRace,RC_Brute,15;\n      bonus2 bMagicAddRace,RC_Player_Doram,15;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_1_VENENUM2 0.01 %"
+  ]
+ },
+ {
+  "card": "Mutant_Plaga_Card",
+  "verdict": "Nerf",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_KNUCKLE) {\n         .@r = getrefine();\n         bonus bHit,20;\n         bonus bBaseAtk,15;\n         if (.@r >= 10) {\n            .@val = 15;\n         }\n         bonus2 bAddSize,Size_Large,(.@r+.@val);\n      }",
+  "draft": "      .@r = getrefine();\n      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_KNUCKLE) {\n         bonus bHit,12;\n         bonus bBaseAtk,9;\n         if (.@r >= 1) {\n            bonus2 bAddSize,Size_Large,1;\n         }\n         if (.@r >= 2) {\n            bonus2 bAddSize,Size_Large,1;\n         }\n         if (.@r >= 4) {\n            bonus2 bAddSize,Size_Large,2;\n         }\n         if (.@r >= 6) {\n            bonus2 bAddSize,Size_Large,2;\n         }\n         if (.@r >= 7) {\n            bonus2 bAddSize,Size_Large,3;\n         }\n      }",
+  "after": "      .@r = getrefine();\n      if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_KNUCKLE) {\n         bonus bHit,12;\n         bonus bBaseAtk,9;\n         if (.@r >= 1) {\n            bonus2 bAddSize,Size_Large,1;\n         }\n         if (.@r >= 2) {\n            bonus2 bAddSize,Size_Large,1;\n         }\n         if (.@r >= 4) {\n            bonus2 bAddSize,Size_Large,2;\n         }\n         if (.@r >= 6) {\n            bonus2 bAddSize,Size_Large,2;\n         }\n         if (.@r >= 7) {\n            bonus2 bAddSize,Size_Large,3;\n         }\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_1_PLAGA2 0.01 %"
+  ]
+ },
+ {
+  "card": "O_Cleaner_Ng_Card",
+  "verdict": "Nerf",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bVit,1;\n      bonus bDex,2;\n      bonus bMaxHPrate,10;\n      bonus2 bSkillAtk,\"NC_AXEBOOMERANG\",10;\n      bonus2 bSkillAtk,\"NC_VULCANARM\",10;",
+  "draft": "      bonus bVit,1;\n      bonus bDex,1;\n      bonus bMaxHPrate,4;\n      bonus bLongAtkRate,1;",
+  "after": "      bonus bVit,1;\n      bonus bDex,1;\n      bonus bMaxHPrate,4;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      bonus2 bSkillAtk,\"NC_AXEBOOMERANG\",3;\n      bonus2 bSkillAtk,\"NC_VULCANARM\",3;",
+  "log": [
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bLongAtkRate,1;",
+   "scaled: bonus2 bSkillAtk,\"NC_AXEBOOMERANG\",10; -> bonus2 bSkillAtk,\"NC_AXEBOOMERANG\",3;",
+   "scaled: bonus2 bSkillAtk,\"NC_VULCANARM\",10; -> bonus2 bSkillAtk,\"NC_VULCANARM\",3;"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_2_OMEGA_CLEANER_NG 0.01 %"
+  ]
+ },
+ {
+  "card": "Petal_Card",
+  "verdict": "Port with fixes",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      bonus bCritAtkRate,2*(readparam(bLuk)/10);",
+  "draft": "      bonus bCritAtkRate,16;",
+  "after": "      bonus bCritAtkRate,16;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "PETAL 0.01 %"
+  ]
+ },
+ {
+  "card": "Pitaya_B_Card",
+  "verdict": "Port with fixes",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      .@r = getequiprefinerycnt(EQI_HAND_R);\n      if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n         bonus2 bMagicAtkEle,Ele_Water,10;\n      }\n      if (.@r>=10) {\n         bonus2 bMagicAtkEle,Ele_Water,10;\n      }\n      if (.@r>=14) {\n         bonus2 bMagicAtkEle,Ele_Water,10;\n      }",
+  "draft": "      .@r = getrefine();\n      if (.@r >= 7) {\n         bonus2 bMagicAtkEle,Ele_Water,10;\n      }\n      if (.@r >= 10) {\n         bonus2 bMagicAtkEle,Ele_Water,10;\n      }\n      if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n         bonus2 bMagicAtkEle,Ele_Water,10;\n      }",
+  "after": "      .@r = getrefine();\n      if (.@r >= 7) {\n         bonus2 bMagicAtkEle,Ele_Water,10;\n      }\n      if (.@r >= 10) {\n         bonus2 bMagicAtkEle,Ele_Water,10;\n      }\n      if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n         bonus2 bMagicAtkEle,Ele_Water,10;\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_2_PITAYA_B 0.01 %"
+  ]
+ },
+ {
+  "card": "Pitaya_Boss_Card",
+  "verdict": "Nerf",
+  "slot": "Accessory",
+  "tier": "MVP",
+  "renewal": "      bonus2 bAddItemHealRate,513,500;\n      bonus2 bAddItemHealRate,512,500;",
+  "draft": "      bonus2 bAddItemHealRate,513,450;\n      bonus2 bAddItemHealRate,512,450;",
+  "after": "      bonus2 bAddItemHealRate,513,450;\n      bonus2 bAddItemHealRate,512,450;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_2_PITAYA_BOSS 0.01 %"
+  ]
+ },
+ {
+  "card": "Pitaya_G_Card",
+  "verdict": "Nerf",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bInt,1;\n      bonus bLuk,2;\n      bonus bMaxHPrate,10;\n      bonus2 bSkillAtk,\"SU_CN_METEOR\",10;\n      bonus2 bSkillAtk,\"SU_PICKYPECK\",10;",
+  "draft": "      bonus bInt,1;\n      bonus bLuk,1;\n      bonus bMaxHPrate,3;\n      bonus bMatkRate,1;\n      bonus bLongAtkRate,1;",
+  "after": "      bonus bInt,1;\n      bonus bLuk,1;\n      bonus bMaxHPrate,3;\n      bonus bMatkRate,1;\n      bonus bLongAtkRate,1;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_2_PITAYA_G 0.01 %"
+  ]
+ },
+ {
+  "card": "Pitaya_R_Card",
+  "verdict": "Port with fixes",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      .@r = getequiprefinerycnt(EQI_HAND_R);\n      if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n         bonus2 bMagicAtkEle,Ele_Fire,10;\n      }\n      if (.@r>=10) {\n         bonus2 bMagicAtkEle,Ele_Fire,10;\n      }\n      if (.@r>=14) {\n         bonus2 bMagicAtkEle,Ele_Fire,10;\n      }",
+  "draft": "      .@r = getrefine();\n      if (.@r >= 7) {\n         bonus2 bMagicAtkEle,Ele_Fire,10;\n      }\n      if (.@r >= 10) {\n         bonus2 bMagicAtkEle,Ele_Fire,10;\n      }\n      if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n         bonus2 bMagicAtkEle,Ele_Fire,10;\n      }",
+  "after": "      .@r = getrefine();\n      if (.@r >= 7) {\n         bonus2 bMagicAtkEle,Ele_Fire,10;\n      }\n      if (.@r >= 10) {\n         bonus2 bMagicAtkEle,Ele_Fire,10;\n      }\n      if (getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_STAFF || getiteminfo(getequipid(EQI_HAND_R), ITEMINFO_VIEW) == W_2HSTAFF) {\n         bonus2 bMagicAtkEle,Ele_Fire,10;\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_2_PITAYA_R 0.01 %"
+  ]
+ },
+ {
+  "card": "Pitaya_V_Card",
+  "verdict": "Nerf",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      bonus2 bSubEle,Ele_Neutral,15;\n      bonus2 bMagicAtkEle,Ele_Neutral,3*getrefine();",
+  "draft": "      .@r = getrefine();\n      bonus2 bSubEle,Ele_Neutral,8;\n      if (.@r >= 1) {\n         bonus2 bMagicAtkEle,Ele_Neutral,2;\n      }\n      if (.@r >= 2) {\n         bonus2 bMagicAtkEle,Ele_Neutral,3;\n      }\n      if (.@r >= 3) {\n         bonus2 bMagicAtkEle,Ele_Neutral,2;\n      }\n      if (.@r >= 4) {\n         bonus2 bMagicAtkEle,Ele_Neutral,3;\n      }\n      if (.@r >= 5) {\n         bonus2 bMagicAtkEle,Ele_Neutral,1;\n      }",
+  "after": "      .@r = getrefine();\n      bonus2 bSubEle,Ele_Neutral,8;\n      if (.@r >= 1) {\n         bonus2 bMagicAtkEle,Ele_Neutral,2;\n      }\n      if (.@r >= 2) {\n         bonus2 bMagicAtkEle,Ele_Neutral,3;\n      }\n      if (.@r >= 3) {\n         bonus2 bMagicAtkEle,Ele_Neutral,2;\n      }\n      if (.@r >= 4) {\n         bonus2 bMagicAtkEle,Ele_Neutral,3;\n      }\n      if (.@r >= 5) {\n         bonus2 bMagicAtkEle,Ele_Neutral,1;\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_2_PITAYA_V 0.01 %"
+  ]
+ },
+ {
+  "card": "Pitaya_Y_Card",
+  "verdict": "Nerf",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      bonus2 bSubEle,Ele_Neutral,15;\n      bonus2 bMagicAtkEle,Ele_Holy,3*getrefine();",
+  "draft": "      .@r = getrefine();\n      bonus2 bSubEle,Ele_Neutral,10;\n      if (.@r >= 1) {\n         bonus2 bMagicAtkEle,Ele_Holy,2;\n      }\n      if (.@r >= 2) {\n         bonus2 bMagicAtkEle,Ele_Holy,4;\n      }\n      if (.@r >= 3) {\n         bonus2 bMagicAtkEle,Ele_Holy,2;\n      }\n      if (.@r >= 4) {\n         bonus2 bMagicAtkEle,Ele_Holy,4;\n      }\n      if (.@r >= 5) {\n         bonus2 bMagicAtkEle,Ele_Holy,2;\n      }",
+  "after": "      .@r = getrefine();\n      bonus2 bSubEle,Ele_Neutral,10;\n      if (.@r >= 1) {\n         bonus2 bMagicAtkEle,Ele_Holy,2;\n      }\n      if (.@r >= 2) {\n         bonus2 bMagicAtkEle,Ele_Holy,4;\n      }\n      if (.@r >= 3) {\n         bonus2 bMagicAtkEle,Ele_Holy,2;\n      }\n      if (.@r >= 4) {\n         bonus2 bMagicAtkEle,Ele_Holy,4;\n      }\n      if (.@r >= 5) {\n         bonus2 bMagicAtkEle,Ele_Holy,2;\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_2_PITAYA_Y 0.01 %"
+  ]
+ },
+ {
+  "card": "Plaga_Card",
+  "verdict": "Nerf",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bMatk,10;\n      .@val = 5;\n      if (getrefine() >= 9) {\n         .@val += 5;\n      }\n      bonus2 bMagicAtkEle,Ele_Neutral,.@val;",
+  "draft": "      .@r = getrefine();\n      bonus bMatk,9;\n      bonus2 bMagicAtkEle,Ele_Neutral,4;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Neutral,5;\n      }",
+  "after": "      .@r = getrefine();\n      bonus bMatkRate,1;\n      bonus2 bMagicAtkEle,Ele_Neutral,4;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Neutral,5;\n      }",
+  "log": [
+   "flat MATK made a MATK rate of a tenth"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_1_PLAGA1 0.01 %"
+  ]
+ },
+ {
+  "card": "Pom_Spider_Card",
+  "verdict": "Port as-is",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus2 bAddRace,RC_Undead,20;",
+  "draft": "      bonus2 bAddRace,RC_Undead,20;",
+  "after": "      bonus2 bAddRace,RC_Undead,20;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "POM_SPIDER 0.01 %"
+  ]
+ },
+ {
+  "card": "Pot_Dofle_Card",
+  "verdict": "Redesign by hand",
+  "slot": "Armor",
+  "tier": "Normal",
+  "renewal": "      bonus bDefEle,Ele_Water;\n      bonus2 bSubRace,RC_Fish,10;",
+  "draft": "      // MANUAL: flat effects (skill grants, procs, special flags) keep it above budget \u2013 review by hand\n      bonus bDefEle,Ele_Water;\n      bonus2 bSubRace,RC_Fish,6;",
+  "after": "      // MANUAL: flat effects (skill grants, procs, special flags) keep it above budget \u2013 review by hand\n      bonus bDefEle,Ele_Water;\n      bonus2 bSubRace,RC_Fish,6;",
+  "log": [],
+  "flags": [
+   "the draft marks it for a redesign by hand: kept as the draft has it"
+  ],
+  "similar": [],
+  "drops": [
+   "POT_DOFLE 0.01 %"
+  ]
+ },
+ {
+  "card": "Q_Scaraba_Card",
+  "verdict": "Port as-is",
+  "slot": "Weapon",
+  "tier": "MVP",
+  "renewal": "      bonus2 bAddRace2,RC2_SCARABA,30;\n      bonus2 bAddMonsterDropItem,12806,50;",
+  "draft": "      bonus2 bAddRace2,RC2_SCARABA,30;\n      bonus2 bAddMonsterDropItem,12806,50;",
+  "after": "      bonus2 bAddRace2,RC2_SCARABA,30;\n      bonus2 bAddMonsterDropItem,12806,50;",
+  "log": [
+   "UNKNOWN bonus kept for review: bonus2 bAddRace2,RC2_SCARABA,30;",
+   "UNKNOWN bonus kept for review: bonus2 bAddMonsterDropItem,12806,50;"
+  ],
+  "flags": [
+   "drops, zeny or experience: kept, flagged: economy"
+  ],
+  "similar": [],
+  "drops": [
+   "QUEEN_SCARABA 0.01 %"
+  ]
+ },
+ {
+  "card": "R48_85_Bestia_Card",
+  "verdict": "Nerf",
+  "slot": "Armor",
+  "tier": "MVP",
+  "renewal": "      bonus2 bAddEle,Ele_Poison,40;",
+  "draft": "      bonus2 bAddEle,Ele_Poison,36;",
+  "after": "      bonus2 bAddEle,Ele_Poison,36;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_1_R4885_BESTIA 0.01 %"
+  ]
+ },
+ {
+  "card": "Red_Eruma_Card",
+  "verdict": "Port \u2013 niche",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus3 bAddEff,Eff_Curse,100,ATF_MAGIC;",
+  "draft": "      bonus3 bAddEff,Eff_Curse,250,ATF_MAGIC;",
+  "after": "      bonus3 bAddEff,Eff_Curse,100,ATF_MAGIC;",
+  "log": [
+   "weaker of draft and renewal: bonus3 bAddEff,Eff_Curse,250,ATF_MAGIC; -> bonus3 bAddEff,Eff_Curse,100,ATF_MAGIC;"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "RED_ERUMA 0.01 %"
+  ]
+ },
+ {
+  "card": "RepairRobot_T_Card",
+  "verdict": "Port as-is",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bHPrecovRate,25;\n      bonus bSPrecovRate,25;\n      .@r = getrefine();\n      bonus bHPGainValue,30+((.@r>=7)*10);\n      bonus bSPGainValue,3+((.@r>=7)*3);",
+  "draft": "      .@r = getrefine();\n      bonus bHPrecovRate,25;\n      bonus bSPrecovRate,25;\n      bonus bHPGainValue,30;\n      bonus bSPGainValue,3;\n      if (.@r >= 5) {\n         bonus bHPGainValue,10;\n         bonus bSPGainValue,3;\n      }",
+  "after": "      .@r = getrefine();\n      bonus bHPrecovRate,25;\n      bonus bSPrecovRate,25;\n      bonus bHPGainValue,30;\n      bonus bSPGainValue,3;\n      if (.@r >= 5) {\n         bonus bHPGainValue,10;\n         bonus bSPGainValue,3;\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "REPAIR_ROBOT_T 0.01 %"
+  ]
+ },
+ {
+  "card": "Roaming_Splbook_Card",
+  "verdict": "Nerf",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bInt,3;\n      bonus bMaxHPrate,5;\n      bonus bMaxSPrate,5;\n      bonus2 bSkillAtk,\"WL_CRIMSONROCK\",10;\n      bonus2 bSkillAtk,\"WL_COMET\",10;",
+  "draft": "      bonus bInt,1;\n      bonus bMaxHPrate,2;\n      bonus bMaxSPrate,2;\n      bonus bMatkRate,1;",
+  "after": "      bonus bInt,1;\n      bonus bMaxHPrate,2;\n      bonus bMaxSPrate,2;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      .@_removed = 1;\n      bonus2 bSkillAtk,\"WL_CRIMSONROCK\",3;\n      bonus2 bSkillAtk,\"WL_COMET\",3;",
+  "log": [
+   "draft stand-in dropped, renewal's skill bonus kept instead: bonus bMatkRate,1;",
+   "scaled: bonus2 bSkillAtk,\"WL_CRIMSONROCK\",10; -> bonus2 bSkillAtk,\"WL_CRIMSONROCK\",3;",
+   "scaled: bonus2 bSkillAtk,\"WL_COMET\",10; -> bonus2 bSkillAtk,\"WL_COMET\",3;"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_2_ROAMING_SPLBOOK 0.01 %"
+  ]
+ },
+ {
+  "card": "Rr_Arclouse_Card",
+  "verdict": "Port with fixes",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      .@int = readparam(bInt);\n      .@bonus = 3*(.@int/10);\n      if (.@int>=120) {\n         .@bonus += 40;\n      }\n      bonus bMatk,.@bonus;\n      bonus bAspdRate,(.@int/10);",
+  "draft": "      bonus bMatk,24;\n      bonus bAspdRate,5;",
+  "after": "      bonus bMatkRate,2;\n      bonus bAspdRate,5;",
+  "log": [
+   "flat MATK made a MATK rate of a tenth"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "RR_ARCLOUSE 0.01 %"
+  ]
+ },
+ {
+  "card": "Rr_Cramp_Card",
+  "verdict": "Nerf",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      .@str = readparam(bStr);\n      .@bonus = 3*(.@str/10);\n      if (.@str>=120) {\n         .@bonus += 40;\n      }\n      bonus bBaseAtk,.@bonus;\n      bonus bAspdRate,(.@str/10);",
+  "draft": "      bonus bBaseAtk,24;\n      bonus bAspdRate,5;",
+  "after": "      bonus bBaseAtk,5;\n      bonus bAspdRate,5;",
+  "log": [
+   "held to pre-renewal's cards of the slot: bonus bBaseAtk,24 -> 5"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "RR_CRAMP 0.01 %"
+  ]
+ },
+ {
+  "card": "Sanare_Card",
+  "verdict": "Buff",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      .@r = getrefine();\n      .@val = 2;\n      if (.@r >= 9) {\n         .@val += 3;\n      }\n      if (.@r >= 11) {\n         .@val += 5;\n      }\n      bonus bHealPower,.@val;",
+  "draft": "      .@r = getrefine();\n      bonus bHealPower,5;\n      if (.@r >= 6) {\n         bonus bHealPower,5;\n      }",
+  "after": "      .@r = getrefine();\n      bonus bHealPower,5;\n      if (.@r >= 6) {\n         bonus bHealPower,5;\n      }",
+  "log": [],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "EP17_1_SANARE1 0.01 %"
+  ]
+ },
+ {
+  "card": "Scaraba_Card",
+  "verdict": "Buff",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus bMatk,20;\n      bonus bMaxSPrate,-1;",
+  "draft": "      bonus bMatk,27;\n      bonus bMaxSPrate,-1;",
+  "after": "bonus2 bMagicAtkEle,Ele_Earth,3;\nbonus2 bSubRace,RC_Insect,5;",
+  "log": [
+   "flat MATK made a MATK rate of a tenth",
+   "weaker of draft and renewal: bonus bMatkRate,3 -> 2",
+   "override: phase 9 (2026-10-18): MATK +2 % and Max SP -1 % was Piranha's card with a cost; now Earth magic +3 % and Insect damage taken -5 %"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "HORN_SCARABA 0.01 %",
+   "HORN_SCARABA2 0.01 %",
+   "ANTLER_SCARABA 0.01 %",
+   "RAKE_SCARABA 0.01 %"
+  ]
+ },
+ {
+  "card": "Scr_MT_Robots_Card",
+  "verdict": "Port as-is",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      if (getrefine()<7)\n         bonus2 bSubRace,RC_Formless,10;\n      else {\n         bonus2 bSubRace,RC_Formless,15;\n         bonus2 bAddMonsterDropItem,7317,10;\n         bonus2 bAddMonsterDropItem,998,5;\n         bonus2 bAddMonsterDropItem,7319,3;\n         bonus2 bAddMonsterDropItem,7095,3;\n      }",
+  "draft": "      .@r = getrefine();\n      bonus2 bSubRace,RC_Formless,10;\n      if (.@r >= 5) {\n         bonus2 bSubRace,RC_Formless,5;\n         bonus2 bAddMonsterDropItem,7317,10;\n         bonus2 bAddMonsterDropItem,998,5;\n         bonus2 bAddMonsterDropItem,7319,3;\n         bonus2 bAddMonsterDropItem,7095,3;\n      }",
+  "after": "      .@r = getrefine();\n      bonus2 bSubRace,RC_Formless,10;\n      if (.@r >= 5) {\n         bonus2 bSubRace,RC_Formless,5;\n         bonus2 bAddMonsterDropItem,7317,10;\n         bonus2 bAddMonsterDropItem,998,5;\n         bonus2 bAddMonsterDropItem,7319,3;\n         bonus2 bAddMonsterDropItem,7095,3;\n      }",
+  "log": [
+   "UNKNOWN bonus kept for review: bonus2 bAddMonsterDropItem,7317,10;",
+   "UNKNOWN bonus kept for review: bonus2 bAddMonsterDropItem,998,5;",
+   "UNKNOWN bonus kept for review: bonus2 bAddMonsterDropItem,7319,3;",
+   "UNKNOWN bonus kept for review: bonus2 bAddMonsterDropItem,7095,3;"
+  ],
+  "flags": [
+   "drops, zeny or experience: kept, flagged: economy",
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "SCR_MT_ROBOTS 0.01 %"
+  ]
+ },
+ {
+  "card": "Sedora_Card",
+  "verdict": "Port as-is",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus bCritAtkRate,15;",
+  "draft": "      bonus bCritAtkRate,15;",
+  "after": "bonus bCritAtkRate,10;\nbonus3 bAddEff,Eff_Bleeding,300,ATF_TARGET;",
+  "log": [
+   "override: phase 9 (2026-10-18): Critical damage +15 % was a part of Mobster and The Paper; now critical damage +10 % and a 3 % chance to make the target bleed"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "SEDORA 0.01 %"
+  ]
+ },
+ {
+  "card": "Siorava_Card",
+  "verdict": "Port with fixes",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bLuk,2;\n      if (BaseClass == Job_Merchant)\n         bonus bLuk,getrefine()/3;",
+  "draft": "      .@r = getrefine();\n      bonus bLuk,2;\n      if (BaseClass == Job_Merchant) {\n         bonus bLuk,(.@r/2);\n      }",
+  "after": ".@r = getrefine();\nbonus bLuk,1;\nif (BaseClass == Job_Merchant) {\n   bonus bLuk,(.@r/2);\n}",
+  "log": [
+   "override: phase 9 (2026-10-18): LUK +2 and more made Mole (LUK +2) pointless; LUK +1 for anyone, the Merchant line's refine bonus kept"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "SIORAVA 0.01 %"
+  ]
+ },
+ {
+  "card": "Sropho_Card",
+  "verdict": "Buff",
+  "slot": "Weapon",
+  "tier": "Normal",
+  "renewal": "      bonus4 bAddEff,Eff_Crystalize,500,ATF_SHORT,3000;",
+  "draft": "      bonus4 bAddEff,Eff_Crystalize,1000,ATF_SHORT,3000;",
+  "after": "      bonus4 bAddEff,Eff_Crystalize,1000,ATF_SHORT,3000;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "SROPHO 0.01 %"
+  ]
+ },
+ {
+  "card": "Tappy_Card",
+  "verdict": "Buff",
+  "slot": "Accessory",
+  "tier": "Normal",
+  "renewal": "      bonus2 bAddClass,Class_All,1;",
+  "draft": "      bonus2 bAddClass,Class_All,2;",
+  "after": "      bonus2 bAddClass,Class_All,1;",
+  "log": [
+   "weaker of draft and renewal: bonus2 bAddClass,Class_All,2 -> 1"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "TAFFY 0.01 %"
+  ]
+ },
+ {
+  "card": "Tikbalang_Card",
+  "verdict": "Port as-is",
+  "slot": "Headgear",
+  "tier": "Normal",
+  "renewal": "      bonus bMatk,10;\n      bonus2 bMagicAtkEle,Ele_Wind,(getrefine()>=9)?10:5;",
+  "draft": "      .@r = getrefine();\n      bonus bMatk,10;\n      bonus2 bMagicAtkEle,Ele_Wind,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Wind,5;\n      }",
+  "after": "      .@r = getrefine();\n      bonus bMatkRate,1;\n      bonus2 bMagicAtkEle,Ele_Wind,5;\n      if (.@r >= 6) {\n         bonus2 bMagicAtkEle,Ele_Wind,5;\n      }",
+  "log": [
+   "flat MATK made a MATK rate of a tenth"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "TIKBALANG 0.01 %"
+  ]
+ },
+ {
+  "card": "Venenum_Card",
+  "verdict": "Port as-is",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      bonus2 bAddRace,RC_Brute,15;\n      bonus2 bAddRace,RC_Player_Doram,15;",
+  "draft": "      bonus2 bAddRace,RC_Brute,15;\n      bonus2 bAddRace,RC_Player_Doram,15;",
+  "after": "      bonus2 bAddRace,RC_Brute,15;\n      bonus2 bAddRace,RC_Player_Doram,15;",
+  "log": [],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "EP17_1_VENENUM1 0.01 %"
+  ]
+ },
+ {
+  "card": "Wakwak_Card",
+  "verdict": "Port with fixes",
+  "slot": "Garment",
+  "tier": "Normal",
+  "renewal": "      bonus bBaseAtk,5*readparam(bStr)/10;",
+  "draft": "      bonus bBaseAtk,30;",
+  "after": "bonus bBaseAtk,min(5,readparam(bStr)/20);",
+  "log": [
+   "held to pre-renewal's cards of the slot: bonus bBaseAtk,30 -> 5",
+   "override: phase 9 (2026-10-18): ATK +5 was a weaker Whisper Boss or Magmaring; renewal's own idea back, ATK from STR (+1 per 20 STR), at most the +5 it had"
+  ],
+  "flags": [
+   "scales with refine, stats or level: kept, flagged: uncapped scaling"
+  ],
+  "similar": [],
+  "drops": [
+   "WAKWAK 0.01 %"
+  ]
+ },
+ {
+  "card": "Watcher_Card",
+  "verdict": "Port as-is",
+  "slot": "Armor",
+  "tier": "Normal",
+  "renewal": "      bonus bBaseAtk,30;\n      bonus bSPDrainValue,-5;",
+  "draft": "      bonus bBaseAtk,30;\n      bonus bSPDrainValue,-5;",
+  "after": "      bonus bBaseAtk,25;\n      bonus bSPDrainValue,-5;",
+  "log": [
+   "held to pre-renewal's cards of the slot: bonus bBaseAtk,30 -> 25"
+  ],
+  "flags": [],
+  "similar": [],
+  "drops": [
+   "WATCHER 0.01 %"
+  ]
+ },
+ {
+  "card": "Wild_Rider_Card",
+  "verdict": "Port as-is",
+  "slot": "Shoes",
+  "tier": "Boss",
+  "renewal": "      bonus bAgi,1;\n      bonus3 bAutoSpell,\"AL_INCAGI\",1,50;",
+  "draft": "      bonus bAgi,1;\n      bonus3 bAutoSpell,\"AL_INCAGI\",1,50;",
+  "after": "      bonus bAgi,1;\n      bonus3 bAutoSpell,\"AL_INCAGI\",1,50;",
+  "log": [],
+  "flags": [
+   "autocast or autobonus: kept, flagged: chains with other cards"
+  ],
+  "similar": [],
+  "drops": [
+   "WILD_RIDER 0.01 %"
+  ]
+ }
+]

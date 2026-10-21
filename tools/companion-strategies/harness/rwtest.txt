@@ -1,0 +1,288 @@
+//===== renewal-world monster fight test (rig only) ====================
+//   whisper npc:RwTest <cmd>[#arg]
+-	script	RwTest	-1,{
+OnWhisperGlobal:
+	.@c$ = @whispervar0$;
+	.@a = atoi(@whispervar1$);
+	if (.@c$ == "lk") {               // lk#1 shop gear, lk#2 a farmer's, lk#3 endgame. Same Lord Knight 99/70.
+		jobchange Job_Lord_Knight;
+		sc_end SC_ALL;                  // no buff left from an earlier test (bighp)
+		atcommand "@blvl 98";
+		atcommand "@joblvl 69";
+		clearitem;
+		resetstatus;
+		statusup2 bStr,84; statusup2 bAgi,79; statusup2 bVit,49; statusup2 bDex,44; statusup2 bLuk,9;
+		atcommand "@allskill";
+		if (.@a == 3) {
+			callsub S_Eq, 1152, 10, 4043, 4043, 4043;   // +10 Slayer[3], 3 Andre
+			callsub S_Eq, 2229, 7, 4143, 0, 0;          // +7 Helm[1], Orc Hero
+			callsub S_Eq, 2317, 7, 4031, 0, 0;          // +7 Plate Armor[1], Pecopeco
+			callsub S_Eq, 2504, 7, 4133, 0, 0;          // +7 Muffler[1], Raydric
+			callsub S_Eq, 2406, 7, 4107, 0, 0;          // +7 Boots[1], Verit
+			callsub S_Eq, 2607, 0, 4079, 0, 0;          // Clip[1], Mantis
+			callsub S_Eq, 2624, 0, 4079, 0, 0;          // Glove[1], Mantis
+		} else if (.@a == 2) {
+			callsub S_Eq, 1158, 7, 4043, 4043, 0;       // +7 Two-Handed Sword[2], 2 Andre
+			callsub S_Eq, 2229, 5, 0, 0, 0;             // +5 Helm[1]
+			callsub S_Eq, 2315, 5, 4031, 0, 0;          // +5 Chain Mail[1], Pecopeco
+			callsub S_Eq, 2504, 5, 4102, 0, 0;          // +5 Muffler[1], Whisper
+			callsub S_Eq, 2406, 5, 4107, 0, 0;          // +5 Boots[1], Verit
+			callsub S_Eq, 2607, 0, 4079, 0, 0;          // Clip[1], Mantis
+			callsub S_Eq, 2624, 0, 4079, 0, 0;          // Glove[1], Mantis
+		} else {
+			callsub S_Eq, 1163, 0, 0, 0, 0;             // Claymore
+			callsub S_Eq, 2228, 0, 0, 0, 0;             // Helm
+			callsub S_Eq, 2316, 0, 0, 0, 0;             // Plate Armor
+			callsub S_Eq, 2503, 0, 0, 0, 0;             // Muffler
+			callsub S_Eq, 2405, 0, 0, 0, 0;             // Boots
+		}
+		warp "prontera", 150, 150;
+	} else if (.@c$ == "hw") {        // High Wizard 99/70, Arc Wand, robe
+		jobchange Job_High_Wizard;
+		sc_end SC_ALL;                  // no buff left from an earlier test (bighp)
+		atcommand "@blvl 98";
+		atcommand "@joblvl 69";
+		clearitem;
+		resetstatus;
+		statusup2 bInt,98; statusup2 bDex,89; statusup2 bVit,39; statusup2 bAgi,19;
+		atcommand "@allskill";
+		getitem 1610, 1; equip 1610;    // Arc Wand
+		getitem 2321, 1; equip 2321;    // Silk Robe
+		getitem 2502, 1; equip 2502;    // Hood
+		getitem 2403, 1; equip 2403;    // Shoes
+		warp "prontera", 150, 150;
+	} else if (.@c$ == "thq") {
+		sc_start SC_TWOHANDQUICKEN, 600000, 10;
+	} else if (.@c$ == "spawn") {     // spawn#id: one monster two cells east, the last one gone
+		killmonster "prontera", "All";
+		getmapxy(.@m$, .@x, .@y, BL_PC);
+		monster .@m$, .@x + 2, .@y, "--ja--", .@a, 1;
+		$@rw_gid = $@mobid[0];
+		getunitdata $@rw_gid, .@d;
+		dispbottom "RwTest: spawned " + .@a + " gid " + $@rw_gid + " hp " + .@d[UMOB_HP];
+		end;
+	} else if (.@c$ == "attrition") { // attrition#s: a member who falls is back up, full, s seconds later (0: off)
+		$@rw_revive = .@a;
+		dispbottom "RwTest: attrition " + .@a;
+		end;
+	} else if (.@c$ == "rejoin") {    // rejoin#s: a pack monster out of sight that long is set back beside the owner (0: off)
+		$@rw_rejoin = .@a;
+		dispbottom "RwTest: rejoin " + .@a;
+		end;
+	} else if (.@c$ == "armorele") {  // armorele#Name#Ele_Undead: that armour element for an hour, as a card would
+		// give it (Evil Druid: Undead, which dark attacks do not hurt). Companions' gear is
+		// the engine's own, and a card put into it is lost, so the bonus goes on directly.
+		.@cid = getcharid(0, @whispervar1$);
+		if (!.@cid) { dispbottom "RwTest: armorele no " + @whispervar1$; end; }
+		bonus_script "{ bonus bDefEle," + @whispervar2$ + "; }", 3600, 8, 0, -1, .@cid;
+		dispbottom "RwTest: armorele " + @whispervar1$ + " " + @whispervar2$;
+		end;
+	} else if (.@c$ == "stock") {     // stock#Name#Item:n,Item:n: sets that companion's bag to n of each, as a
+		// player restocks between fights (Companion inventory on: nothing else refills it)
+		.@aid = getcharid(3, @whispervar1$);
+		if (!.@aid) { dispbottom "RwTest: stock no " + @whispervar1$; end; }
+		explode(.@kit$, @whispervar2$, ",");
+		for (.@i = 0; .@i < getarraysize(.@kit$); .@i++) {
+			explode(.@p$, .@kit$[.@i], ":");
+			.@want = atoi(.@p$[1]);
+			.@have = countitem(.@p$[0], .@aid);
+			if (.@have < .@want) getitem .@p$[0], .@want - .@have, .@aid;
+			// and down to it: the engine stocks a spawn with 500 of every arrow and trap, and a
+			// companion above 90 % weight can neither attack nor cast
+			if (.@have > .@want) delitem .@p$[0], .@have - .@want, .@aid;
+			.@s$ += " " + .@p$[0] + ":" + countitem(.@p$[0], .@aid);
+		}
+		dispbottom "RwTest: stock " + @whispervar1$ + .@s$;
+		end;
+	} else if (.@c$ == "arm") {       // arm#Name#item#refine#card1#card2: a weapon a player made for it, put on
+		// (the engine's gear sets give some jobs poor weapons: a Gunslinger an ATK 4 Revolver)
+		.@me = getcharid(3);
+		.@aid = getcharid(3, @whispervar1$);
+		.@cid = getcharid(0, @whispervar1$);
+		if (!.@aid) { dispbottom "RwTest: arm no " + @whispervar1$; end; }
+		.@it = atoi(@whispervar2$);
+		getitem2 .@it, 1, 1, atoi(@whispervar3$), 0, atoi(@whispervar4$), atoi(@whispervar5$), 0, 0, .@aid;
+		equip .@it, .@cid;
+		attachrid(.@aid);
+		.@w = getequipid(EQI_HAND_R); .@r = getequiprefinerycnt(EQI_HAND_R);
+		.@c1 = getequipcardid(EQI_HAND_R, 0); .@c2 = getequipcardid(EQI_HAND_R, 1);
+		detachrid;
+		attachrid(.@me);
+		dispbottom "RwTest: arm " + @whispervar1$ + " " + .@w + "+" + .@r + "[" + .@c1 + "," + .@c2 + "]";
+		end;
+	} else if (.@c$ == "lpcells") {   // lpcells: how many cells within 7 of the owner are under Land Protector
+		getmapxy(.@m$, .@x, .@y, BL_PC);
+		for (.@dx = -7; .@dx <= 7; .@dx++)
+			for (.@dy = -7; .@dy <= 7; .@dy++)
+				if (checkcell(.@m$, .@x + .@dx, .@y + .@dy, cell_chklandprotector)) .@n++;
+		dispbottom "RwTest: lpcells " + .@n + " at " + .@x + "," + .@y;
+		end;
+	} else if (.@c$ == "revive") {    // revive#Name: back up, full HP/SP (attrition; companions fire no death event)
+		recovery 0, getcharid(0, @whispervar1$);
+		end;
+	} else if (.@c$ == "calm") {      // the last monster spawned stops fighting and moving
+		setunitdata $@rw_gid, UMOB_MODE, 0;
+		end;
+	} else if (.@c$ == "gear") {
+		for (.@i = 0; .@i <= 10; .@i++)
+			if (getequipisequiped(.@i)) .@s$ += " " + .@i + ":" + getequipid(.@i) + "+" + getequiprefinerycnt(.@i) + "[" + getequipcardid(.@i, 0) + "," + getequipcardid(.@i, 1) + "," + getequipcardid(.@i, 2) + "]";
+		dispbottom "RwTest: gear" + .@s$;
+		end;
+	} else if (.@c$ == "pack") {      // pack#mob#n[#hp%]: n monsters 6-9 cells east, at hp% of their HP
+		// (a boss's later phase on its own: Leak below 60 % or 30 %); state kept per map
+		getmapxy(.@m$, .@x, .@y, BL_PC);
+		killmonster .@m$, "RwTest::OnPackDead";
+		.@n = atoi(@whispervar2$);
+		// pack#id+id+id#n: a mixed pull, one of each id listed (n is their number)
+		explode(.@ids$, @whispervar1$, "+");
+		.@mixed = getarraysize(.@ids$) > 1;
+		if (.@mixed) .@n = getarraysize(.@ids$);
+		setd "$@rw_t0_" + .@m$, gettimetick(0);
+		$@rw_map$ = .@m$; $@rw_t0 = gettimetick(0); $@rw_deaths = 0; $@rw_who$ = ""; $@rw_rejoins = 0;
+		$@rw_killed = 0; $@rw_packn = .@n; $@rw_tdone = 0;
+		for (.@i = 0; .@i < .@n; .@i++) {
+			monster .@m$, .@x + 6 + rand(4), .@y - 2 + rand(5), "--ja--", (.@mixed ? atoi(.@ids$[.@i]) : .@a), 1, "RwTest::OnPackDead";
+			setd "$@rw_pack_" + .@m$ + "[" + .@i + "]", $@mobid[0];
+			if (atoi(@whispervar3$) > 0) {
+				getunitdata $@mobid[0], .@d;
+				setunitdata $@mobid[0], UMOB_HP, .@d[UMOB_MAXHP] * atoi(@whispervar3$) / 100;
+			}
+		}
+		setd "$@rw_packn_" + .@m$, .@n;
+		dispbottom "RwTest: pack " + (.@mixed ? @whispervar1$ : "" + .@a) + " x" + .@n;
+		end;
+	} else if (.@c$ == "gospot") {    // gospot#map: warp to an open cell with open ground 6-9 cells east
+		.@m$ = @whispervar1$;
+		for (.@try = 0; .@try < 3000; .@try++) {   // checkcell is false off the map
+			.@x = 20 + rand(360); .@y = 20 + rand(360); .@ok = 1;
+			for (.@dx = -2; .@dx <= 10 && .@ok; .@dx++)
+				for (.@dy = -3; .@dy <= 3 && .@ok; .@dy++)
+					if (!checkcell(.@m$, .@x + .@dx, .@y + .@dy, cell_chkpass)) .@ok = 0;
+			if (.@ok) { warp .@m$, .@x, .@y; end; }
+		}
+		dispbottom "RwTest: no open spot on " + .@m$;
+		end;
+	} else if (.@c$ == "status") {    // status#Name1,Name2,...: mobs left, seconds, deaths, and each member's HP/SP
+		getmapxy(.@m$, .@x, .@y, BL_PC);
+		.@hp = 0; .@max = 0;   // the pack's HP left, as a share of its whole
+		for (.@i = 0; .@i < getd("$@rw_packn_" + .@m$); .@i++) {
+			.@g = getd("$@rw_pack_" + .@m$ + "[" + .@i + "]");
+			if (unitexists(.@g)) {
+				getunitdata .@g, .@d; .@hp += .@d[UMOB_HP]; .@max += .@d[UMOB_MAXHP];
+				// rejoin: a monster out of sight (a boss that teleported) is found again after
+				// $@rw_rejoin seconds, as players hunt one down, and set beside the owner
+				if ($@rw_rejoin) {
+					if (distance(.@x, .@y, .@d[UMOB_X], .@d[UMOB_Y]) > 14) {   // teleport keeps it on the map
+						if (!getd("$@rw_lost_" + .@g)) setd "$@rw_lost_" + .@g, gettimetick(0);
+						else if (gettimetick(0) - getd("$@rw_lost_" + .@g) >= $@rw_rejoin * 1000) {
+							unitwarp .@g, .@m$, .@x + 6, .@y;
+							setd "$@rw_lost_" + .@g, 0;
+							$@rw_rejoins++;
+						}
+					} else setd "$@rw_lost_" + .@g, 0;
+				}
+			}
+			else .@max += 1;
+		}
+		.@s$ = "RwTest: status left=" + mobcount(.@m$, "RwTest::OnPackDead") + " t=" + ((gettimetick(0) - getd("$@rw_t0_" + .@m$)) / 1000) + " deaths=" + $@rw_deaths + " rejoins=" + $@rw_rejoins + " who=" + $@rw_who$ + " packhp=" + (.@max ? .@hp * 100 / .@max : 0) + " ms=" + ($@rw_tdone ? $@rw_tdone : gettimetick(0) - $@rw_t0);
+		explode(.@nm$, strcharinfo(0) + "," + @whispervar1$, ",");
+		.@cnt = getarraysize(.@nm$);
+		for (.@i = 0; .@i < .@cnt; .@i++) {
+			if (.@nm$[.@i] == "" || !getcharid(0, .@nm$[.@i])) continue;
+			if (getstrlen(.@s$) > 150) {   // a message is cut off past about 200 characters
+				dispbottom .@s$;
+				.@s$ = "RwTest: status+";
+			}
+			.@s$ += " | " + .@nm$[.@i] + " " + readparam(Hp, .@nm$[.@i]) + "/" + readparam(MaxHp, .@nm$[.@i]) + " sp " + readparam(Sp, .@nm$[.@i]) + "/" + readparam(MaxSp, .@nm$[.@i]);
+		}
+		dispbottom .@s$;
+		end;
+	} else if (.@c$ == "restore") {   // restore#Name1,Name2,...: everyone up, full HP/SP, no monsters
+		getmapxy(.@m$, .@x, .@y, BL_PC);
+		// everything on the map, not only the pack: what a boss summoned outlives it and
+		// met the next fight (the test maps spawn nothing of their own)
+		killmonster .@m$, "All";
+		atcommand "@raisemap";
+		explode(.@nm$, @whispervar1$, ",");
+		.@cnt = getarraysize(.@nm$);
+		for (.@i = 0; .@i < .@cnt; .@i++)
+			if (.@nm$[.@i] != "") charcommand "#heal \"" + .@nm$[.@i] + "\"";
+		percentheal 100, 100;
+		sc_end SC_ALL;
+		end;
+	} else if (.@c$ == "gearof") {    // gearof#Name1,...: each one's job, level, weapon, armour, HP/SP
+		explode(.@nm$, @whispervar1$, ",");
+		.@cnt = getarraysize(.@nm$);
+		for (.@i = 0; .@i < .@cnt; .@i++) {
+			if (!getcharid(0, .@nm$[.@i])) continue;
+			.@s$ = "RwTest: gearof " + .@nm$[.@i] + " lv" + readparam(BaseLevel, .@nm$[.@i]) + " hp " + readparam(MaxHp, .@nm$[.@i]) + " sp " + readparam(MaxSp, .@nm$[.@i]);
+			for (.@e = 0; .@e <= 10; .@e++)
+				if (getequipid(.@e, getcharid(0, .@nm$[.@i])) > 0) .@s$ += " " + .@e + ":" + getequipid(.@e, getcharid(0, .@nm$[.@i]));
+			dispbottom .@s$;
+		}
+		end;
+	} else if (.@c$ == "dbg") {
+		getpartymember getcharid(1), 0;
+		getpartymember getcharid(1), 1;
+		getpartymember getcharid(1), 2;
+		.@s$ = "RwTest: dbg party=" + getcharid(1) + " n=" + $@partymembercount + " tank_cid=" + getcharid(0, "Tank");
+		for (.@i = 0; .@i < $@partymembercount; .@i++) .@s$ += " " + $@partymembername$[.@i] + "/" + $@partymembercid[.@i] + "/" + $@partymemberaid[.@i];
+		dispbottom .@s$;
+		end;
+	} else if (.@c$ == "setlevel") {  // setlevel#Name#55: a companion's base level, exactly
+		.@d = atoi(@whispervar2$) - readparam(BaseLevel, @whispervar1$);
+		if (.@d) charcommand "#blvl \"" + @whispervar1$ + "\" " + .@d;
+		dispbottom "RwTest: setlevel " + @whispervar1$ + " " + readparam(BaseLevel, @whispervar1$);
+		end;
+	} else if (.@c$ == "setstats") {  // setstats#Name#str,agi,vit,int,dex,luk: a companion's build
+		.@cid = getcharid(0, @whispervar1$);
+		if (!.@cid) { dispbottom "RwTest: setstats no " + @whispervar1$; end; }
+		explode(.@v$, @whispervar2$, ",");
+		.@me = getcharid(3);
+		if (!attachrid(getcharid(3, @whispervar1$))) { dispbottom "RwTest: setstats cannot attach " + @whispervar1$; end; }
+		resetstatus;
+		setarray .@p[0], bStr, bAgi, bVit, bInt, bDex, bLuk;
+		for (.@i = 0; .@i < 6; .@i++)
+			statusup2 .@p[.@i], atoi(.@v$[.@i]) - readparam(.@p[.@i]);
+		.@got$ = readparam(bStr) + "/" + readparam(bAgi) + "/" + readparam(bVit) + "/" + readparam(bInt) + "/" + readparam(bDex) + "/" + readparam(bLuk);
+		detachrid;
+		attachrid(.@me);
+		dispbottom "RwTest: setstats " + @whispervar1$ + " " + .@got$;
+		end;
+	} else if (.@c$ == "mobhp") {
+		if (!unitexists($@rw_gid)) { dispbottom "RwTest: mobhp dead"; end; }
+		getunitdata $@rw_gid, .@d;
+		dispbottom "RwTest: mobhp " + .@d[UMOB_HP] + " / " + .@d[UMOB_MAXHP];
+		end;
+	} else if (.@c$ == "heal") {
+		percentheal 100,100;
+		end;
+	} else if (.@c$ == "stats") {
+		dispbottom "RwTest: stats maxhp=" + MaxHp + " def=" + readparam(bDef) + " def2=" + readparam(bDef2) + " mdef=" + readparam(bMdef) + " flee=" + readparam(bFlee) + " hit=" + readparam(bHit) + " atk=" + readparam(bAtk) + "+" + readparam(bAtk2) + " matk=" + readparam(bMatk) + " aspd=" + readparam(bAspd);
+		end;
+	}
+	dispbottom "RwTest: ok " + .@c$;
+	end;
+
+OnPackDead:
+	// the time of the last kill, to the millisecond: the status poll only comes every 2 s
+	$@rw_killed++;
+	if ($@rw_killed >= $@rw_packn && !$@rw_tdone) $@rw_tdone = gettimetick(0) - $@rw_t0;
+	end;
+
+OnPCDieEvent:
+	if (strcharinfo(3) == $@rw_map$) {
+		$@rw_deaths++;
+		if (!$@rw_revive) $@rw_who$ += strcharinfo(0) + "@" + ((gettimetick(0) - $@rw_t0) / 1000) + ",";
+		if ($@rw_revive) {
+			sleep2 $@rw_revive * 1000;
+			recovery 0, getcharid(0);
+		}
+	}
+	end;
+
+S_Eq:	// item, refine, card1-3: make it, then wear it
+	getitem2 getarg(0), 1, 1, getarg(1), 0, getarg(2), getarg(3), getarg(4), 0;
+	equip getarg(0);
+	return;
+}

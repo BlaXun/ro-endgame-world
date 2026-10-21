@@ -1,0 +1,150 @@
+# Mistress (MISTRESS, pre-renewal MVP, level 74, Wind 4, small and quick): a boss plan.
+# One of the pre-renewal MVPs the boss method learns from (BOSSES.md); kept to ship in
+# a boss-plans mod later. Not shipped. Rule names are prefixed mi_.
+#
+#   What kills: Jupitel Thunder (35 % of the damage a level-80 party of five took
+#   without a plan; it knocks back, and casts in progress go with it), her Giant
+#   Hornets (26 %) and Petites (16 %). She casts Pneuma on herself when shot from
+#   range, so arrows are wasted on her; magic is not stopped by it, and she is Wind:
+#   earth hurts her most (Earth Spike is in the bolt lists). Without a plan the party
+#   took 2 % of her HP a minute.
+#   So: everyone on her; the casters bolt her with earth; Safety Wall under the casters
+#   against the knock-back of her melee and the slaves'.
+#
+# Results: see BOSSES.md.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: MISTRESS
+    Encounter: true
+    Jobs:
+      - Job: All
+        # Water does 0 % to her Wind 4 and Wind -50 % (and the same to her hornets), a boss
+        # cannot be frozen, and Provoke does nothing to her: in a 15-minute fight the Sage
+        # and Wizard cast Frost Diver 70 times and the Knight Provoke 80, SP the party ran
+        # out of below 30 %.
+        Ban: [MG_FROSTDIVER, MG_COLDBOLT, WZ_WATERBALL, WZ_FROSTNOVA, WZ_STORMGUST,
+              MG_LIGHTNINGBOLT, MG_THUNDERSTORM, WZ_JUPITEL, WZ_VERMILION, SM_PROVOKE]
+        Rules:
+          # Everyone on her: she heals any slave below 60 %, so shooting the slaves spread
+          # the damage thin (tried: the Giant Hornets' share went from 26 % to 52 %), and
+          # they leave with her.
+          - Name: mi_on_her
+            Priority: 84
+            Requires: { Role: [tank, attacker] }
+            Target: { Enemy: boss, Mob: MISTRESS }
+            SetTarget: true
+          # Her silence on anyone the Priest cannot reach, or on the Priest itself: a Green
+          # Potion or a Panacea, as the guides say ("bring green pots").
+          - Name: mi_green_potion
+            Priority: 93
+            When: self_silence
+            UseItem: [Green_Potion, Panacea]
+      - Job: [Wizard, Sage]
+        Rules:
+          # Her flee (AGI 165, about 239) makes a level-80 Knight miss three hits in four.
+          # Quagmire halves her AGI, and unlike Decrease AGI a boss does not resist it.
+          - Name: mi_quagmire
+            Priority: 86
+            Cast: WZ_QUAGMIRE
+            Target: { Enemy: boss, Mob: MISTRESS }
+            When: not_enemy_quagmire
+            Cooldown: 3000
+          - Name: mi_earth_on_her
+            Priority: 70
+            Cast: [WZ_EARTHSPIKE, WZ_HEAVENDRIVE]
+            Target: { Enemy: boss, Mob: MISTRESS }
+            When: self_sp_pct_ge10
+          # Her Giant Hornets do most of the damage and come for the casters: a Fire Wall
+          # two cells out, between the caster and the hornet, knocks them back.
+          - Name: mi_firewall_the_hornet
+            Priority: 80
+            Cast: MG_FIREWALL
+            Target: { Enemy: attacking, Who: self }
+            Aim: { Cells: 2 }
+            Field: { Skill: MG_FIREWALL, Owner: self, Range: 4, Below: 1 }
+            Cooldown: 2500
+      - Job: Sage
+        Rules:
+          # Earth on the tank's weapon: she is Wind 4, and Earth hits Wind hardest. The
+          # guides' party advice is melee on her (MDEF 60 takes most of a spell).
+          # Below 30 % she casts Agi Up on herself, and the party's hits miss again: 15-minute
+          # fights all stalled at 32-34 %. Dispel takes it off (bosses do not resist it).
+          - Name: mi_dispel_agi_up
+            Priority: 92
+            Cast: SA_DISPELL
+            Target: { Enemy: boss, Mob: MISTRESS }
+            When: enemy_agiup     # NPC_AGIUP gives SC_AGIUP, not Increase AGI's status
+            Cooldown: 3000
+          - Name: mi_seismic_the_tank
+            Priority: 89
+            Cast: SA_SEISMICWEAPON
+            Target: { Ally: missing, Status: SC_EARTHWEAPON, Role: tank, Expiring: 3000 }
+      # The 30 % wall: below 30 % she heals 9 999 about once a minute, and a level-80 party
+      # deals about that much there, with its SP spent getting her to 30 % (where she does
+      # not heal herself at all). So the Knight keeps its SP for below 30 %: normal hits
+      # with the Earth endow until then, its skills after.
+      - Job: Knight
+        Start: mi_save
+        Strategies:
+          - Name: mi_save
+            Ban: [KN_BOWLINGBASH, KN_BRANDISHSPEAR, KN_SPEARSTAB, KN_PIERCE, KN_SPEARBOOMERANG,
+                  KN_CHARGEATK, SM_BASH, SM_MAGNUM]
+            Rules:
+              - Name: mi_burst_now
+                Priority: 99
+                Target: { Enemy: boss, Mob: MISTRESS }
+                When: enemy_hp_pct_lt32
+                Switch: mi_burst
+          - Name: mi_burst
+            Rules: []
+      - Job: Gunslinger
+        Rules:
+          # Desperado hits everything within 3 cells, her hornets with her, and counts as a
+          # short-range attack: her Pneuma (on whoever shoots her) does not stop it. The
+          # engine has no Gunslinger rotation (NEEDS 17), so the plan casts it.
+          - Name: mi_beside_her
+            Priority: 83
+            Target: { Enemy: boss, Mob: MISTRESS }
+            KeepDistance: { Min: 1, Max: 2 }
+          - Name: mi_desperado
+            Priority: 82
+            Cast: GS_DESPERADO
+            Target: self
+            Count: { Enemy: any, Range: 3, AtLeast: 1 }
+      - Job: Priest
+        Rules:
+          # Below 30 %, Lex Aeterna on her for the Knight's Bowling Bash: double the next hit.
+          - Name: mi_lex_burst
+            Priority: 90
+            Cast: PR_LEXAETERNA
+            Target: { Enemy: boss, Mob: MISTRESS }
+            When: [enemy_hp_pct_lt32, not_enemy_aeterna]
+            Cooldown: 3000
+          - Name: mi_wall_the_casters
+            Priority: 88
+            Cast: MG_SAFETYWALL
+            Target: { Ally: attacked, Role: attacker }
+            When: self_sp_ge120   # 109-186 walls a fight left the Priest without SP to heal
+            Field: { Skill: MG_SAFETYWALL, Owner: party, At: target, Range: 0, Below: 1 }
+            Cooldown: 6000
+          # Her Silence Attack and area silence kept the Sage from casting for most of a
+          # fight (Earth Spike refused 47 times in 145 s as "silenced"). Lex Divina on a
+          # silenced member lifts it.
+          - Name: mi_unsilence
+            Priority: 91
+            Cast: PR_LEXDIVINA
+            Target: { Ally: having, Status: SC_SILENCE }
+
+  # Her slaves, the Giant Hornets she summons (G_GIANT_HONET, id 1604; not the field Giant
+  # Hornet, 1303) and her Sky Petites (PETIT_), are Wind 1: Water does 50 % to them and Wind
+  # 25 %, Earth 150 %. The Ban above holds only while Mistress is the target, and the Sage cast
+  # Frost Diver at the slaves instead.
+  - Mobs: [G_GIANT_HONET, PETIT_]
+    Jobs:
+      - Job: All
+        Ban: [MG_FROSTDIVER, MG_COLDBOLT, WZ_WATERBALL, WZ_FROSTNOVA, WZ_STORMGUST,
+              MG_LIGHTNINGBOLT, MG_THUNDERSTORM, WZ_JUPITEL, WZ_VERMILION, SM_PROVOKE]

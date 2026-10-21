@@ -1,0 +1,49 @@
+# Eddga (EDDGA, pre-renewal MVP, level 65, Fire 1, walks very slowly): a boss plan.
+# One of the pre-renewal MVPs the boss method learns from (BOSSES.md); kept to ship in
+# a boss-plans mod later. Not shipped. Rule names are prefixed ed_.
+#
+#   What kills: Demonstration (Bomb), a fire field at its target's feet, cast at every
+#   turn in a fight: 76 % of the damage a level-80 party of five (Knight, Priest,
+#   Wizard, Hunter, Sage) took without a plan. A ground spell, so the Sage keeps a
+#   Land Protector under the fight, and everyone stands inside it. Fire Ball at
+#   whoever it chases. It is Fire: water hurts it most (the bolt lists pick that).
+#   With the Land Protector the bombs were gone (falls 9.3 -> 5.9 a minute) and Magnum
+#   Break, all round it, did 82 % of the rest: only the tank stands next to it now.
+#
+# Results: see BOSSES.md.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: EDDGA
+    Encounter: true
+    Jobs:
+      - Job: All
+        Ban: [WZ_METEOR, WZ_STORMGUST, WZ_VERMILION, WZ_HEAVENDRIVE, MG_FIREWALL, WZ_FIREPILLAR,
+              WZ_QUAGMIRE, PR_SANCTUARY, PR_MAGNUS, MG_SAFETYWALL, AL_PNEUMA]   # Land Protector erases them
+        Rules:
+          - Name: ed_off_magnum       # Magnum Break reaches 2 cells round it
+            Priority: 87
+            Requires: { Role: [support, attacker] }
+            Target: { Enemy: boss, Mob: EDDGA }
+            KeepDistance: { Min: 3, Max: 9 }
+          - Name: ed_into_lp
+            Priority: 86
+            MoveTo: { Field: SA_LANDPROTECTOR, Owner: party, Within: 10, Depth: 2 }
+      - Job: Sage
+        Rules:
+          - Name: ed_lp_here
+            Priority: 93
+            Cast: SA_LANDPROTECTOR
+            Target: self
+            Count: { Enemy: any, Mob: EDDGA, Range: 3, AtLeast: 1 }
+            Field: { Skill: SA_LANDPROTECTOR, Owner: party, Range: 2, Below: 1 }
+            Cooldown: 3000
+            Say: "Land Protector here, everyone in!"
+          - Name: ed_lp_walk_in
+            Priority: 92
+            Target: { Enemy: boss, Mob: EDDGA, Range: 14 }
+            Field: { Skill: SA_LANDPROTECTOR, Owner: party, At: target, Range: 3, Below: 1 }
+            KeepDistance: { Min: 1, Max: 3 }

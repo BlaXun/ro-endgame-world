@@ -1,0 +1,208 @@
+# Leak (LEAK, renewal MVP converted for pre-renewal by renewal-world, level 75, Demon,
+# Dark 2, Large): a boss plan, the first renewal one. Kept to ship in a boss-plans mod
+# later; rule names are prefixed lk_.
+#
+#   Level-175 run (2026-10-17): Leak is now level 94 on the ladder; with this plan eight at 100
+#   wear 11.9 % of its HP a minute with 11.4 falls; the mixed eight 4.6 %, 11.9; four 3.8 %, 9.2.
+#
+#   What kills (level-80 party of five, fixed gear, no plan of its own): Hell Judgement
+#   (37 % of the damage, about 12k a hit) and Pulse Strike (33 %), both physical and
+#   Neutral, both counted as melee within 3 cells and ranged beyond: Safety Wall stops
+#   them in melee and Pneuma beyond, as for Dark Lord (mvp-hell-judgement.party.yml). Its
+#   Banaspaty (16 %). It also lays Land Protector, which erases a Pneuma or Safety Wall
+#   and keeps new ones off: so everyone steps off the enemy's Land Protector first. And it
+#   casts area Curse, Silence, Stun, Sleep and Bleeding.
+#   It is Dark 2: Holy does 150 % (Aspersio, Silver arrows and bullets).
+#
+# Results: see ../renewal-world/BOSSES.md.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: LEAK
+    Encounter: true
+    Jobs:
+      - Job: All
+        Ban: [SM_PROVOKE,
+              PR_KYRIE,           # Kyrie and Assumptio end each other (status.yml)
+              # area damage kills the Banaspaty round it, and five more come
+              WZ_STORMGUST, WZ_VERMILION, WZ_METEOR, WZ_HEAVENDRIVE, MG_THUNDERSTORM,
+              MG_FIREWALL, WZ_SIGHTRASHER, CR_GRANDCROSS, GS_DESPERADO, AC_SHOWER]
+        Rules:
+          # Off its Land Protector: nothing of ours can be laid on it.
+          - Name: lk_off_its_lp
+            Priority: 92
+            Requires: { Role: [tank, support] }   # the Sage goes onto it to clear it
+            Leave: { Field: SA_LANDPROTECTOR, Owner: enemy, Within: 8 }
+          # Curse: only a Panacea cures it (a UseItem list is an order of preference, not
+          # "whichever cures it": a Green Potion would be drunk to no effect).
+          - Name: lk_cure_curse
+            Priority: 93
+            When: self_curse
+            UseItem: Panacea
+          # Silence, poison, blindness: a Green Potion first, a Panacea after.
+          - Name: lk_cure_self
+            Priority: 93
+            When: { OR: [self_silence, self_poison, self_blind] }
+            UseItem: [Green_Potion, Panacea]
+      - Job: All
+        Rules:
+          - Name: lk_on_leak
+            Priority: 83
+            Requires: { Role: [tank, attacker] }
+            Target: { Enemy: boss, Mob: LEAK }
+            SetTarget: true
+      - Job: [Priest, Wizard, Sage, Hunter]
+        Rules:
+          # Not in melee: 4 or more cells off it, where Pneuma stops its strikes ...
+          - Name: lk_out_of_melee
+            Priority: 87
+            Target: { Enemy: boss, Mob: LEAK }
+            KeepDistance: { Min: 4, Max: 9 }
+          # ... and onto the party's Pneuma: one spot for the back line.
+          - Name: lk_onto_pneuma
+            Priority: 88
+            MoveTo: { Field: AL_PNEUMA, Owner: party, Within: 9, Depth: 1 }
+      - Job: Priest
+        Rules:
+          - Name: lk_pneuma_the_spot
+            Priority: 91
+            Cast: AL_PNEUMA
+            Target: self
+            Count: { Enemy: any, Mob: LEAK, Range: 3, Below: 1 }
+            Field: { Skill: AL_PNEUMA, Owner: party, Range: 1, Below: 1 }
+            Cooldown: 1000
+          - Name: lk_aspersio
+            Priority: 86
+            Cast: PR_ASPERSIO
+            Target: { Ally: missing, Status: SC_ASPERSIO, Role: [tank, attacker], Expiring: 3000 }
+          - Name: lk_unsilence
+            Priority: 94
+            Cast: PR_LEXDIVINA
+            Target: { Ally: having, Status: SC_SILENCE }
+          - Name: lk_unstun
+            Priority: 94
+            Cast: PR_STRECOVERY
+            Target: { Ally: having, Status: SC_STUN }
+      - Job: [Priest, Wizard, Sage]
+        Rules:
+          # Safety Wall under whoever is in melee with it.
+          - Name: lk_wall_the_melee
+            Priority: 90
+            Cast: MG_SAFETYWALL
+            Target: { Ally: missing, Status: SC_SAFETYWALL }
+            Count: { Enemy: any, Mob: LEAK, Around: target, Range: 3, AtLeast: 1 }
+            Field: { Skill: MG_SAFETYWALL, Owner: party, At: target, Range: 0, Below: 1 }
+            OnePerParty: true
+            Cooldown: 1000
+      - Job: [Wizard, Sage]
+        Rules:
+          - Name: lk_freeze_a_slave
+            Priority: 85
+            Cast: MG_FROSTDIVER
+            Target: { Enemy: slaves }
+            When: not_enemy_freeze
+      - Job: Wizard
+        Rules:
+          # Its Banaspaty: Leak summons five more 10 s after three or fewer are left
+          # (ratemyserver; mob_skill_db: slavele 3), so killing them brought a new pack
+          # every few seconds (160 in 9 minutes). Frozen, they count as alive and stop
+          # fighting: Frost Diver on one that is not frozen yet. Water does most to Fire 3.
+          - Name: lk_quagmire
+            Priority: 86
+            Cast: WZ_QUAGMIRE
+            Target: { Enemy: boss, Mob: LEAK }
+            When: not_enemy_quagmire
+            Cooldown: 3000
+      # Its Land Protector erases the party's Pneuma and Safety Walls, and nothing can be laid
+      # on it. In pre-renewal a Land Protector laid on another removes both (skill.cpp,
+      # "offensive Land Protector to delete both"): the Sage walks onto Leak's and lays its
+      # own there (NEEDS 18), then goes back to not laying any (its own would erase the
+      # party's Pneuma just the same).
+      - Job: Sage
+        Start: lk_no_lp
+        Strategies:
+          - Name: lk_no_lp
+            Ban: [SA_LANDPROTECTOR]
+            Rules:
+              - Name: lk_their_lp_is_down
+                Priority: 99
+                Field: { Skill: SA_LANDPROTECTOR, Owner: enemy, Range: 12, AtLeast: 1 }
+                Switch: lk_clear_lp
+          - Name: lk_clear_lp
+            Rules:
+              - Name: lk_their_lp_is_gone
+                Priority: 99
+                Field: { Skill: SA_LANDPROTECTOR, Owner: enemy, Range: 12, Below: 1 }
+                Switch: lk_no_lp
+              - Name: lk_lay_ours_on_theirs
+                Priority: 102  # above every rule that leads it off hostile ground (companion-roles: 99)
+                Cast: SA_LANDPROTECTOR
+                Target: { Field: SA_LANDPROTECTOR, Owner: enemy, Within: 9 }
+              - Name: lk_onto_theirs
+                Priority: 101
+                MoveTo: { Field: SA_LANDPROTECTOR, Owner: enemy, Within: 12, Depth: 5 }
+      - Job: High_Priest
+        Rules:
+          # Assumptio halves the damage taken: what turned the Dark Lord fight.
+          - Name: lk_assumptio
+            Priority: 89
+            Cast: HP_ASSUMPTIO
+            Target: { Ally: missing, Status: SC_ASSUMPTIO, Expiring: 5000 }
+            Claim: { Name: lk_assumptio, For: 3000 }
+      - Job: Crusader
+        Rules:
+          # A tank against the Banaspaty swarm: it stands by Leak and Devotion takes the
+          # Priest's hits on itself. (Grand Cross killed the Banaspaty round it, and five
+          # more came: banned.)
+          - Name: lk_devote_the_priest
+            Priority: 90
+            Cast: CR_DEVOTION
+            Target: { Ally: missing, Status: SC_DEVOTION, Role: support }
+          - Name: lk_autoguard
+            Priority: 89
+            Cast: CR_AUTOGUARD
+            Target: self
+            When: not_self_autoguard
+      - Job: Gunslinger
+        Rules:
+          - Name: lk_beside_it
+            Priority: 88
+            Target: { Enemy: boss, Mob: LEAK }
+            KeepDistance: { Min: 1, Max: 2 }
+          - Name: lk_desperado
+            Priority: 82
+            Cast: GS_DESPERADO
+            Target: self
+            Count: { Enemy: any, Range: 3, AtLeast: 1 }
+      - Job: Hunter
+        Rules:
+          # Sleep, no damage: a sleeping Banaspaty counts as alive, so Leak summons no new
+          # pack, and it does not fight (bosses resist Sleep; its slaves do not). A trap
+          # cannot go on a monster's cell: in front of it.
+          - Name: lk_sandman_the_slaves
+            Priority: 86
+            Cast: HT_SANDMAN
+            Target: { Enemy: slaves }
+            Aim: { Cells: 2, From: target, Lead: true }
+            When: not_enemy_sleep
+            # a trap cannot go next to a member: only for one coming from 3 or more cells
+            Count: { Enemy: slaves, Range: 2, Below: 1 }
+            Cooldown: 1500
+          - Name: lk_snare
+            Priority: 85
+            Cast: HT_ANKLESNARE
+            Target: { Enemy: boss, Mob: LEAK }
+            Aim: { Cells: 2, From: target, Lead: true }
+            When: not_enemy_ankle
+            Cooldown: 3000
+
+  # Its Banaspaty are Fire 3: Fire does nothing to them.
+  - Mobs: [G_BANASPATY, G_BUTOIJO]   # its slaves, both Fire
+    Jobs:
+      - Job: All
+        Ban: [MG_FIREBOLT, MG_FIREBALL, MG_FIREWALL, WZ_METEOR, WZ_FIREPILLAR, WZ_SIGHTRASHER,
+              SM_PROVOKE]
+

@@ -1,0 +1,456 @@
+# everyday-party: how a party of companions fights ordinary monsters.
+#
+# companion-roles keeps its healer's combat rules, its caster's named bolts and its
+# ranged attacker's positioning for bosses (Mob: Boss). Against ordinary monsters a
+# party then plays on the engine's own behaviour, and its Priest hardly heals: in
+# the tests a level-99 party of four lost every pack of three of the stronger
+# pre-renewal monsters (Bloody Knight, Abysmal Knight, Hell Apocalypse) with the
+# Priest's SP never below 90 %. This plan brings those roles to every fight.
+#
+# Load after examples/mods/companion-roles: that one brings the healer's survival
+# and resurrection, the Safety Wall against a Stun Attack and the tank's peel for
+# every fight, and its boss plans still apply at bosses. Monster plans (such as
+# bifrost-fields.party.yml) add to this one.
+#
+# Roles come from party chat: "<name> tank", "<name> support", "<name> attacker".
+# Rule names are prefixed ep_ so they never replace another mod's.
+#
+# Not shipped. To use it, copy the entries into a mod's db/population_strategy.yml.
+# Results: see the README beside this file.
+
+Header:
+  Type: POPULATION_STRATEGY_DB
+  Version: 1
+
+Body:
+  - Mob: All
+    Jobs:
+      # The healer: heal whoever is hit, wall and Kyrie the one taking it, keep the buffs
+      # up, and stay within Heal's reach without standing in melee.
+      - Job: Priest
+        Build: healer
+        Requires: { Role: [support, none] }
+        Rotation: false
+        Allow: []
+        Rules:
+          # A monster that hides (Tiyanak, Tikbalang) when hit is found again: Ruwach
+          # reveals what is within two cells of the Priest.
+          - Name: ep_ruwach
+            Priority: 95
+            Cast: AL_RUWACH
+            Target: self
+            Count: { Enemy: hidden, Range: 2, AtLeast: 1 }
+            Cooldown: 2000
+          - Name: ep_cure_the_silenced
+            Priority: 97
+            Cast: AL_CURE
+            Target: { Ally: having, Status: SC_SILENCE }
+          - Name: ep_unstun
+            Priority: 96
+            Cast: PR_STRECOVERY
+            Target: { Ally: having, Status: SC_STUN }
+          - Name: ep_heal_critical
+            Priority: 92
+            Cast: AL_HEAL
+            Target: { Ally: lowest_hp }
+            When: ally_hp_pct_lt45
+          - Name: ep_wall_the_lexed
+            Priority: 88
+            On: { Event: monster_casts, Skill: PR_LEXAETERNA, At: party }
+            Cast: MG_SAFETYWALL
+            Target: event
+            OnePerParty: true
+          - Name: ep_wall_the_hit_attacker
+            Priority: 84
+            Cast: MG_SAFETYWALL
+            Target: { Ally: attacked, Role: attacker }
+            Field: { Skill: MG_SAFETYWALL, Owner: party, At: target, Range: 0, Below: 1 }
+            Cooldown: 4000
+          # Something on the healer: Kyrie and keep healing. Stepping away is for when
+          # it is already hurt: every step breaks a cast, and with three Antique Books
+          # on her a Priest stepped away 15 times and healed twice in a fight her party
+          # lost.
+          - Name: ep_kyrie_self
+            Priority: 85
+            Cast: PR_KYRIE
+            Target: self
+            When: [self_targeted, not_self_kyrie, self_sp_ge200]
+          - Name: ep_step_out_of_melee
+            Priority: 82
+            When: self_hp_pct_lt70
+            Target: { Enemy: attacking, Who: self, Range: 2 }
+            KeepDistance: 4
+          - Name: ep_heal_attacked
+            Priority: 80
+            Cast: AL_HEAL
+            Target: { Ally: attacked }
+            When: ally_hp_pct_lt80
+          - Name: ep_kyrie_attacked
+            Priority: 76
+            Cast: PR_KYRIE
+            Target: { Ally: attacked }
+            When: [not_ally_kyrie, self_sp_ge200]
+            Cooldown: 2000
+          - Name: ep_stay_near_the_hit
+            Priority: 73
+            Target: { Ally: attacked, NotSelf: true, Range: 14 }
+            KeepDistance: { Min: 2, Max: 7 }
+          - Name: ep_heal_low
+            Priority: 70
+            Cast: AL_HEAL
+            Target: { Ally: lowest_hp }
+            When: ally_hp_pct_lt90
+          - Name: ep_lex_the_tanks_target
+            Priority: 50
+            Cast: PR_LEXAETERNA
+            Target: { Enemy: attacking, Who: tank }
+            When: [not_enemy_aeterna, self_sp_ge300]
+            Claim: { Name: ep_lex, For: 6000 }
+          # Buffs by role, one rule each: a selector takes one role, and without a role
+          # it also picks the owner, who may be someone the buff is refused on (hidden).
+          - Name: ep_blessing_tank
+            Priority: 36
+            Cast: AL_BLESSING
+            Target: { Ally: missing, Status: SC_BLESSING, Expiring: 5000, Role: tank }
+          - Name: ep_blessing_attacker
+            Priority: 36
+            Cast: AL_BLESSING
+            Target: { Ally: missing, Status: SC_BLESSING, Expiring: 5000, Role: attacker }
+          - Name: ep_blessing_support
+            Priority: 36
+            Cast: AL_BLESSING
+            Target: { Ally: missing, Status: SC_BLESSING, Expiring: 5000, Role: support }
+          - Name: ep_increase_agi_tank
+            Priority: 35
+            Cast: AL_INCAGI
+            Target: { Ally: missing, Status: SC_INCREASEAGI, Expiring: 5000, Role: tank }
+          - Name: ep_increase_agi_attacker
+            Priority: 35
+            Cast: AL_INCAGI
+            Target: { Ally: missing, Status: SC_INCREASEAGI, Expiring: 5000, Role: attacker }
+          - Name: ep_increase_agi_support
+            Priority: 35
+            Cast: AL_INCAGI
+            Target: { Ally: missing, Status: SC_INCREASEAGI, Expiring: 5000, Role: support }
+          # Magnificat up all the time, as a party Priest does: it doubles the whole party's SP
+          # regeneration. Cast only below 70 % of the Priest's own SP, at the bottom of its list,
+          # it went up twice in a 9-minute Mistress fight; the Knight was out of SP after 70 s and
+          # the Priest itself after 4 minutes, and the party's damage fell to a tenth. Above the
+          # heals (86) it was started 27 times in 13 minutes, mostly broken off by hits, while
+          # nobody was healed: the party fell twice as often. So: whenever it is down, but while
+          # nothing is on the Priest, and below the heals.
+          - Name: ep_magnificat
+            Priority: 79
+            Cast: PR_MAGNIFICAT
+            Target: self
+            When: not_self_magnificat
+            Count: { Enemy: attacking, Who: self, Range: 9, Below: 1 }
+          - Name: ep_no_melee
+            Priority: 1
+            Present: { Enemy: attacking, Range: 14 }
+            Hold: true
+
+      # The caster: a frozen attacker off the healer, area spells on a pack, bolts by
+      # element at what is on the party, and distance from the fight.
+      - Job: Wizard
+        Build: caster
+        Requires: { Role: [attacker, none] }
+        Rotation: false
+        Allow: []
+        Rules:
+          - Name: ep_step_away
+            Priority: 76
+            When: self_hp_pct_lt60
+            Target: { Enemy: attacking, Who: self, Range: 3 }
+            KeepDistance: 5
+          # Out of melee, but keeping range comes after every cast: a Wizard that kept
+          # 5-9 cells from monsters that never stop moving broke its own casts (four of
+          # twenty Frost Divers cast at three Antique Books, the rest walked off).
+          - Name: ep_off_melee
+            Priority: 75
+            Target: { Enemy: attacking, Who: self, Range: 2 }
+            KeepDistance: 4
+          - Name: ep_keep_back
+            Priority: 20
+            Target: { Enemy: attacking, Range: 14 }
+            KeepDistance: { Min: 5, Max: 9 }
+          - Name: ep_sight
+            Priority: 72
+            Cast: MG_SIGHT
+            Target: self
+            When: not_self_sight
+            Count: { Enemy: hidden, Range: 3, AtLeast: 1 }
+          - Name: ep_freeze_the_healers_attacker
+            Priority: 60
+            Cast: MG_FROSTDIVER
+            Target: { Enemy: attacking, Job: Priest }
+            When: not_enemy_freeze
+            Claim: { Name: ep_frozen, For: 4000 }
+          - Name: ep_area_on_a_pack
+            Priority: 50
+            Cast: [WZ_STORMGUST, WZ_METEOR, WZ_HEAVENDRIVE, WZ_VERMILION]
+            Target: { Enemy: attacking }
+            Count: { Enemy: attacking, Around: target, Range: 3, AtLeast: 2 }
+            When: self_sp_pct_ge25
+            Cooldown: 4000
+          - Name: ep_bolt
+            Priority: 44
+            Cast: [WZ_EARTHSPIKE, MG_FIREBOLT, MG_COLDBOLT, MG_LIGHTNINGBOLT, MG_SOULSTRIKE]
+            Target: { Enemy: attacking }
+            When: self_sp_pct_ge15
+          - Name: ep_no_melee
+            Priority: 1
+            Present: { Enemy: attacking, Range: 14 }
+            Hold: true
+
+      # The ranged attacker: trap what is on the healer, its buffs, then Double Strafe
+      # from range.
+      - Job: Hunter
+        Build: ranged
+        Requires: { Role: [attacker, none] }
+        Rotation: false
+        Allow: []
+        Rules:
+          - Name: ep_keep_back
+            Priority: 74
+            Target: { Enemy: attacking, Range: 14 }
+            KeepDistance: { Min: 4, Max: 9 }
+          - Name: ep_detect
+            Priority: 70
+            Cast: HT_DETECTING
+            Target: { Enemy: hidden }
+            Cooldown: 2000
+          - Name: ep_snare_the_healers_attacker
+            Priority: 62
+            Cast: HT_ANKLESNARE
+            Target: { Enemy: attacking, Who: support }
+            When: not_enemy_ankle
+            Claim: { Name: ep_snared, For: 6000 }
+          - Name: ep_concentration
+            Priority: 40
+            Cast: AC_CONCENTRATION
+            Target: self
+            When: not_self_concentrate
+          - Name: ep_true_sight
+            Priority: 39
+            Cast: SN_SIGHT
+            Target: self
+            When: not_self_truesight
+          - Name: ep_sharpshoot_a_line
+            Priority: 36
+            Cast: SN_SHARPSHOOTING
+            Target: { Enemy: attacking }
+            Count: { Enemy: attacking, Around: target, Range: 2, AtLeast: 2 }
+            When: self_sp_pct_ge30
+          - Name: ep_double_strafe
+            Priority: 34
+            Cast: AC_DOUBLE
+            Target: { Enemy: attacking }
+            When: self_sp_pct_ge10
+
+      # The tank, Knight or Crusader: Provoke what is on the healer, Bowling Bash or Grand
+      # Cross on a pack; a Paladin or Royal Guard also guards and takes the damage dealers' hits with Devotion.
+      # Each class passes over the rules for skills it lacks. Its rotation does the rest.
+      - Job: [Knight, Crusader]
+        Build: tank
+        Requires: { Role: tank }
+        Rotation: true
+        # Martyr's Reckoning pays for every hit with the Paladin's own HP: on its
+        # rotation a Paladin tank was dead five seconds into a fight with one monster.
+        # Devotion only from the rule below, on the damage dealers: the engine's rotation linked
+        # every ally without it, healer included, so a Royal Guard took the whole party's hits as
+        # well as the monsters' (as much again in the level-175 fights, 2026-10-17). The owner: a
+        # Royal Guard puts Devotion on the main damage dealer. A plan's Ban leaves its own rules.
+        Ban: [PA_SACRIFICE, CR_DEVOTION]
+        Rules:
+          # Whatever is on the healer, provoked off her, renewed while it stays there.
+          # companion-roles' peel provokes once per party, and in a pack of three the
+          # others went on to the healer.
+          - Name: ep_peel_the_healer
+            Priority: 81
+            Cast: SM_PROVOKE
+            Target: { Enemy: attacking, Who: support }
+            When: not_enemy_provoke
+            SetTarget: true
+            Cooldown: 1500
+          - Name: ep_auto_guard
+            Priority: 90
+            Cast: CR_AUTOGUARD
+            Target: self
+            When: not_self_autoguard
+          - Name: ep_devotion_attacker
+            Priority: 87
+            Cast: CR_DEVOTION
+            Target: { Ally: missing, Status: SC_DEVOTION, Role: attacker, NotSelf: true }
+            When: self_hp_pct_ge60
+          - Name: ep_grand_cross_the_pack
+            Priority: 46
+            Cast: CR_GRANDCROSS
+            Target: self
+            Count: { Enemy: attacking, Range: 2, AtLeast: 3 }
+            When: [self_hp_pct_ge60, self_sp_pct_ge20]
+          - Name: ep_bash_the_pack
+            Priority: 45
+            Cast: KN_BOWLINGBASH
+            Target: { Enemy: attacking }
+            Count: { Enemy: attacking, Range: 2, AtLeast: 2 }
+            When: self_sp_pct_ge20
+
+      # The song: a Bard or Clown stays with whoever is being hit, the party inside its
+      # song, and plays Bragi (faster casting and shorter delays for the Priest and the
+      # Wizard) while monsters are on the party. Performing, it can do nothing else.
+      - Job: Bard
+        Build: songs
+        Requires: { Role: [attacker, support, none] }
+        Rotation: false
+        Allow: []
+        Rules:
+          - Name: ep_with_the_party
+            Priority: 74
+            Target: { Ally: attacked, NotSelf: true, Range: 14 }
+            KeepDistance: { Min: 1, Max: 3 }
+          - Name: ep_bragi
+            Priority: 60
+            Cast: BA_POEMBRAGI
+            Target: self
+            When: not_self_dancing
+            Present: { Enemy: attacking, Range: 14 }
+          - Name: ep_song_hold
+            Priority: 1
+            Present: { Enemy: attacking, Range: 14 }
+            Hold: true
+
+      # The Champion (or Monk) as an attacker, two builds (BUILDS.md).
+      #
+      # Combo: charge five spheres (Zen) and Fury first, then fight with the combo from
+      # Triple Attack's plain hits, and Asura Strike out of Chain Crush (no cast time,
+      # one sphere) once per full SP bar while the target has plenty left. Asura empties
+      # SP and stops its regeneration for five minutes. Fury before the combo: with the
+      # combo outranking it, Combo Finish and Chain Crush spent every sphere Zen made and
+      # Fury never came. Combo steps are listed last first: rAthena refuses one out of
+      # order and the next rule is tried.
+      - Job: Monk
+        Build: combo
+        Requires: { Role: attacker, Skills: [MO_CHAINCOMBO] }
+        Rotation: false
+        Allow: []
+        Start: charge
+        Rules:
+          - Name: ep_out_of_fury
+            Priority: 99
+            When: not_self_explosionspirits
+            InStrategy: { AtLeast: 1000 }
+            Switch: charge
+        Strategies:
+          - Name: charge
+            Rules:
+              - Name: ep_charged
+                Priority: 98
+                When: [self_explosionspirits, self_spheres_ge3]
+                Switch: fight
+              - Name: ep_fury
+                Priority: 60
+                Cast: MO_EXPLOSIONSPIRITS
+                Target: self
+                When: [self_spheres_ge5, not_self_explosionspirits]
+              - Name: ep_zen
+                Priority: 55
+                Cast: CH_SOULCOLLECT
+                Target: self
+                When: self_spheres_lt5
+              - Name: ep_call_spirits
+                Priority: 54
+                Requires: { Lacks: [CH_SOULCOLLECT] }
+                Cast: MO_CALLSPIRITS
+                Target: self
+                When: self_spheres_lt5
+          - Name: fight
+            Rules:
+              - Name: ep_asura_out_of_the_combo
+                Priority: 50
+                Cast: MO_EXTREMITYFIST
+                When: [self_combo, self_sp_pct_ge90, enemy_hp_pct_ge50, self_spheres_ge1]
+              - Name: ep_chain_crush
+                Priority: 45
+                Cast: CH_CHAINCRUSH
+                When: [self_combo, self_spheres_ge2]
+              - Name: ep_combo_finish
+                Priority: 44
+                Cast: MO_COMBOFINISH
+                When: [self_combo, self_spheres_ge1]
+              - Name: ep_chain_combo
+                Priority: 43
+                Cast: MO_CHAINCOMBO
+                When: self_combo
+              - Name: ep_zen_between
+                Priority: 20
+                Cast: CH_SOULCOLLECT
+                Target: self
+                When: [self_spheres_lt2, not_self_combo]
+
+      # Asura: five spheres and Fury, then Asura Strike with its cast at a target that
+      # has plenty left, from full SP; plain hits otherwise. Companions carry no SP
+      # potions yet, so it strikes once per SP bar.
+      #
+      # Which Champion plays which build: a plan cannot see the companion's skill
+      # selection (NEEDS.md 5), so for now the Asura build is the Champion with no role
+      # set and the combo build the one told "attacker". A workaround for testing.
+      - Job: Monk
+        Build: asura
+        Requires: { Role: none, Skills: [MO_EXTREMITYFIST] }
+        Rotation: false
+        Allow: []
+        Rules:
+          - Name: ep_asura
+            Priority: 50
+            Cast: MO_EXTREMITYFIST
+            When: [self_explosionspirits, self_spheres_ge5, self_sp_pct_ge90, enemy_hp_pct_ge50]
+          - Name: ep_asura_fury
+            Priority: 45
+            Cast: MO_EXPLOSIONSPIRITS
+            Target: self
+            When: [self_spheres_ge5, not_self_explosionspirits, self_sp_pct_ge90]
+          - Name: ep_asura_zen
+            Priority: 40
+            Cast: CH_SOULCOLLECT
+            Target: self
+            When: self_spheres_lt5
+
+      # The Professor (or Sage) as a caster: Spider Web holds a monster where it stands
+      # (a monster held cannot walk to the healer), Frost Diver what is still loose,
+      # bolts by element, and casting before moving, as the Wizard.
+      - Job: Sage
+        Build: caster
+        Requires: { Role: [attacker, support, none] }
+        Rotation: false
+        Allow: []
+        Rules:
+          - Name: ep_sage_off_melee
+            Priority: 75
+            Target: { Enemy: attacking, Who: self, Range: 2 }
+            KeepDistance: 4
+          - Name: ep_web_what_is_on_the_party
+            Priority: 66
+            Cast: PF_SPIDERWEB
+            Target: { Enemy: attacking }
+            When: [not_enemy_spiderweb, not_enemy_freeze]
+            Claim: { Name: ep_webbed, For: 8000 }
+          - Name: ep_sage_freeze
+            Priority: 60
+            Cast: MG_FROSTDIVER
+            Target: { Enemy: attacking }
+            When: [not_enemy_freeze, not_enemy_spiderweb]
+            Claim: { Name: ep_frozen, For: 4000 }
+          - Name: ep_sage_bolt
+            Priority: 44
+            Cast: [WZ_EARTHSPIKE, MG_FIREBOLT, MG_COLDBOLT, MG_LIGHTNINGBOLT, MG_SOULSTRIKE]
+            Target: { Enemy: attacking }
+            When: self_sp_pct_ge15
+          - Name: ep_sage_keep_back
+            Priority: 20
+            Target: { Enemy: attacking, Range: 14 }
+            KeepDistance: { Min: 5, Max: 9 }
+          - Name: ep_sage_no_melee
+            Priority: 1
+            Present: { Enemy: attacking, Range: 14 }
+            Hold: true
